@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+/* Establece que html y body ocupen toda la pantalla */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Evita scroll no deseado */
+}
+
+/* Personalización global de SweetAlert2 */
+.swal2-popup {
+  font-family: 'Montserrat', sans-serif !important;
+  border-radius: 20px !important;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2) !important;
+  border: 1px solid #e0e0e0 !important;
+}
+/* Asegura que el componente raíz (app-root) ocupe toda la pantalla */
+/*app-root {
+  display: block;
+  height: 100%;
+}*/

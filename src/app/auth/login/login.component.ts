@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -45,7 +46,12 @@ export class LoginComponent {
       },
       error: (error) => {
         console.error('Error al iniciar sesión', error);
-        alert('Credenciales incorrectas o error del servidor');
+        Swal.fire({
+          title: "ERROR AL INICIAR SESION",
+          text: "CREDENCIALES INCORRECTAS",
+          icon: "error",
+          confirmButtonText: "Enviar"
+        })
       },
     });
   }
