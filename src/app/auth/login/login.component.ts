@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { ToastrService } from 'ngx-toastr'
 import Swal from 'sweetalert2';
 
 @Component({
@@ -15,7 +16,10 @@ import Swal from 'sweetalert2';
 export class LoginComponent {
   username: string = '';
   password: string = '';
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private toastr: ToastrService) {}
 
   login() {
     const credentials = {
@@ -35,13 +39,13 @@ export class LoginComponent {
         const roles = response.roles; // debe ser un array tipo ['ROLE_ADMIN'], etc.
 
         if (roles.includes('ROLE_ADMIN')) {
-          alert('Bienvenido ADMIN')
-          this.router.navigate(['/dasboard_Admin']);
+          this.toastr.success('Bienvenido Administrador', 'Éxito');
+          this.router.navigate(['/admin/dashboard']);
         } else if (roles.includes('ROLE_USER')) {
-          alert('Bienvenido USER')
-          this.router.navigate(['/dasboard_User']);
+          this.toastr.success('Bienvenido Usuario', 'Éxito');
+          this.router.navigate(['/user/dashboard']);
         } else {
-          alert('Rol no reconocido, acceso denegado');
+          this.toastr.warning('Ingresa correctamente tus credenciales', 'Rol no reconocido');
         }
       },
       error: (error) => {

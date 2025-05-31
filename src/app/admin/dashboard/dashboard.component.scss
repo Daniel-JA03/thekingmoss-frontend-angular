@@ -1,0 +1,154 @@
+/* SIDEBAR */
+.sidebar {
+  background: #ffffff; /* Fondo blanco */
+  color: #000000;
+  border-right: 4px solid #51D94C;
+  box-shadow: 2px 0 10px rgba(81, 217, 76, 0.3) !important;
+  transition: all 0.3s ease;
+}
+
+.sidebar h4 {
+  font-weight: bold;
+}
+
+.sidebar .nav-link {
+  color: #000000; /* Texto oscuro */
+  padding: 10px 16px;
+  border-radius: 8px;
+  position: relative;
+  z-index: 1;
+  transition: background 0.3s, transform 0.2s, color 0.3s;
+}
+
+.sidebar .nav-link:hover {
+  background-color: #6cf967; /* Verde claro al hover */
+  color: #ffffff !important; /* Texto oscuro */
+  transform: translateX(2px);
+}
+
+
+.sidebar .nav-link i {
+  font-size: 1.2rem;
+  color: #51D94C; /* Iconos en verde */
+  transition: color 0.3s;
+}
+
+.sidebar .nav-link:hover i {
+  color: #ffffff; /* Iconos más claros al hover */
+}
+
+.sidebar .nav-link.active {
+  background-color: #51D94C; /* Verde activo */
+  color: #ffffff; /* Texto blanco */
+}
+
+/* Botón Cerrar Sesión */
+.nav-link.text-success {
+  background-color: #f0fff4; /* Fondo claro */
+  border: 1px solid #51D94C;
+  color: #51D94C;
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.sidebar .nav-link.text-success:hover {
+  background-color: #51D94C; /* Fondo verde al hover */
+  color: #1f6f2a !important; /* Texto blanco al hover */
+  border-color: #51D94C; /* Borde verde al hover */
+}
+.sidebar .nav-link.text-success:hover i {
+  color: #1f6f2a !important;
+}
+
+/* NAVBAR */
+.navbar {
+  background: #ffffff;
+  /*Fondoblancoparamododía*/border-bottom: 2px solid #51D94C;
+  box-shadow: 0 2px 8px rgba(81, 217, 76, 0.3);
+  transition: background-color 0.3s ease;
+  -webkit-transition: background-color 0.3s ease;
+  -moz-transition: background-color 0.3s ease;
+  -ms-transition: background-color 0.3s ease;
+  -o-transition: background-color 0.3s ease;
+}
+
+.navbar input[type="search"] {
+  background-color: #ffffff;
+  color: black;
+  border: 1px solid #51D94C;
+  padding: 8px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.navbar input[type="search"]:focus {
+  outline: none;
+  box-shadow: 0 0 8px #51D94C;
+  cursor: pointer;
+}
+
+/* USUARIO IMG */
+.navbar img {
+  border: 2px solid #51D94C;
+  transition: transform 0.2s;
+}
+
+.navbar img:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 6px #51D94C;
+}
+
+/* MAIN CONTENT */
+section {
+  background: linear-gradient(to bottom, #ffffff, #f0fff4); /* Gradiente ligero */
+  padding: 20px;
+  margin: 12px;
+  border-radius: 14px;
+  box-shadow: 0 4px 20px rgba(31, 38, 135, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+
+  overflow-y: auto;
+}
+
+section h3 {
+  color: #000000;
+}
+
+/* FOOTER */
+footer {
+  background: #f0fff4; /* Fondo claro para footer */
+  color: #aaa;
+  font-size: 0.9rem;
+  border-top: 1px solid #333;
+  padding: 10px;
+}
+
+footer:hover {
+  background: #e0e0e0;
+  color: #51D94C;
+}
+
+/* CUSTOM SCROLLBAR */
+section::-webkit-scrollbar {
+  width: 8px;
+}
+
+section::-webkit-scrollbar-track {
+  background: #e0e0e0;
+}
+
+section::-webkit-scrollbar-thumb {
+  background: linear-gradient(#51D94C, #73FF90);
+  border-radius: 4px;
+}
+
+section::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(#73FF90, #51D94C);
+}
+
+/* TRANSITIONS */
+.nav-link,
+.navbar input,
+.sidebar,
+.navbar img {
+  transition: all 0.3s ease;
+}
