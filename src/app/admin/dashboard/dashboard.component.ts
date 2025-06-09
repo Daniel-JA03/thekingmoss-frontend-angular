@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
+import { AuthService } from '../../auth/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -17,4 +19,11 @@ export class DashboardComponent {
 
   currentYear = new Date().getFullYear();
   companyName = 'The King Moss';
+
+  constructor(private authService: AuthService, private router: Router){}
+
+  logout(): void {
+  this.authService.logout();
+  this.router.navigate(['/login']);
+  }
 }

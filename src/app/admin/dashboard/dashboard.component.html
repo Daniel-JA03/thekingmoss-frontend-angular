@@ -1,6 +1,9 @@
 <div class="d-flex min-vh-100 bg-light">
   <!-- Sidebar para ADMIN -->
-  <aside class="sidebar bg-white shadow-sm p-3 d-flex flex-column" style="width: 260px">
+  <aside
+    class="sidebar bg-white shadow-sm p-3 d-flex flex-column"
+    style="width: 260px"
+  >
     <h4 class="text-success mb-4 d-flex align-items-center gap-2">
       <i class="bi bi-brightness-alt-high"></i> The King Moss
     </h4>
@@ -8,58 +11,87 @@
     <ul class="nav flex-column flex-grow-1">
       <!-- Dashboard -->
       <li class="nav-item mb-2">
-        <a class="nav-link text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2" [routerLink]="['/admin/inicio']" routerLinkActive="active">
+        <a
+          class="nav-link text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2"
+          [routerLink]="['/admin/inicio']"
+          routerLinkActive="active"
+        >
           <i class="bi bi-speedometer"></i> Dashboard
         </a>
       </li>
 
       <!-- Categorías -->
       <li class="nav-item mb-2">
-        <a class="nav-link text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2" [routerLink]="['/admin/categorias']" routerLinkActive="active">
+        <a
+          class="nav-link text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2"
+          [routerLink]="['/admin/categorias']"
+          routerLinkActive="active"
+        >
           <i class="bi bi-tags"></i> Categorías
         </a>
       </li>
 
       <!-- Productos -->
       <li class="nav-item mb-2">
-        <a class="nav-link text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2" [routerLink]="['/admin/productos']" routerLinkActive="active">
+        <a
+          class="nav-link text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2"
+          [routerLink]="['/admin/productos']"
+          routerLinkActive="active"
+        >
           <i class="bi bi-box-seam"></i> Productos
         </a>
       </li>
 
       <!-- Pedidos -->
       <li class="nav-item mb-2">
-        <a class="nav-link text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2" [routerLink]="['/admin/pedidos']" routerLinkActive="active">
+        <a
+          class="nav-link text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2"
+          [routerLink]="['/admin/pedidos']"
+          routerLinkActive="active"
+        >
           <i class="bi bi-receipt"></i> Pedidos
         </a>
       </li>
 
       <!-- Documentos -->
       <li class="nav-item mb-2">
-        <a class="nav-link text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2" [routerLink]="['/admin/documentos']" routerLinkActive="active">
+        <a
+          class="nav-link text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2"
+          [routerLink]="['/admin/documentos']"
+          routerLinkActive="active"
+        >
           <i class="bi bi-file-text"></i> Documentos
         </a>
       </li>
 
       <!-- Direcciones -->
       <li class="nav-item mb-2">
-        <a class="nav-link text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2" [routerLink]="['/admin/direcciones']" routerLinkActive="active">
+        <a
+          class="nav-link text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2"
+          [routerLink]="['/admin/direcciones']"
+          routerLinkActive="active"
+        >
           <i class="bi bi-geo-alt"></i> Direcciones
         </a>
       </li>
 
       <!-- Imágenes de producto -->
       <li class="nav-item mb-2">
-        <a class="nav-link text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2" [routerLink]="['/admin/imagenes-producto']" routerLinkActive="active">
+        <a
+          class="nav-link text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2"
+          [routerLink]="['/admin/imagenes-producto']"
+          routerLinkActive="active"
+        >
           <i class="bi bi-images"></i> Imágenes Producto
         </a>
       </li>
     </ul>
 
-    <!-- Botón Cerrar Sesión -->
-    <a class="nav-link text-success mt-auto rounded-pill d-flex align-items-center gap-2 justify-content-center py-2"
-       [routerLink]="['/logout']"
-       style="border: 1px solid #51D94C; background-color: #f0fff4;">
+    <a
+      (click)="logout()"
+      class="nav-link text-success mt-auto rounded-pill d-flex align-items-center gap-2 justify-content-center py-2"
+      style="border: 1px solid #51d94c; background-color: #f0fff4"
+    >
       <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
     </a>
   </aside>
@@ -67,32 +99,68 @@
   <!-- Main content -->
   <main class="flex-grow-1 d-flex flex-column">
     <!-- Header -->
-    <nav class="navbar navbar-expand bg-white shadow-sm px-4 py-3 border-bottom">
-      <div class="container-fluid d-flex justify-content-between align-items-center">
+    <nav
+      class="navbar navbar-expand bg-white shadow-sm px-4 py-3 border-bottom"
+    >
+      <div
+        class="container-fluid d-flex justify-content-between align-items-center"
+      >
         <form class="d-none d-md-block w-25">
-          <input class="form-control rounded-pill ps-4" type="search" placeholder="🔍 Buscar..." />
+          <input
+            class="form-control rounded-pill ps-4"
+            type="search"
+            placeholder="🔍 Buscar..."
+          />
         </form>
 
         <!-- Dropdown de Usuario -->
         <div class="dropdown">
-          <button class="btn btn-outline-success rounded-circle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false"
-          style="color: #51D94C; border-color: #51D94C;">
-            <i class="bi bi-person fs-5"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+          <div
+            class=""
+            id="userDropdown"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            style="cursor: pointer"
+          >
+            <img
+              src="images/undraw_profile_2.svg"
+              alt="Perfil"
+              class="rounded-circle"
+              style="width: 40px; height: 40px"
+            />
+          </div>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="userDropdown"
+          >
             <li>
-              <a class="dropdown-item d-flex align-items-center gap-2" [routerLink]="['/profile']">
+              <a
+                class="dropdown-item d-flex align-items-center gap-2"
+                [routerLink]="['/profile']"
+              >
                 <i class="bi bi-person-circle"></i> Perfil
               </a>
             </li>
             <li>
-              <a class="dropdown-item d-flex align-items-center gap-2" [routerLink]="['/inbox']">
+              <a
+                class="dropdown-item d-flex align-items-center gap-2"
+                [routerLink]="['/inbox']"
+              >
                 <i class="bi bi-inbox"></i> Bandeja de Entrada
               </a>
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
-              <a class="dropdown-item text-success d-flex align-items-center gap-2" [routerLink]="['/logout']">
+              <a
+                (click)="logout()"
+                class="nav-link text-success mt-auto d-flex align-items-center gap-2 justify-content-center py-2"
+                style="
+                  border: 1px solid #51d94c;
+                  background-color: #f0fff4;
+                  border-radius: 4px;
+                  cursor: pointer;
+                "
+              >
                 <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
               </a>
             </li>
