@@ -1,6 +1,9 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { DashboardComponent } from './admin/dashboard/dashboard.component';
+import { DashboardHomeComponent } from './admin/inicio/dashboard-home/dashboard-home.component';
+import { ListaCatComponent } from './admin/categoria/lista-cat/lista-cat.component';
+
 
 export const routes: Routes = [
   // Ruta inicial redirige a login
@@ -10,6 +13,11 @@ export const routes: Routes = [
 
   {
     path: 'admin/dashboard',
-    component: DashboardComponent
+    component: DashboardComponent,
+    children: [
+      { path: '', redirectTo: 'inicio', pathMatch: 'full' },
+      { path: 'inicio', component: DashboardHomeComponent },
+      { path: 'listar-categoria', component: ListaCatComponent }
+    ]
   }
 ];
