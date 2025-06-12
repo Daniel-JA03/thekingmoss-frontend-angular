@@ -30,7 +30,7 @@ export class ListaCatComponent implements OnInit{
         this.categorias = data
       },
       (error) => {
-        console.log('Error al obtener los buses:', error)
+        console.log('Error al obtener los categorias:', error)
       }
     );
   }

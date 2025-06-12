@@ -9,5 +9,5 @@ export interface DetallePedidoResponse {
   cantidad: number;
   precioUnitario: number;
   descuento: number;
-  getLineaTotal(): number;
+  lineaTotal: number;
 }

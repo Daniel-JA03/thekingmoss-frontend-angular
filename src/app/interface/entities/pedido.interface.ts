@@ -1,9 +1,11 @@
 import { DetallePedidoRequest, DetallePedidoResponse } from "./detalle-pedido.interface";
 
 export enum TipoEstadoPedido {
-  PENDIENTE = 'PENDIENTE',
-  ENVIADO = 'ENVIADO',
-  ENTREGADO = 'ENTREGADO'
+  GENERADO = 'GENERADO',
+  PAGADO = 'PAGADO',
+  ENVIANDO = 'ENVIANDO',
+  CANCELADO = 'CANCELADO',
+  RECIBIDO = 'RECIBIDO'
 }
 
 export interface PedidoRequest {
