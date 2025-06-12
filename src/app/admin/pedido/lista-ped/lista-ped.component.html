@@ -77,5 +77,6 @@
 <!-- Aquí tu segundo modal, para crear o editar detalles del pedido -->
 <app-form-detalle
   [pedido]="pedidoSeleccionado"
+  (onGuardarDetalle)="guardarDetalle($event)"
   #modalFormDetalle>
 </app-form-detalle>

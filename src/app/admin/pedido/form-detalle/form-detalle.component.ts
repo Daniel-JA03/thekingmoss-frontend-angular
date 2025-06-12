@@ -17,7 +17,6 @@ export class FormDetalleComponent implements OnInit {
 
 
   detalleForm!: FormGroup
-  detalleEnEdicion: DetallePedidoResponse | null = null;
 
   constructor(private fb: FormBuilder) {}
 
@@ -56,23 +55,6 @@ export class FormDetalleComponent implements OnInit {
     const modal = Modal.getInstance(modalEl);
     modal?.hide();
   }
-
-    // Opcional: Resetear el formulario si se desea reutilizar
-    this.detalleForm.reset({
-      productoId: null,
-      cantidad: 1
-    });
-  }
-
-  cargarDetalleParaEditar(detalle: DetallePedidoResponse) {
-  this.detalleForm.patchValue({
-    productoId: detalle.productoId,
-    cantidad: detalle.cantidad
-  });
-
-  // Opcional: guardar el ID del detalle si es necesario para editar
-  this.detalleEnEdicion = detalle; // crea esta propiedad si lo necesitas
 }
-
 
 }
