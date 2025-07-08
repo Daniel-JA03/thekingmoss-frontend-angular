@@ -1,7 +1,7 @@
 export enum TipoDireccion {
   DOMICILIO = 'DOMICILIO',
   TRABAJO = 'TRABAJO',
-  OTRO = 'OTRO'
+  DEPARTAMENTO = 'DEPARTAMENTO'
 }
 
 export interface DireccionRequest {

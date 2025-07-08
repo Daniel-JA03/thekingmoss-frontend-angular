@@ -1,0 +1,72 @@
+<div class="container mt-4">
+  <h3>Lista de Direcciones</h3>
+  <button class="btn btn-primary mb-3" (click)="abrirModal()">Nueva Dirección</button>
+
+  <table class="table table-striped table-hover" *ngIf="direcciones && direcciones.length > 0">
+    <thead class="table-dark">
+      <tr>
+        <th>#</th>
+        <th>ID</th>
+        <th>PAÍS</th>
+        <th>ESTADO</th>
+        <th>PROVINCIA</th>
+        <th>DISTRITO</th>
+        <th>REFERENCIA</th>
+        <th>TIPO DIRECCIÓN</th>
+        <th>USUARIO</th>
+        <th>ACCIONES</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let direccion of direcciones; let i = index">
+        <td>{{ i + 1 }}</td>
+        <td>{{ direccion.direccionId }}</td>
+        <td>{{ direccion.pais }}</td>
+        <td>
+          <span [ngClass]="{
+            'estado-badge': true,
+            'activo': direccion.estado === 'ACTIVO',
+            'desactivo': direccion.estado === 'DESACTIVO'
+          }">
+            <span class="badge-circle"></span>
+            {{ direccion.estado }}
+          </span>
+        </td>
+        <td>{{ direccion.provincia }}</td>
+        <td>{{ direccion.distrito }}</td>
+        <td>{{ direccion.referencia }}</td>
+        <td>
+           <span [ngClass]="{
+            'direccion-badge': true,
+            'domicilio':  direccion.tipoDireccion === Direccion.DOMICILIO,
+            'trabajo': direccion.tipoDireccion === Direccion.TRABAJO,
+            'departamento': direccion.tipoDireccion === Direccion.DEPARTAMENTO
+          }">
+            <span class="badge-circle"></span>
+            {{ direccion.tipoDireccion }}
+          </span>
+        </td>
+        <td>{{ direccion.nombreUsuario }} {{ direccion.apellidoUsuario }}</td>
+        <td>
+
+          <button class="btn btn-sm btn-warning me-2" (click)="editarDireccion(direccion)">
+            <i class="bi bi-pencil"></i>
+          </button>
+          <button class="btn btn-sm btn-danger" (click)="eliminarDireccion(direccion.direccionId)">
+            <i class="bi bi-trash"></i>
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="!direcciones || direcciones.length === 0" class="alert alert-info">
+    No hay direcciones registradas.
+  </div>
+</div>
+
+<!-- Modal para Crear/Editar Dirección -->
+<!-- <app-crear-dire
+  [direccionSeleccionado]="direccionSeleccionado"
+  (direccionGuardada)="cargarDireccion()">
+</app-crear-dire> -->
