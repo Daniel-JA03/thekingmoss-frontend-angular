@@ -1,0 +1,31 @@
+.documentoIdentidad-badge {
+display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: bold;
+
+  .badge-circle {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  &.carnetExtrangeria {
+    background-color: rgba(25, 135, 84, 0.1);
+    .badge-circle { background-color: #198754; }
+  }
+
+  &.dni {
+    background-color: rgba(13, 110, 253, 0.1);
+    .badge-circle { background-color: #0d6efd; }
+  }
+
+  &.ruc {
+    background-color: rgba(13, 202, 240, 0.1);
+    .badge-circle { background-color: #0dcaf0; }
+  }
+}

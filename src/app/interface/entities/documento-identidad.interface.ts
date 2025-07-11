@@ -1,6 +1,6 @@
 export enum TipoDocumentoIdentidad {
   DNI = 'DNI',
-  CARNET_EXTRANGERIA = 'CARNET EXTRANGERIA',  
+  CARNET_EXTRANGERIA = 'CARNET_EXTRANGERIA',  
   RUC = 'RUC'
 }
 
