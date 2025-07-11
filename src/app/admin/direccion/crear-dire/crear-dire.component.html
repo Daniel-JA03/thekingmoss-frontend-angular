@@ -1,1 +1,194 @@
-<p>crear-dire works!</p>
+<!-- Modal para Crear / Editar Pedido -->
+<div
+  class="modal fade"
+  id="nuevaDireccionModal"
+  tabindex="-1"
+  aria-hidden="true"
+  (hidden.bs.modal)="resetFormulario()"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="nuevoPedidoModalLabel">
+          {{ direccionSeleccionado ? "Editar Dirección" : "Nueva Dirección" }}
+        </h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Cerrar"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+        <form [formGroup]="formDireccion" (ngSubmit)="guardarDireccion()">
+          <div class="row g-3">
+            <!-- Pais -->
+            <div class="col-md-6">
+              <label for="pais" class="form-label">País</label>
+              <input
+                type="text"
+                id="pais"
+                formControlName="pais"
+                class="form-control"
+              />
+              <div
+                *ngIf="
+                  formDireccion.get('pais')?.invalid &&
+                  formDireccion.get('pais')?.touched
+                "
+                class="text-danger"
+              >
+                El campo Pais es obligatorio.
+              </div>
+            </div>
+
+            <!-- Estado -->
+            <div class="col-md-6">
+                <label for="estado" class="form-label">Estado</label>
+                <select
+                    id="estado"
+                    formControlName="estado"
+                    class="form-select"
+                >
+                    <option value="ACTIVO">ACTIVO</option>
+                    <option value="DESACTIVO">DESACTIVO</option>
+                </select>
+                <div
+                    *ngIf="
+                    formDireccion.get('estado')?.invalid &&
+                    formDireccion.get('estado')?.touched
+                    "
+                    class="text-danger"
+                >
+                    El estado es obligatorio.
+                </div>
+            </div>
+
+
+            <!-- Provincia -->
+            <div class="col-md-6">
+              <label for="provincia" class="form-label"
+                >Provincia</label
+              >
+              <input
+                type="text"
+                id="provincia"
+                formControlName="provincia"
+                class="form-control"
+              />
+              <div
+                *ngIf="
+                  formDireccion.get('provincia')?.invalid &&
+                  formDireccion.get('provincia')?.touched
+                "
+                class="text-danger"
+              >
+                El campo Provincia es obligatoria.
+              </div>
+            </div>
+
+            <!-- Distrito -->
+            <div class="col-md-6">
+              <label for="distrito" class="form-label"
+                >Distrito</label
+              >
+              <input
+                type="text"
+                id="distrito"
+                formControlName="distrito"
+                class="form-control"
+              />
+              <div
+                *ngIf="
+                  formDireccion.get('distrito')?.invalid &&
+                  formDireccion.get('distrito')?.touched
+                "
+                class="text-danger"
+              >
+                El campo Distrito es obligatoria.
+              </div>
+            </div>
+
+            <!-- Referencia -->
+            <div class="col-md-6">
+              <label for="referencia" class="form-label"
+                >Referencia</label
+              >
+              <input
+                type="text"
+                id="referencia"
+                formControlName="referencia"
+                class="form-control"
+              />
+              <div
+                *ngIf="
+                  formDireccion.get('referencia')?.invalid &&
+                  formDireccion.get('referencia')?.touched
+                "
+                class="text-danger"
+              >
+                El campo Referencia es obligatoria.
+              </div>
+            </div>
+
+            <!-- Tipo Direccion  -->
+            <div class="col-md-6">
+              <label>Tipo Direccion</label>
+              
+              <select class="form-select" formControlName="tipoDireccion">
+                <option
+                  *ngFor="let tipodirec of tipoDireccionKeys"
+                  [value]="tipodirec"
+                >
+                  {{ tipodirec }}
+                </option>
+              </select>
+              <div
+                *ngIf="
+                  formDireccion.get('tipoDireccion')?.invalid &&
+                  formDireccion.get('tipoDireccion')?.touched
+                "
+                class="text-danger"
+              >
+                El Tipo Direccion es obligatorio.
+              </div>
+            </div>
+
+            
+            <div class="mb-3">
+              <label>ID Usuario</label>
+              <input
+                type="number"
+                class="form-control"
+                formControlName="usuarioId"
+              />
+              <div
+                *ngIf="
+                  formDireccion.get('usuarioId')?.invalid &&
+                  formDireccion.get('usuarioId')?.touched
+                "
+                class="text-danger"
+              >
+                El campo usuario es obligatorio.
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-4 text-end">
+            <button
+              type="button"
+              class="btn btn-secondary me-2"
+              data-bs-dismiss="modal"
+            >
+              Cancelar
+            </button>
+            <button type="submit" class="btn btn-primary">
+              {{ direccionSeleccionado ? "Actualizar" : "Guardar" }}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
