@@ -1,6 +1,7 @@
 export enum TipoDocumentoIdentidad {
   DNI = 'DNI',
-  PASAPORTE = 'PASAPORTE'
+  CARNET_EXTRANGERIA = 'CARNET EXTRANGERIA',  
+  RUC = 'RUC'
 }
 
 export interface DocumentoIdentidadRequest {
