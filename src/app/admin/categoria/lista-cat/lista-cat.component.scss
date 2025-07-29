@@ -11,6 +11,7 @@
   padding: 0.5rem 1rem;
   border-radius: 8px; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+  font-weight: 500;
 }
 
 /* Contenedor principal que alinea el título, el botón y la tabla */
@@ -41,6 +42,8 @@
 .custom-table td {
   border-right: 1px solid #ced4da; /* Gris claro */
   padding: 0.75rem; /* Espaciado interno uniforme */
+  text-align: center;
+  vertical-align: middle;
 }
 
 /* Eliminar el borde en la última columna (ACCIONES) */

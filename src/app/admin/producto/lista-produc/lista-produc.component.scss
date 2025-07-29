@@ -1,0 +1,68 @@
+
+/* Estilo del título */
+.title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 0;
+  color: #212529;
+}
+
+/* Estilo del botón "Nuevo Producto" */
+.create-btn {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+}
+
+/* ===== TABLA DE PRODUCTOS: Ocupa todo el ancho con bordes ===== */
+.table-container-full {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background-color: white;
+  margin-bottom: 1rem;
+}
+
+/* Estilo de la tabla */
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  font-size: 0.95rem;
+  background-color: white;
+}
+
+
+/* Celdas (# y ID) */
+.custom-table .col-index,
+.custom-table .col-id {
+  font-weight: bold; /* Fuente negrita */
+  color: #000000; /* Color oscuro para contraste */
+}
+
+
+
+/* Líneas verticales entre celdas */
+.custom-table th,
+.custom-table td {
+  border-right: 1px solid #ced4da; 
+  padding: 0.75rem;
+  text-align: center;
+  vertical-align: middle;
+}
+
+/* Eliminar borde en la última columna (ACCIONES) */
+.custom-table th:last-child,
+.custom-table td:last-child {
+  border-right: none;
+}
+
+/* Asegurar que la imagen no rompa el diseño */
+.custom-table img {
+  border-radius: 6px;
+}
+
