@@ -1,0 +1,50 @@
+/* Estilo del título */
+.title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 0;
+}
+
+/* Estilo del botón "Nueva Categoría" */
+.create-btn {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+/* Contenedor principal que alinea el título, el botón y la tabla */
+.table-section {
+  max-width: 800px; /* Mismo ancho máximo que la tabla */
+  margin: 0 auto; /* Centra horizontalmente */
+}
+
+/* Contenedor de la tabla para centrarla y limitar su ancho */
+.table-container {
+  width: 100%; /* Ocupa el 100% del contenedor padre */
+  overflow: hidden;
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Resto del CSS para la tabla (mantiene los cambios anteriores) */
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  font-size: 16px;
+}
+
+/* === LÍNEAS VERTICALES EN LA TABLA === */
+.custom-table th,
+.custom-table td {
+  border-right: 1px solid #ced4da; /* Gris claro */
+  padding: 0.75rem; /* Espaciado interno uniforme */
+}
+
+/* Eliminar el borde en la última columna (ACCIONES) */
+.custom-table th:last-child,
+.custom-table td:last-child {
+  border-right: none;
+}

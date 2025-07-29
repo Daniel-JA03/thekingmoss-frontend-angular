@@ -1,41 +1,48 @@
-<!-- list-bus.component.html -->
 <div class="container mt-4">
-  <div class="d-flex justify-content-between align-items-center mb-3"> 
-    <h3>Lista de Categorías</h3>
-  <button class="btn btn-success" (click)="abrirModal()">Nueva Categoría</button>
-  </div>
+  <!-- Contenedor que contiene tanto el título/botón como la tabla -->
+  <div class="table-section">
+    <div class="d-flex justify-content-between align-items-center mb-3"> 
+      <h3 class="title">Lista de Categorías</h3>
+      <button class="btn btn-success create-btn" (click)="abrirModal()">Nueva Categoría</button>
+    </div>
 
+    <!-- Tabla centrada y con ancho limitado -->
+    <div class="table-container">
+      <table class="table table-striped table-hover custom-table" *ngIf="categorias && categorias.length > 0">
+        <thead class="table-dark">
+          <tr>
+            <th class="col-index">#</th>
+            <th class="col-id">ID</th>
+            <th class="col-name">NOMBRE</th>
+            <th class="col-actions">ACCIONES</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let categoria of categorias; let i = index">
+            <td class="col-index">{{ i + 1 }}</td>
+            <td class="col-id">{{ categoria.categoriaId }}</td>
+            <td class="col-name">{{ categoria.nombreCategoria }}</td>
+            <td class="col-actions">
+              <button class="btn btn-warning btn-sm me-2" (click)="editarCategoria(categoria)">
+                <i class="bi bi-pencil"></i>
+              </button>
+              <button class="btn btn-danger btn-sm" (click)="eliminarCategoria(categoria.categoriaId)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
-  <table class="table mt-3" *ngIf="categorias && categorias.length > 0">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>ID</th>
-        <th>NOMBRE</th>
-        <th>ACCIONES</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let categoria of categorias; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ categoria.categoriaId }}</td>
-        <td>{{ categoria.nombreCategoria }}</td>
-        <td>
-          <button class="btn btn-warning me-2" (click)="editarCategoria(categoria)">Editar</button>
-          <button class="btn btn-danger" (click)="eliminarCategoria(categoria.categoriaId)">Eliminar</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
-  <!-- Mensaje cuando no hay categorías -->
-  <div *ngIf="!categorias || categorias.length === 0" class="alert alert-info">
-    No hay categorías registradas.
+    <!-- Mensaje cuando no hay categorías -->
+    <div *ngIf="!categorias || categorias.length === 0" class="alert alert-info">
+      No hay categorías registradas.
+    </div>
   </div>
 </div>
 
-
-  <app-crear-cat
+<app-crear-cat
   [categoriaEditar]="categoriaSeleccionado"
   (categoriaCreado)="cargarCategoria()">
 </app-crear-cat>
