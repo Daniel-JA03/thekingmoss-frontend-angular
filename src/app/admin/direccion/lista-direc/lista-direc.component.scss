@@ -1,3 +1,75 @@
+/* ===== 1. TÍTULO Y BOTÓN PRINCIPAL ===== */
+.title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 0;
+  color: #212529;
+}
+
+.create-btn {
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-weight: 500;
+}
+
+/* ===== 2. CONTENEDOR DE TABLA (bordes y sombra) ===== */
+.table-container-full {
+  width: 100%;
+  overflow: hidden;
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  background-color: white;
+  margin-bottom: 1rem;
+}
+
+/* ===== 3. ESTILO GENERAL DE LA TABLA ===== */
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  font-size: 0.95rem;
+  background-color: white;
+}
+
+/* Encabezados */
+.custom-table thead th {
+  background-color: #212529 !important;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.75rem;
+  font-weight: 600;
+}
+
+/* Celdas */
+.custom-table tbody td {
+  text-align: center;
+  vertical-align: middle;
+  padding: 0.75rem;
+}
+
+/* ===== 4. LÍNEAS VERTICALES ===== */
+.custom-table th,
+.custom-table td {
+  border-right: 1px solid #ced4da;
+}
+
+.custom-table th:last-child,
+.custom-table td:last-child {
+  border-right: none;
+}
+
+/* ===== 5. COLUMNAS ESPECIALES (# e ID en negrita) ===== */
+.custom-table .col-index,
+.custom-table .col-id {
+  font-weight: bold;
+  color: #000;
+}
+
+/* ===== 6. BADGE: ESTADO (Activo / Desactivo) ===== */
 .estado-badge {
   display: inline-flex;
   align-items: center;
@@ -6,54 +78,92 @@
   border-radius: 20px;
   font-size: 0.9rem;
   font-weight: bold;
-
-  .badge-circle {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    display: inline-block;
-  }
-
-  &.activo {
-    background-color: rgba(25, 135, 84, 0.1);
-    .badge-circle { background-color: #198754; }
-  }
-
-  &.desactivo {
-    background-color: rgba(220, 53, 69, 0.1);
-    .badge-circle { background-color: #dc3545; }
-  }
-
 }
 
+.estado-badge .badge-circle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.estado-badge:hover,
+.direccion-badge:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.estado-badge.activo {
+  background-color: rgba(25, 135, 84, 0.1);
+}
+.estado-badge.activo .badge-circle {
+  background-color: #198754;
+}
+
+.estado-badge.desactivo {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+.estado-badge.desactivo .badge-circle {
+  background-color: #dc3545;
+}
+
+/* ===== 7. BADGE: TIPO DE DIRECCIÓN ===== */
 .direccion-badge {
-display: inline-flex;
+  display: inline-flex;
   align-items: center;
   gap: 8px;
   padding: 5px 10px;
   border-radius: 20px;
   font-size: 0.9rem;
   font-weight: bold;
+}
 
-  .badge-circle {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    display: inline-block;
-  }
+.direccion-badge .badge-circle {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+}
 
-  &.domicilio {
-    background-color: rgba(25, 135, 84, 0.1);
-    .badge-circle { background-color: #198754; }
-  }
+.direccion-badge.domicilio {
+  background-color: rgba(25, 135, 84, 0.1);
+}
+.direccion-badge.domicilio .badge-circle {
+  background-color: #198754;
+}
 
-  &.trabajo {
-    background-color: rgba(13, 110, 253, 0.1);
-    .badge-circle { background-color: #0d6efd; }
-  }
+.direccion-badge.trabajo {
+  background-color: rgba(13, 110, 253, 0.1);
+}
+.direccion-badge.trabajo .badge-circle {
+  background-color: #0d6efd;
+}
 
-  &.departamento {
-    background-color: rgba(13, 202, 240, 0.1);
-    .badge-circle { background-color: #0dcaf0; }
-  }
+.direccion-badge.departamento {
+  background-color: rgba(13, 202, 240, 0.1);
+}
+.direccion-badge.departamento .badge-circle {
+  background-color: #0dcaf0;
+}
+
+/* ===== 8. BOTONES EN LA TABLA ===== */
+.custom-table .btn {
+  padding: 0.375rem 0.75rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Ajuste para botones de acción con íconos */
+.custom-table .btn-info,
+.custom-table .btn-warning,
+.custom-table .btn-danger {
+  color: white;
+  border: none;
+}
+
+/* Alinear botones horizontalmente en la columna "ACCIONES" */
+.custom-table .col-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem; /* Espacio entre botones */
 }

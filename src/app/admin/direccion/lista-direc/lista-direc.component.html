@@ -1,73 +1,77 @@
 <div class="container mt-4">
+  <!-- Encabezado: Título y botón -->
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <h3>Lista de Direcciones</h3>
-    <button class="btn btn-success" (click)="abrirModal()">Nueva Dirección</button>
+    <h3 class="title">Lista de Direcciones</h3>
+    <button class="btn btn-success create-btn" (click)="abrirModal()">Nueva Dirección</button>
   </div>
 
-  <table class="table table-striped table-hover" *ngIf="direcciones && direcciones.length > 0">
-    <thead class="table-dark">
-      <tr>
-        <th>#</th>
-        <th>ID</th>
-        <th>PAÍS</th>
-        <th>ESTADO</th>
-        <th>PROVINCIA</th>
-        <th>DISTRITO</th>
-        <th>REFERENCIA</th>
-        <th>TIPO DIRECCIÓN</th>
-        <th>USUARIO</th>
-        <th>ACCIONES</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let direccion of direcciones; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ direccion.direccionId }}</td>
-        <td>{{ direccion.pais }}</td>
-        <td>
-          <span [ngClass]="{
-            'estado-badge': true,
-            'activo': direccion.estado === 'ACTIVO',
-            'desactivo': direccion.estado === 'DESACTIVO'
-          }">
-            <span class="badge-circle"></span>
-            {{ direccion.estado }}
-          </span>
-        </td>
-        <td>{{ direccion.provincia }}</td>
-        <td>{{ direccion.distrito }}</td>
-        <td>{{ direccion.referencia }}</td>
-        <td>
-           <span [ngClass]="{
-            'direccion-badge': true,
-            'domicilio':  direccion.tipoDireccion === Direccion.DOMICILIO,
-            'trabajo': direccion.tipoDireccion === Direccion.TRABAJO,
-            'departamento': direccion.tipoDireccion === Direccion.DEPARTAMENTO
-          }">
-            <span class="badge-circle"></span>
-            {{ direccion.tipoDireccion }}
-          </span>
-        </td>
-        <td>{{ direccion.nombreUsuario }} {{ direccion.apellidoUsuario }}</td>
-        <td>
-
-          <button class="btn btn-sm btn-warning me-2" (click)="editarDireccion(direccion)">
-            <i class="bi bi-pencil"></i>
-          </button>
-          <button class="btn btn-sm btn-danger" (click)="eliminarDireccion(direccion.direccionId)">
-            <i class="bi bi-trash"></i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
+  <!-- Mensaje si no hay direcciones -->
   <div *ngIf="!direcciones || direcciones.length === 0" class="alert alert-info">
     No hay direcciones registradas.
   </div>
+
+  <!-- Contenedor con bordes y sombra -->
+  <div class="table-container-full" *ngIf="direcciones && direcciones.length > 0">
+    <table class="table table-striped table-hover custom-table align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th class="col-index">#</th>
+          <th class="col-id">ID</th>
+          <th>PAÍS</th>
+          <th>ESTADO</th>
+          <th>PROVINCIA</th>
+          <th>DISTRITO</th>
+          <th>REFERENCIA</th>
+          <th>TIPO DIRECCIÓN</th>
+          <th>USUARIO</th>
+          <th class="col-actions">ACCIONES</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let direccion of direcciones; let i = index">
+          <td class="col-index">{{ i + 1 }}</td>
+          <td class="col-id">{{ direccion.direccionId }}</td>
+          <td>{{ direccion.pais }}</td>
+          <td>
+            <span [ngClass]="{
+              'estado-badge': true,
+              'activo': direccion.estado === 'ACTIVO',
+              'desactivo': direccion.estado === 'DESACTIVO'
+            }">
+              <span class="badge-circle"></span>
+              {{ direccion.estado }}
+            </span>
+          </td>
+          <td>{{ direccion.provincia }}</td>
+          <td>{{ direccion.distrito }}</td>
+          <td>{{ direccion.referencia }}</td>
+          <td>
+            <span [ngClass]="{
+              'direccion-badge': true,
+              'domicilio': direccion.tipoDireccion === Direccion.DOMICILIO,
+              'trabajo': direccion.tipoDireccion === Direccion.TRABAJO,
+              'departamento': direccion.tipoDireccion === Direccion.DEPARTAMENTO
+            }">
+              <span class="badge-circle"></span>
+              {{ direccion.tipoDireccion }}
+            </span>
+          </td>
+          <td>{{ direccion.nombreUsuario }} {{ direccion.apellidoUsuario }}</td>
+          <td class="col-actions">
+            <button class="btn btn-warning me-2" (click)="editarDireccion(direccion)">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-danger" (click)="eliminarDireccion(direccion.direccionId)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
 
-<!-- Modal para Crear/Editar Dirección -->
+<!-- Modal para Crear/Editar -->
 <app-crear-dire
   [direccionSeleccionado]="direccionSeleccionado"
   (direccionCreado)="cargarDireccion()">
