@@ -87,6 +87,11 @@
   display: inline-block;
 }
 
+.estado-badge:hover {
+  transform: scale(1.03);
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
 .estado-badge.pagado {
   background-color: rgba(25, 135, 84, 0.1);
 }

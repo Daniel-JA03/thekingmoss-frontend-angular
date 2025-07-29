@@ -1,57 +1,60 @@
 <div class="container mt-4">
+  <!-- Encabezado: Título y botón -->
   <div class="d-flex justify-content-between align-items-center mb-3">
-    <h3>Lista de Documentos de Identidad</h3>
-    <button class="btn btn-success" (click)="abrirModal()">Nueva Documento</button>
+    <h3 class="title">Lista de Documentos de Identidad</h3>
+    <button class="btn btn-success create-btn" (click)="abrirModal()">Nuevo Documento</button>
   </div>
 
-  <table class="table table-striped table-hover" *ngIf="documentos && documentos.length > 0">
-    <thead class="table-dark">
-      <tr>
-        <th>#</th>
-        <th>ID</th>
-        <th>N° DOCUMENTO IDENTIDAD</th>
-        <th>TIPO DOCUMENTO IDENTIDAD</th>
-        <th>USUARIO</th>
-        <th>ACCIONES</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let documento of documentos; let i = index">
-        <td>{{ i + 1 }}</td>
-        <td>{{ documento.documentoIdentidadId }}</td>
-        <td>{{ documento.numeroDocumentoIdentidad }}</td>
-        <td>
-           <span [ngClass]="{
-            'documentoIdentidad-badge': true,
-            'dni':  documento.tipoDocumentoIdentidad === DocumentoIdentidad.DNI,
-            'carnetExtrangeria': documento.tipoDocumentoIdentidad === DocumentoIdentidad.CARNET_EXTRANGERIA,
-            'ruc': documento.tipoDocumentoIdentidad === DocumentoIdentidad.RUC
-          }">
-            <span class="badge-circle"></span>
-            {{ documento.tipoDocumentoIdentidad }}
-          </span>
-        </td>
-
-        <td>{{ documento.nombreUsuario }} {{ documento.apellidoUsuario }}</td>
-        <td>
-
-          <button class="btn btn-sm btn-warning me-2" (click)="editarDocumentoIdentidad(documento)">
-            <i class="bi bi-pencil"></i>
-          </button>
-          <button class="btn btn-sm btn-danger" (click)="eliminarDocumentoIdentidad(documento.documentoIdentidadId)">
-            <i class="bi bi-trash"></i>
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-
+  <!-- Mensaje si no hay documentos -->
   <div *ngIf="!documentos || documentos.length === 0" class="alert alert-info">
-    No hay Documentos de Identidad registradas.
+    No hay Documentos de Identidad registrados.
+  </div>
+
+  <!-- Contenedor con bordes y sombra -->
+  <div class="table-container-full" *ngIf="documentos && documentos.length > 0">
+    <table class="table table-striped table-hover custom-table align-middle">
+      <thead class="table-dark">
+        <tr>
+          <th class="col-index">#</th>
+          <th class="col-id">ID</th>
+          <th>N° DOCUMENTO IDENTIDAD</th>
+          <th>TIPO DOCUMENTO IDENTIDAD</th>
+          <th>USUARIO</th>
+          <th>ACCIONES</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let documento of documentos; let i = index">
+          <td class="col-index">{{ i + 1 }}</td>
+          <td class="col-id">{{ documento.documentoIdentidadId }}</td>
+          <td>{{ documento.numeroDocumentoIdentidad }}</td>
+          <td>
+            <span [ngClass]="{
+              'documentoIdentidad-badge': true,
+              'dni': documento.tipoDocumentoIdentidad === DocumentoIdentidad.DNI,
+              'carnetExtrangeria': documento.tipoDocumentoIdentidad === DocumentoIdentidad.CARNET_EXTRANGERIA,
+              'ruc': documento.tipoDocumentoIdentidad === DocumentoIdentidad.RUC
+            }">
+              <span class="badge-circle"></span>
+              {{ documento.tipoDocumentoIdentidad }}
+            </span>
+          </td>
+          <td>{{ documento.nombreUsuario }} {{ documento.apellidoUsuario }}</td>
+          <td>
+            <button class="btn btn-warning me-2" (click)="editarDocumentoIdentidad(documento)">
+              <i class="bi bi-pencil"></i>
+            </button>
+            <button class="btn btn-danger" (click)="eliminarDocumentoIdentidad(documento.documentoIdentidadId)">
+              <i class="bi bi-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
-<!-- Modal para Crear/Editar Dirección -->
+<!-- Modal para Crear/Editar -->
 <app-crear-docu
   [documentoIdentidadSeleccionado]="documentoIdentidadSeleccionado"
   (documentoIdentidadCreado)="cargarDocumentosIdentidad()">
