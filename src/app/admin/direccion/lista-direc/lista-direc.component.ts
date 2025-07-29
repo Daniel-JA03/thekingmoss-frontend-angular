@@ -26,14 +26,13 @@ export class ListaDirecComponent implements OnInit {
   }
   
   cargarDireccion() {
-    this.direccionService.obtenerListaDirecciones().subscribe(
-      (data: DireccionResponse[]) => {
-        this.direcciones = data
-      },
-      (error) => {
-        console.log('Error al obtener direcciones', error)
-      }
-    )
+   this.direccionService.obtenerListaDirecciones().subscribe({
+    next: (data) => (this.direcciones = data),
+    error: (err) => {
+      console.error('Error al obtener direcciones:', err);
+      Swal.fire('Error', 'No se pudo cargar la lista de direcciones', 'error')
+    }
+   })
   }
 
   abrirModal() {

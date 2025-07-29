@@ -1,7 +1,10 @@
 <!-- list-bus.component.html -->
 <div class="container mt-4">
-  <h3>Lista de Categorías</h3>
-  <button class="btn btn-primary" (click)="abrirModal()">Nueva Categoría</button>
+  <div class="d-flex justify-content-between align-items-center mb-3"> 
+    <h3>Lista de Categorías</h3>
+  <button class="btn btn-success" (click)="abrirModal()">Nueva Categoría</button>
+  </div>
+
 
   <table class="table mt-3" *ngIf="categorias && categorias.length > 0">
     <thead>
@@ -26,10 +29,11 @@
   </table>
 
   <!-- Mensaje cuando no hay categorías -->
-  <div *ngIf="!categorias || categorias.length === 0" class="text-muted mt-3">
+  <div *ngIf="!categorias || categorias.length === 0" class="alert alert-info">
     No hay categorías registradas.
   </div>
 </div>
+
 
   <app-crear-cat
   [categoriaEditar]="categoriaSeleccionado"

@@ -25,14 +25,13 @@ export class ListaCatComponent implements OnInit{
   }
 
   cargarCategoria() {
-    this.categoriaService.obtenerListaCategorias().subscribe(
-      (data: CategoriaResponse[]) => {
-        this.categorias = data
-      },
-      (error) => {
-        console.log('Error al obtener los categorias:', error)
+    this.categoriaService.obtenerListaCategorias().subscribe({
+      next: (data) => (this.categorias = data),
+      error: (err) => {
+        console.error('Error al obtener las categorias:', err);
+        Swal.fire('Error', 'No se pudo cargar la lista de categorias', 'error')
       }
-    );
+    })
   }
 
   abrirModal() {

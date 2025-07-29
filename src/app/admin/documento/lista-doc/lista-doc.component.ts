@@ -26,14 +26,13 @@ export class ListaDocComponent implements OnInit {
   }
 
   cargarDocumentosIdentidad() {
-    this.documentoIdentidadService.obtenerListaDocumentoIdentidad().subscribe(
-      (data: DocumentoIdentidadResponse[]) => {
-        this.documentos = data
-      },
-      (error) => {
-        console.log('Error al obtener direcciones', error)
-      }
-    )
+   this.documentoIdentidadService.obtenerListaDocumentoIdentidad().subscribe({
+    next: (data) => (this.documentos = data),
+    error: (err) => {
+      console.error('Error al obtener documentos de identidad:', err)
+      Swal.fire('Error', 'No se pudo cargar la lista de documentos de identidad', 'error')
+    }
+   })
   }
 
   abrirModal() {

@@ -1,6 +1,8 @@
 <div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-3">
   <h3>Lista de Pedidos</h3>
-  <button class="btn btn-primary mb-3" (click)="abrirModal()">Nuevo Pedido</button>
+  <button class="btn btn-success" (click)="abrirModal()">Nuevo Pedido</button>
+  </div>
 
   <table class="table table-striped table-hover" *ngIf="pedidos && pedidos.length > 0">
     <thead class="table-dark">

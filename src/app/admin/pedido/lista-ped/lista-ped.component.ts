@@ -32,15 +32,14 @@ export class ListaPedComponent implements OnInit {
     this.cargarPedido()
   }
 
-  cargarPedido() {
-    this.pedidoService.obtenerListaPedidos().subscribe(
-      (data: PedidoResponse[]) => {
-        this.pedidos = data
-      },
-      (error) => {
-        console.log('Error al obtener pedidos', error)
+  cargarPedido() { 
+    this.pedidoService.obtenerListaPedidos().subscribe({
+      next: (data) => (this.pedidos = data),
+      error: (err) => {
+        console.error('Error al obtener pedidos:', err)
+        Swal.fire('Error', 'No se pudo cargar la lista de los pedidos', 'error')
       }
-    )
+    })
   }
 
     abrirModal() {
