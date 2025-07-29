@@ -6,6 +6,7 @@ import { ListaCatComponent } from './admin/categoria/lista-cat/lista-cat.compone
 import { ListaPedComponent } from './admin/pedido/lista-ped/lista-ped.component';
 import { ListaDirecComponent } from './admin/direccion/lista-direc/lista-direc.component';
 import { ListaDocComponent } from './admin/documento/lista-doc/lista-doc.component';
+import { ListaProducComponent } from './admin/producto/lista-produc/lista-produc.component';
 
 
 export const routes: Routes = [
@@ -23,7 +24,8 @@ export const routes: Routes = [
       { path: 'listar-categoria', component: ListaCatComponent },
       { path: 'listar-pedido', component: ListaPedComponent },
       { path: 'listar-direccion', component: ListaDirecComponent },
-      { path: 'listar-documentos', component: ListaDocComponent}
+      { path: 'listar-documentos', component: ListaDocComponent},
+      { path: 'listar-producto', component: ListaProducComponent}
     ]
   }
 ];
