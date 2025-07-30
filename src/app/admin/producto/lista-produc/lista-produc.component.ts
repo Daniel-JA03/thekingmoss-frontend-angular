@@ -7,7 +7,8 @@ import { ProductoImagenResponse } from '../../../interface/entities/producto-ima
 import { ProductoService } from '../services/producto.service';
 import { ProductoImagenService } from '../services/producto-imagen.service';
 import Swal from 'sweetalert2';
-import { Modal } from 'bootstrap';
+// import { Modal } from 'bootstrap';
+import * as bootstrap from 'bootstrap';
 import { CrearProducComponent } from "../crear-produc/crear-produc.component";
 
 @Component({
@@ -33,18 +34,24 @@ export class ListaProducComponent implements OnInit {
   }
 
   cargarProductos() {
-    this.productoService.obtenerListaProductos().subscribe({
-      next: (data) => (this.productos = data),
-      error: (err) => {
-        console.error('Error al obtener productos:', err);
-        Swal.fire('Error', 'No se pudo cargar la lista de productos', 'error');
-      },
-    });
-  }
+  this.productoService.obtenerListaProductos().subscribe({
+    next: (data) => {
+      this.productos = data;
+      
+    },
+    error: (err) => {
+      console.error('Error al obtener productos:', err);
+      Swal.fire('Error', 'No se pudo cargar la lista de productos', 'error');
+    },
+  });
+}
 
   cargarImagenes(): void {
     this.productoImagenServie.obtenerListaProductosImagen().subscribe({
-      next: (data) => (this.imagenes = data),
+      next: (data) => {
+        this.imagenes = data;
+        console.log('Imagenes cargadas:', data)
+      },
       error: (err) => {
         console.error('Error al obtener imágenes:', err);
       },
@@ -62,45 +69,48 @@ export class ListaProducComponent implements OnInit {
     this.productoSeleccionado = null;
     const modalElement = document.getElementById('nuevoProductoModal');
     if (modalElement) {
-      const modal = new Modal(modalElement);
+      const modal = new bootstrap.Modal(modalElement);
       modal.show();
     }
   }
 
   editarProducto(producto: ProductoResponse): void {
-    this.productoSeleccionado = { ...producto };
+
+    console.log('Producto a editar:', producto)
+
+    this.productoSeleccionado = {
+      ...producto,
+      categoriaId: producto.categoriaId
+    };
+
     const modalElement = document.getElementById('nuevoProductoModal');
     if (modalElement) {
-      const modal = new Modal(modalElement);
+      const modal = new bootstrap.Modal(modalElement);
       modal.show();
     }
   }
 
   eliminarProducto(productoId: number) {
-    Swal.fire({
-      title: '¿Estás seguro?',
-      text: 'Esta acción eliminará el producto de forma permanente.',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonText: 'Sí, eliminar',
-      cancelButtonText: 'Cancelar',
-    }).then((result) => {
-      if (result.isConfirmed) {
-        this.productoService.eliminarProducto(productoId).subscribe({
-          next: () => {
-            Swal.fire(
-              'Eliminado',
-              'Producto eliminado correctamente',
-              'success'
-            );
-            this.cargarProductos(); // Recarga la lista
-          },
-          error: (err) => {
-            console.error('Error al eliminar producto:', err);
-            Swal.fire('Error', 'No se pudo eliminar el producto', 'error');
-          },
-        });
-      }
-    });
-  }
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: 'Esta acción eliminará el producto de forma permanente.',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonText: 'Sí, eliminar',
+    cancelButtonText: 'Cancelar',
+  }).then((result) => {
+    if (result.isConfirmed) {
+      this.productoService.eliminarProducto(productoId).subscribe({
+        next: () => {
+          Swal.fire('Eliminado', 'Producto eliminado correctamente', 'success');
+          this.cargarProductos(); // Recarga la lista
+        },
+        error: (err) => {
+          console.error('Error al eliminar producto:', err);
+          Swal.fire('Error', 'No se pudo eliminar el producto', 'error');
+        },
+      });
+    }
+  });
+}
 }

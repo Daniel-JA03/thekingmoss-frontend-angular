@@ -21,3 +21,4 @@ export interface ProductoResponse {
   categoriaId: number;
   nombreCategoria: string;
 }
+
