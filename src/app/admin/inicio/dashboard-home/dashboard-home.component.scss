@@ -1,0 +1,24 @@
+.card {
+  border-radius: 10px; // Bordes redondeados
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); // Sombra suave
+}
+
+.card-body {
+  padding: 1rem; // Espacio interno
+}
+
+.card-footer {
+  padding: 0.5rem; // Espacio en el footer
+}
+
+.border-left-warning {
+  border-left: 4px solid #ffc107 !important;
+}
+
+.border-left-success {
+  border-left: 4px solid #28a745 !important;
+}
+
+.border-left-primary {
+  border-left: 4px solid #007bff !important;
+}

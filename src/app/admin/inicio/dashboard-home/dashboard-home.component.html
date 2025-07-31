@@ -1,39 +1,76 @@
 <div class="container-fluid mt-4 px-4">
   <h2 class="mb-4">Panel de Control</h2>
-
-  <!-- Tarjetas de resumen -->
-  <div class="row g-4 mb-4">
-    <div class="col-md-4">
-      <div class="card text-white bg-warning h-100">
-        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-          <i class="bi bi-cart-plus fs-3 mb-2"></i>
-          <h5>Total Productos</h5>
-          <h2>{{ totalProductos }}</h2>
+<div class="row g-4 mb-4">
+  <!-- Tarjeta: Total Productos -->
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border rounded shadow-sm bg-white border-left-warning h-100 d-flex flex-column">
+      <div class="card-body d-flex align-items-center">
+        <div class="flex-grow-1">
+          <h5 class="text-warning text-uppercase mb-1">
+            <i class="bi bi-cart-plus me-2"></i> Total Productos
+          </h5>
+          <div class="h5 mb-0 font-weight-bold text-gray-800">{{ totalProductos }}</div>
+          <small class="text-muted">Actualmente registrados</small>
         </div>
-        <a [routerLink]="['/admin/dashboard/listar-producto']" class="stretched-link"></a>
+        <div class="ms-auto">
+          <i class="bi bi-box-seam-fill fs-3 text-warning opacity-25"></i>
+        </div>
       </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card text-white bg-success h-100">
-        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-          <i class="bi bi-basket-fill fs-3 mb-2"></i>
-          <h5>Total Pedidos</h5>
-          <h2>{{ totalPedidos }}</h2>
-        </div>
-        <a [routerLink]="['/admin/dashboard/listar-pedido']" class="stretched-link"></a>
-      </div>
-    </div>
-    <div class="col-md-4">
-      <div class="card text-white bg-primary h-100">
-        <div class="card-body d-flex flex-column justify-content-center align-items-center">
-          <i class="bi bi-clock-fill fs-3 mb-2"></i>
-          <h5>Pedidos Generados</h5>
-          <h2>{{ pedidosGenerados }}</h2>
-        </div>
-        <a [routerLink]="['/admin/dashboard/listar-pedido']" class="stretched-link"></a>
+      <div class="card-footer bg-transparent border-top-0 mt-auto">
+        <a [routerLink]="['/admin/dashboard/listar-producto']" class="small stretched-link text-decoration-none">
+          Ver productos <i class="bi bi-arrow-right ms-1"></i>
+        </a>
       </div>
     </div>
   </div>
+
+  <!-- Tarjeta: Total Pedidos -->
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border rounded shadow-sm bg-white border-left-success h-100 d-flex flex-column">
+      <div class="card-body d-flex align-items-center">
+        <div class="flex-grow-1">
+          <h5 class="text-success text-uppercase mb-1">
+            <i class="bi bi-basket-fill me-2"></i> Total Pedidos
+          </h5>
+          <div class="h5 mb-0 font-weight-bold text-gray-800">{{ totalPedidos }}</div>
+          <small class="text-muted">Pedidos acumulados</small>
+        </div>
+        <div class="ms-auto">
+          <i class="bi bi-cart-check-fill fs-3 text-success opacity-25"></i>
+        </div>
+      </div>
+      <div class="card-footer bg-transparent border-top-0 mt-auto">
+        <a [routerLink]="['/admin/dashboard/listar-pedido']" class="small stretched-link text-decoration-none">
+          Ver pedidos <i class="bi bi-arrow-right ms-1"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tarjeta: Pedidos Generados -->
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border rounded shadow-sm bg-white border-left-primary h-100 d-flex flex-column">
+      <div class="card-body d-flex align-items-center">
+        <div class="flex-grow-1">
+          <h5 class="text-primary text-uppercase mb-1">
+            <i class="bi bi-clock-fill me-2"></i> Pedidos Generados
+          </h5>
+          <div class="h5 mb-0 font-weight-bold text-gray-800">{{ pedidosGenerados }}</div>
+          <small class="text-muted">Últimas 24 horas</small>
+        </div>
+        <div class="ms-auto">
+          <i class="bi bi-hourglass-split fs-3 text-primary opacity-25"></i>
+        </div>
+      </div>
+      <div class="card-footer bg-transparent border-top-0 mt-auto">
+        <a [routerLink]="['/admin/dashboard/listar-pedido']" class="small stretched-link text-decoration-none">
+          Ver detalles <i class="bi bi-arrow-right ms-1"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
 
   <!-- Productos con bajo stock -->
   <div class="row mb-4">
