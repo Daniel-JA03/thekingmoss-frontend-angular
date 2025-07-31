@@ -7,13 +7,15 @@ import { PedidoResponse, TipoEstadoPedido } from '../../../interface/entities/pe
 import Swal from 'sweetalert2';
 import { ProductoImagenService } from '../../producto/services/producto-imagen.service';
 import { CommonModule } from '@angular/common';
-import { Router } from 'express';
 import { RouterModule } from '@angular/router';
+import { CrearProducComponent } from '../../producto/crear-produc/crear-produc.component';
+
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-dashboard-home',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, CrearProducComponent],
   templateUrl: './dashboard-home.component.html',
   styleUrl: './dashboard-home.component.scss'
 })
@@ -25,6 +27,8 @@ export class DashboardHomeComponent implements OnInit {
 
   // Productos con bajo stock
   productosBajoStock: ProductoResponse[] = [];
+
+  productoSeleccionado: ProductoResponse | null = null
 
   // Notificaciones
   productosSinImagen: ProductoSinImagen[] = [];
@@ -96,5 +100,15 @@ export class DashboardHomeComponent implements OnInit {
     if (count === 0) return 'No tienes productos sin imagen.';
     if (count === 1) return `Tienes 1 producto sin imagen.`;
     return `Tienes ${count} productos sin imagen.`;
+  }
+
+  editarProducto(producto: ProductoResponse): void {
+    this.productoSeleccionado = { ...producto }
+
+    const modalElement = document.getElementById('nuevoProductoModal')
+    if(modalElement) {
+      const modal = new bootstrap.Modal(modalElement)
+      modal.show()
+    }
   }
 }
