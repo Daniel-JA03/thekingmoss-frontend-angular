@@ -9,3 +9,8 @@ export interface ProductoImagenResponse {
   productoId: number;
   nombreProducto: string;
 }
+
+export interface ProductoSinImagen {
+  idProducto: number;
+  nombreProducto: string;
+}

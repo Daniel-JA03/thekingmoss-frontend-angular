@@ -1,156 +1,76 @@
-<div class="d-flex min-vh-100 bg-light">
-  <!-- Sidebar para ADMIN -->
-  <aside
-    class="sidebar bg-white shadow-sm p-3 d-flex flex-column"
-    style="width: 260px"
-  >
-    <h4 class="text-success mb-4 d-flex align-items-center gap-2">
+<div class="layout-container">
+  <!-- Sidebar ADMIN -->
+  <aside class="custom-sidebar">
+    <h4 class="brand-title">
       <i class="bi bi-brightness-alt-high"></i> The King Moss
     </h4>
 
-    <ul class="nav flex-column flex-grow-1">
-      <!-- Dashboard -->
-      <li class="nav-item mb-2">
-        <a
-          class="nav-link text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2"
-          [routerLink]="['inicio']"
-          routerLinkActive="active"
-        >
+    <ul class="custom-nav">
+      <li>
+        <a class="custom-nav-link" [routerLink]="['inicio']" routerLinkActive="active">
           <i class="bi bi-speedometer"></i> Dashboard
         </a>
       </li>
-
-      <!-- Categorías -->
-      <li class="nav-item mb-2">
-        <a
-          class="nav-link text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2"
-          [routerLink]="['listar-categoria']"
-          routerLinkActive="active"
-        >
+      <li>
+        <a class="custom-nav-link" [routerLink]="['listar-categoria']" routerLinkActive="active">
           <i class="bi bi-tags"></i> Categorías
         </a>
       </li>
-
-      <!-- Productos -->
-      <li class="nav-item mb-2">
-        <a
-          class="nav-link text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2"
-          [routerLink]="['listar-producto']"
-          routerLinkActive="active"
-        >
+      <li>
+        <a class="custom-nav-link" [routerLink]="['listar-producto']" routerLinkActive="active">
           <i class="bi bi-box-seam"></i> Productos
         </a>
       </li>
-
-      <!-- Pedidos -->
-      <li class="nav-item mb-2">
-        <a
-          class="nav-link text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2"
-          [routerLink]="['listar-pedido']"
-          routerLinkActive="active"
-        >
+      <li>
+        <a class="custom-nav-link" [routerLink]="['listar-pedido']" routerLinkActive="active">
           <i class="bi bi-receipt"></i> Pedidos
         </a>
       </li>
-
-      <!-- Documentos -->
-      <li class="nav-item mb-2">
-        <a
-          class="nav-link text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2"
-          [routerLink]="['listar-documentos']"
-          routerLinkActive="active"
-        >
+      <li>
+        <a class="custom-nav-link" [routerLink]="['listar-documentos']" routerLinkActive="active">
           <i class="bi bi-file-text"></i> Documentos De Identidad
         </a>
       </li>
-
-      <!-- Direcciones -->
-      <li class="nav-item mb-2">
-        <a
-          class="nav-link text-dark rounded-pill px-3 py-2 d-flex align-items-center gap-2"
-          [routerLink]="['listar-direccion']"
-          routerLinkActive="active"
-        >
+      <li>
+        <a class="custom-nav-link" [routerLink]="['listar-direccion']" routerLinkActive="active">
           <i class="bi bi-geo-alt"></i> Direcciones
         </a>
       </li>
-
     </ul>
 
-    <a
-      (click)="logout()"
-      class="nav-link text-success mt-auto rounded-pill d-flex align-items-center gap-2 justify-content-center py-2"
-      style="border: 1px solid #51d94c; background-color: #f0fff4"
-    >
+    <a (click)="logout()" class="logout-btn">
       <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
     </a>
   </aside>
 
   <!-- Main content -->
-  <main class="flex-grow-1 d-flex flex-column">
+  <main class="custom-main">
     <!-- Header -->
-    <nav
-      class="navbar navbar-expand bg-white shadow-sm px-4 py-3 border-bottom"
-    >
-      <div
-        class="container-fluid d-flex justify-content-between align-items-center"
-      >
-        <form class="d-none d-md-block w-25">
-          <input
-            class="form-control rounded-pill ps-4"
-            type="search"
-            placeholder="🔍 Buscar..."
-          />
+    <nav class="custom-navbar">
+      <div class="navbar-content">
+        <form class="search-form">
+          <input type="search" class="search-input" placeholder="🔍 Buscar..." />
         </form>
 
-        <!-- Dropdown de Usuario -->
+        <!-- Usuario -->
         <div class="dropdown">
-          <div
-            class=""
-            id="userDropdown"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
-            style="cursor: pointer"
-          >
-            <img
-              src="images/undraw_profile_2.svg"
-              alt="Perfil"
-              class="rounded-circle"
-              style="width: 40px; height: 40px"
-            />
+          <div id="userDropdown" data-bs-toggle="dropdown" style="cursor: pointer">
+            <img src="images/undraw_profile_2.svg" alt="Perfil" class="user-img" />
           </div>
-          <ul
-            class="dropdown-menu dropdown-menu-end"
-            aria-labelledby="userDropdown"
-          >
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
             <li>
-              <a
-                class="dropdown-item d-flex align-items-center gap-2"
-                [routerLink]="['/profile']"
-              >
+              <a class="dropdown-item" [routerLink]="['/profile']">
                 <i class="bi bi-person-circle"></i> Perfil
               </a>
             </li>
             <li>
-              <a
-                class="dropdown-item d-flex align-items-center gap-2"
-                [routerLink]="['/inbox']"
-              >
+              <a class="dropdown-item" [routerLink]="['/inbox']">
                 <i class="bi bi-inbox"></i> Bandeja de Entrada
               </a>
             </li>
             <li><hr class="dropdown-divider" /></li>
             <li>
-              <a
-                (click)="logout()"
-                class="nav-link text-success mt-auto d-flex align-items-center gap-2 justify-content-center py-2"
-                style="
-                  border: 1px solid #51d94c;
-                  background-color: #f0fff4;
-                  border-radius: 4px;
-                  cursor: pointer;
-                "
-              >
+              <a (click)="logout()" class="logout-btn">
                 <i class="bi bi-box-arrow-right"></i> Cerrar Sesión
               </a>
             </li>
@@ -160,13 +80,13 @@
     </nav>
 
     <!-- Contenido dinámico -->
-    <section class="p-4 flex-grow-1 overflow-auto">
+    <section class="main-content">
       <router-outlet></router-outlet>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-white text-center py-2 border-top">
-      <small class="text-muted">© {{ currentYear }} {{ companyName }}</small>
+    <footer class="custom-footer">
+      <small>© {{ currentYear }} {{ companyName }}</small>
     </footer>
   </main>
 </div>
