@@ -64,6 +64,42 @@
   color: #ffffff;
 }
 
+// Estilo del logo con icono
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+
+  a {
+    color: #51D94C;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:hover a,
+  &:hover .icon-logo {
+    color: #4caf50;
+  }
+}
+
+// Icono del logo
+.icon-logo {
+  font-size: 1.6rem;
+  color: #51D94C;
+  transition: color 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    transform: rotate(15deg);
+  }
+}
+
 /* Logout */
 .logout-btn {
   margin-top: auto;

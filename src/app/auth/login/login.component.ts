@@ -43,7 +43,7 @@ export class LoginComponent {
           this.router.navigate(['/admin/dashboard']);
         } else if (roles.includes('ROLE_USER')) {
           this.toastr.success('Bienvenido Usuario', 'Éxito');
-          this.router.navigate(['/user/dashboard']);
+          this.router.navigate(['/']);
         } else {
           this.toastr.warning('Ingresa correctamente tus credenciales', 'Rol no reconocido');
         }

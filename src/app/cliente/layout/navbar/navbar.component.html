@@ -1,0 +1,57 @@
+<nav class="navbar">
+  <!-- Logo -->
+  <div class="nav-logo">
+    <i class="bi bi-brightness-alt-high icon-logo"></i>
+    <a routerLink="/">TheKingMoss</a>
+  </div>
+
+  <!-- Menú centrado con efecto vidrio -->
+  <div class="glass-menu" [class.scrolled]="isScrolled">
+    <ul class="nav-links">
+      <li><a routerLink="/">Inicio</a></li>
+      <li><a routerLink="/">Productos</a></li>
+      <li><a routerLink="/">Contacto</a></li>
+      <li><a routerLink="/">Sobre Nosotros</a></li>
+    </ul>
+  </div>
+
+  <!-- Acciones: Carrito e Iniciar Sesión -->
+  <div class="nav-actions">
+    <!-- Carrito de compras -->
+    <button routerLink="/carrito" class="btn-cart">
+      <i class="bi bi-cart"></i>
+      <span class="cart-badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
+    </button>
+
+    <!-- Iniciar/Cerrar sesión -->
+    <ng-container *ngIf="!isAuthenticated(); else logeado">
+      <button routerLink="/login" class="btn-login">
+        <i class="bi bi-person"></i>
+      </button>
+    </ng-container>
+    <ng-template #logeado>
+      <button (click)="logout()" class="btn-logout">
+        <i class="bi bi-box-arrow-right"></i>
+      </button>
+    </ng-template>
+  </div>
+
+  <!-- Menú hamburguesa (móviles) -->
+  <div class="menu-toggle" (click)="toggleMobileMenu()">
+    <i class="bi" [class.bi-list]="!mobileMenuOpen" [class.bi-x]="mobileMenuOpen"></i>
+  </div>
+
+  <!-- Menú móvil desplegable -->
+  <div class="mobile-menu" *ngIf="mobileMenuOpen">
+    <ul>
+      <li (click)="closeMobileMenu()"><a routerLink="/">Inicio</a></li>
+      <li (click)="closeMobileMenu()"><a routerLink="/">Productos</a></li>
+      <li (click)="closeMobileMenu()"><a routerLink="/">Contacto</a></li>
+      <li (click)="closeMobileMenu()"><a routerLink="/">Sobre Nosotros</a></li>
+      <li (click)="closeMobileMenu()">
+        <a routerLink="/login" *ngIf="!isAuthenticated()">Iniciar Sesión</a>
+      </li>
+      <li (click)="logout()" *ngIf="isAuthenticated()">Cerrar Sesión</li>
+    </ul>
+  </div>
+</nav>

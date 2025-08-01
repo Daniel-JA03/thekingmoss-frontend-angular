@@ -1,0 +1,276 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  color: white;
+  background-color: transparent;
+  border-bottom: none;
+  transition: all 0.4s ease;
+}
+
+// Estilo del logo con icono
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  transition: transform 0.2s ease;
+
+  a {
+    color: white;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:hover a,
+  &:hover .icon-logo {
+    color: #4caf50;
+  }
+}
+
+// Icono del logo
+.icon-logo {
+  font-size: 1.6rem;
+  color: white;
+  transition: color 0.3s ease, transform 0.3s ease;
+
+  &:hover {
+    transform: rotate(15deg);
+  }
+}
+
+// Menú vidrio (sin cambios)
+.glass-menu {
+  flex: 1;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0.6rem 1.8rem;
+  background-color: transparent;
+  backdrop-filter: none;
+  border-radius: 50px;
+  border: 1px solid transparent;
+  transition: all 0.4s ease;
+  display: flex;
+  justify-content: center;
+
+  &.scrolled {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(12px);
+    border: 1px solid #4caf50;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  }
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links a {
+  // color: white;
+  color: #edf2f7;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: color 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    color: #4caf50;
+    transform: scale(1.05);
+  }
+}
+
+// Acciones (iconos)
+.nav-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+// Botón de login como icono
+.btn-login {
+  background-color: transparent;
+  border: 1px solid #4caf50;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #4caf50;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(76, 175, 80, 0.3);
+  }
+}
+
+// Botón de logout como icono
+.btn-logout {
+  background-color: transparent;
+  border: 1px solid #dc3545;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: #dc3545;
+    color: white;
+    transform: translateY(-2px);
+  }
+}
+
+// Carrito de compras
+.btn-cart {
+  background-color: transparent;
+  border: 1px solid #4caf50;
+  color: white;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+
+  &:hover {
+    background-color: #4caf50;
+    transform: translateY(-2px);
+  }
+}
+
+// Badge del carrito
+.cart-badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  background-color: #dc3545;
+  color: white;
+  font-size: 0.7rem;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+// Menú hamburguesa (móviles)
+.menu-toggle {
+  // Por defecto: oculto
+  display: none !important;
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  z-index: 1002;
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px); /* Para Safari */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+  }
+}
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.95);
+  z-index: 1000;
+  color: white;
+  text-align: center;
+  padding-top: 80px;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    li {
+      margin: 1.5rem 0;
+      font-size: 1.3rem;
+
+      a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s ease;
+
+        &:hover {
+          color: #4caf50;
+        }
+      }
+    }
+  }
+}
+
+// Responsive: Mostrar solo en móviles
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex !important; /* ✅ Ahora sí se muestra */
+  }
+
+  .glass-menu, .nav-actions {
+    display: none !important; /* Asegura que desaparezcan */
+  }
+
+  .mobile-menu {
+    display: block; /* Solo cuando está abierto (controlado por Angular) */
+  }
+
+  .navbar {
+    padding: 1rem;
+  }
+
+  .nav-logo {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    font-size: 1.3rem;
+    z-index: 1002;
+  }
+}

@@ -7,14 +7,17 @@ import { ListaPedComponent } from './admin/pedido/lista-ped/lista-ped.component'
 import { ListaDirecComponent } from './admin/direccion/lista-direc/lista-direc.component';
 import { ListaDocComponent } from './admin/documento/lista-doc/lista-doc.component';
 import { ListaProducComponent } from './admin/producto/lista-produc/lista-produc.component';
+import { HomeComponent } from './cliente/home/home.component';
 
 
 export const routes: Routes = [
   // Ruta inicial redirige a login
-  { path: '', redirectTo: 'login', pathMatch: 'full'},
+  { path: '', component: HomeComponent },
+  // { path: '', redirectTo: 'login', pathMatch: 'full'},
   // Auth
   { path: 'login', component: LoginComponent },
 
+  // Rutas para ADMIN
   {
     path: 'admin/dashboard',
     component: DashboardComponent,
@@ -27,5 +30,8 @@ export const routes: Routes = [
       { path: 'listar-documentos', component: ListaDocComponent},
       { path: 'listar-producto', component: ListaProducComponent}
     ]
-  }
+  },
+
+  
+
 ];

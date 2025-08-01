@@ -1,0 +1,31 @@
+<app-navbar></app-navbar>
+
+<!-- Hero Section con fondo -->
+<section class="hero-section">
+  <div class="hero-content">
+    <h1>Bienvenido a TheKingMoss</h1>
+    <p>Compra los mejores musgos decorativos y naturales desde casa.</p>
+    <button class="btn-primary">Explorar Productos</button>
+  </div>
+</section>
+
+<!-- Sección de Productos Destacados -->
+<section class="productos-destacados">
+  <h2>Productos Populares</h2>
+  <div class="productos-grid">
+    <div class="producto-card" *ngFor="let producto of productosDestacados">
+      <img [src]="producto.imagenUrl" alt="{{ producto.nombre }}" />
+      <h3>{{ producto.nombre }}</h3>
+      <p>{{ producto.descripcion }}</p>
+      <p><strong>S/ {{ producto.precio }}</strong></p>
+      <div class="card-actions">
+        <button class="btn-view">Ver producto</button>
+        <button class="btn-add" (click)="addToCart(producto)">
+          <i class="bi bi-cart-plus"></i> Añadir
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-footer></app-footer>
