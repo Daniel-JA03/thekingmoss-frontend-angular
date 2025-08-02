@@ -22,3 +22,8 @@ export interface ProductoResponse {
   nombreCategoria: string;
 }
 
+// Añade esta interfaz para el frontend
+export interface ProductoCard extends ProductoResponse {
+  imagenUrl?: string;
+}
+

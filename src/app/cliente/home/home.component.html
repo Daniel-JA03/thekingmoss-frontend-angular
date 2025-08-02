@@ -12,20 +12,34 @@
 <!-- Sección de Productos Destacados -->
 <section class="productos-destacados">
   <h2>Productos Populares</h2>
-  <div class="productos-grid">
-    <div class="producto-card" *ngFor="let producto of productosDestacados">
-      <img [src]="producto.imagenUrl" alt="{{ producto.nombre }}" />
-      <h3>{{ producto.nombre }}</h3>
-      <p>{{ producto.descripcion }}</p>
-      <p><strong>S/ {{ producto.precio }}</strong></p>
-      <div class="card-actions">
-        <button class="btn-view">Ver producto</button>
-        <button class="btn-add" (click)="addToCart(producto)">
-          <i class="bi bi-cart-plus"></i> Añadir
-        </button>
+
+  <!-- Mensaje de carga -->
+  <div *ngIf="productosDestacados.length === 0; else productosTemplate">
+    Cargando productos...
+  </div>
+
+  <!-- Grid de productos -->
+  <ng-template #productosTemplate>
+    <div class="productos-grid">
+      <div class="producto-card" *ngFor="let producto of productosDestacados">
+        <!-- Usa la imagen del servicio o una por defecto -->
+        <img
+          [src]="producto.imagenUrl"
+          [alt]="producto.nombreProducto"
+          (error)="handleImageError($event)"
+        />
+        <h3>{{ producto.nombreProducto }}</h3>
+        <p>{{ producto.descripcion }}</p>
+        <p><strong>S/ {{ producto.precioUnitario | number:'1.2-2' }}</strong></p>
+        <div class="card-actions">
+          <button class="btn-view">Ver producto</button>
+          <button class="btn-add" (click)="addToCart(producto)">
+            <i class="bi bi-cart-plus"></i> Añadir
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+  </ng-template>
 </section>
 
 <app-footer></app-footer>
