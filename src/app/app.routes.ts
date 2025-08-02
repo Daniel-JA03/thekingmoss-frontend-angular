@@ -8,6 +8,7 @@ import { ListaDirecComponent } from './admin/direccion/lista-direc/lista-direc.c
 import { ListaDocComponent } from './admin/documento/lista-doc/lista-doc.component';
 import { ListaProducComponent } from './admin/producto/lista-produc/lista-produc.component';
 import { HomeComponent } from './cliente/home/home.component';
+import { SobreNosotrosComponent } from './cliente/sobre-nosotros/sobre-nosotros.component';
 
 
 export const routes: Routes = [
@@ -16,6 +17,7 @@ export const routes: Routes = [
   // { path: '', redirectTo: 'login', pathMatch: 'full'},
   // Auth
   { path: 'login', component: LoginComponent },
+  { path: 'sobre-nosotros', component: SobreNosotrosComponent },
 
   // Rutas para ADMIN
   {
