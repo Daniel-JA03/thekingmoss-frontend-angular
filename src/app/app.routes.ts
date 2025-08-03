@@ -9,6 +9,7 @@ import { ListaDocComponent } from './admin/documento/lista-doc/lista-doc.compone
 import { ListaProducComponent } from './admin/producto/lista-produc/lista-produc.component';
 import { HomeComponent } from './cliente/home/home.component';
 import { SobreNosotrosComponent } from './cliente/sobre-nosotros/sobre-nosotros.component';
+import { ContactoComponent } from './cliente/contacto/contacto.component';
 
 
 export const routes: Routes = [
@@ -18,6 +19,7 @@ export const routes: Routes = [
   // Auth
   { path: 'login', component: LoginComponent },
   { path: 'sobre-nosotros', component: SobreNosotrosComponent },
+  { path: 'contacto', component: ContactoComponent },
 
   // Rutas para ADMIN
   {
