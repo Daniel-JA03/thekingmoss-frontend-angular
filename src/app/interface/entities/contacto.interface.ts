@@ -11,5 +11,6 @@ export interface ContactoResponse {
     email: string;
     asunto?: string;
     mensaje: string;
+    leido: boolean;
     fechaCreacion: string;  // ISO 8601: formato de fecha que viene del backend (ej. "2025-08-04T15:23:11")
 }

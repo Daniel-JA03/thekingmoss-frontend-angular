@@ -10,6 +10,7 @@ import { ListaProducComponent } from './admin/producto/lista-produc/lista-produc
 import { HomeComponent } from './cliente/home/home.component';
 import { SobreNosotrosComponent } from './cliente/sobre-nosotros/sobre-nosotros.component';
 import { ContactoComponent } from './cliente/contacto/contacto.component';
+import { ListaContComponent } from './admin/contacto/lista-cont/lista-cont.component';
 
 
 export const routes: Routes = [
@@ -32,7 +33,8 @@ export const routes: Routes = [
       { path: 'listar-pedido', component: ListaPedComponent },
       { path: 'listar-direccion', component: ListaDirecComponent },
       { path: 'listar-documentos', component: ListaDocComponent},
-      { path: 'listar-producto', component: ListaProducComponent}
+      { path: 'listar-producto', component: ListaProducComponent},
+      { path: 'listar-mensajes', component: ListaContComponent}
     ]
   },
 
