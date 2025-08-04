@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ContactoRequest, ContactoResponse } from '../../../interface/entities/contacto.interface';
+import { ContactoRequest, ContactoResponse, EstadoMensaje } from '../../../interface/entities/contacto.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,5 +17,11 @@ export class ContactoService {
 
   enviarMensaje(contacto: ContactoRequest): Observable<ContactoResponse> {
     return this.httpClient.post<ContactoResponse>(`${this.baseUrl}`, contacto)
+  }
+
+  actualizarEstado(id: number, estado: EstadoMensaje): Observable<ContactoResponse> {
+    return this.httpClient.put<ContactoResponse>(`${this.baseUrl}/${id}`, {}, {
+      params: { estado }
+    });
   }
 }

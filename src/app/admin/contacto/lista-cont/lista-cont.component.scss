@@ -1,0 +1,22 @@
+.title {
+  color: #4caf50;
+  font-weight: 600;
+}
+
+.table-container-full {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.btn-sm.active {
+  background-color: #4caf50;
+  color: white;
+  border-color: #4caf50;
+}
+
+.text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
