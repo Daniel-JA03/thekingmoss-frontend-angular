@@ -16,7 +16,6 @@ import { ProductoImagenService } from '../../admin/producto/services/producto-im
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
-  // productosDestacados: ProductoResponse[] = [];
   productosDestacados: ProductoCard[] = []
   imagenes: ProductoImagenResponse[] = []
 

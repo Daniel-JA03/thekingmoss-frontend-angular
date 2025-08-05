@@ -11,6 +11,7 @@ import { HomeComponent } from './cliente/home/home.component';
 import { SobreNosotrosComponent } from './cliente/sobre-nosotros/sobre-nosotros.component';
 import { ContactoComponent } from './cliente/contacto/contacto.component';
 import { ListaContComponent } from './admin/contacto/lista-cont/lista-cont.component';
+import { ProductoComponent } from './cliente/producto/producto.component';
 
 
 export const routes: Routes = [
@@ -21,6 +22,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'sobre-nosotros', component: SobreNosotrosComponent },
   { path: 'contacto', component: ContactoComponent },
+  { path: 'producto', component: ProductoComponent },
 
   // Rutas para ADMIN
   {
