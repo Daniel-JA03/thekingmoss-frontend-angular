@@ -11,6 +11,8 @@ import { RouterModule } from '@angular/router';
 import { CrearProducComponent } from '../../producto/crear-produc/crear-produc.component';
 
 import * as bootstrap from 'bootstrap';
+import { ContactoService } from '../../contacto/services/contacto.service';
+import { ContactoResponse } from '../../../interface/entities/contacto.interface';
 
 @Component({
   selector: 'app-dashboard-home',
@@ -24,16 +26,18 @@ export class DashboardHomeComponent implements OnInit {
   totalProductos = 0;
   totalPedidos = 0;
   pedidosGenerados = 0;
+  mensajesSinLeer = 0;
 
   // Productos con bajo stock
   productosBajoStock: ProductoResponse[] = [];
 
+  // Producto seleccionado para edicion
   productoSeleccionado: ProductoResponse | null = null
 
   // Notificaciones
   productosSinImagen: ProductoSinImagen[] = [];
   mostrarNotificaciones = false;
-
+  
   // Acceso al enum
   TipoEstadoPedido = TipoEstadoPedido;
 
@@ -41,6 +45,7 @@ export class DashboardHomeComponent implements OnInit {
     private productoService: ProductoService,
     private pedidoService: PedidoService,
     private productoImagenService: ProductoImagenService,
+    private contactoService: ContactoService
     // private router: Router
   ) {}
 
@@ -91,6 +96,17 @@ export class DashboardHomeComponent implements OnInit {
       error: (err) => {
         console.error('Error al cargar pedidos:', err);
         Swal.fire('Error', 'No se pudieron cargar los pedidos', 'error');
+      }
+    });
+
+    // Cargar mensajes sin leer
+    this.contactoService.obtenerListaMensajes().subscribe({
+      next: (mensajes: ContactoResponse[]) => {
+        this.mensajesSinLeer = mensajes.filter(m => m.estado === 'NUEVO').length;
+      },
+      error: (err) => {
+        console.error('Error al cargar mensajes de contacto:', err);
+        this.mensajesSinLeer = 0;
       }
     });
   }
