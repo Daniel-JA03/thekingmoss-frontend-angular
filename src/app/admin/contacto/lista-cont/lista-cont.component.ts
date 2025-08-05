@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ContactoResponse, EstadoMensaje } from '../../../interface/entities/contacto.interface';
 import { ContactoService } from '../services/contacto.service';
 import Swal from 'sweetalert2';
+import * as bootstrap from 'bootstrap';
 
 @Component({
   selector: 'app-lista-cont',
@@ -16,6 +17,7 @@ export class ListaContComponent implements OnInit{
   mensajes: ContactoResponse[] = [];
   mensajesFiltrados: ContactoResponse[] = [];
   filtro: 'todos' | 'leidos' | 'nopendientes' = 'todos';
+  mensajeSeleccionado: ContactoResponse | null = null;
 
   constructor(private contactoService: ContactoService) {}
 
@@ -31,6 +33,7 @@ export class ListaContComponent implements OnInit{
       },
       error: (err) => {
         console.error('Error al cargar mensajes:', err);
+        Swal.fire('Error', 'No se pudo cargar la lista de mensaje.', 'error')
       }
     });
   }
@@ -51,6 +54,15 @@ export class ListaContComponent implements OnInit{
       default:
         this.mensajesFiltrados = this.mensajes;
         break;
+    }
+  }
+
+  abrirModalMensaje(mensaje: ContactoResponse) {
+    this.mensajeSeleccionado = mensaje;
+    const modalElement = document.getElementById('mensajeModal')
+    if(modalElement) {
+      const modal = new bootstrap.Modal(modalElement);
+      modal.show()
     }
   }
 
