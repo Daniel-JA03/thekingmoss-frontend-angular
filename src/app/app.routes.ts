@@ -12,6 +12,7 @@ import { SobreNosotrosComponent } from './cliente/sobre-nosotros/sobre-nosotros.
 import { ContactoComponent } from './cliente/contacto/contacto.component';
 import { ListaContComponent } from './admin/contacto/lista-cont/lista-cont.component';
 import { ProductoComponent } from './cliente/producto/producto.component';
+import { DetalleProductoComponent } from './cliente/detalle-producto/detalle-producto.component';
 
 
 export const routes: Routes = [
@@ -23,6 +24,7 @@ export const routes: Routes = [
   { path: 'sobre-nosotros', component: SobreNosotrosComponent },
   { path: 'contacto', component: ContactoComponent },
   { path: 'producto', component: ProductoComponent },
+  { path: 'productos/:id', component: DetalleProductoComponent },
 
   // Rutas para ADMIN
   {
@@ -39,7 +41,4 @@ export const routes: Routes = [
       { path: 'listar-mensajes', component: ListaContComponent}
     ]
   },
-
-  
-
 ];

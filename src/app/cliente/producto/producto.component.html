@@ -35,10 +35,12 @@
         <!-- Descripción -->
         <p>{{ producto.descripcion || 'Sin descripción' }}</p>
         <!-- Precio -->
-        <p><strong>S/ {{ producto.precioUnitario | number:'1.2-2' }}</strong></p>
+        <p><strong>{{ producto.precioUnitario | soles }}</strong></p>
         <!-- Acciones -->
         <div class="card-actions">
-          <button class="btn-view">Ver producto</button>
+          <button class="btn-view" [routerLink]="['/productos', producto.idProducto]">
+            Ver producto
+          </button>
           <button class="btn-add" (click)="addToCart(producto)">
             <i class="bi bi-cart-plus"></i> Añadir
           </button>

@@ -7,11 +7,12 @@ import { ProductoCard, ProductoResponse } from '../../interface/entities/product
 import { ProductoService } from '../../admin/producto/services/producto.service';
 import { ProductoImagenResponse } from '../../interface/entities/producto-imagen.interface';
 import { ProductoImagenService } from '../../admin/producto/services/producto-imagen.service';
+import { SolesPipe } from '../../soles.pipe';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, RouterModule, FooterComponent],
+  imports: [CommonModule, NavbarComponent, RouterModule, FooterComponent, SolesPipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

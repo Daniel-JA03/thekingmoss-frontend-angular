@@ -1,0 +1,88 @@
+.producto-detalle {
+  padding: 4rem 2rem;
+  background-color: #0a1128; // Fondo azul noche
+  color: #e0e0e0;
+  min-height: 100vh;
+
+  .title {
+    font-size: 2.2rem;
+    color: #ffffff;
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+
+  .producto-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    padding: 2rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    margin: 0 auto; // Centra horizontalmente
+    max-width: 900px; // Limita el ancho máximo
+    width: 100%; // Responsive
+    overflow: visible;
+
+    &:hover {
+      transform: translateY(-8px);
+      box-shadow: 
+        0 12px 30px rgba(0, 0, 0, 0.15),
+    0 0 40px rgba(76, 175, 80, 0.9),
+    0 0 20px rgba(76, 175, 80, 0.5);
+    }
+
+    h3 {
+      font-size: 1.8rem;
+      color: #1b1b1b;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      color: #1b1b1b;
+      font-size: 1rem;
+      margin: 0.5rem 0;
+    }
+
+    .card-actions {
+      margin-top: 2rem;
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+    }
+
+    .btn-view {
+      background-color: transparent;
+      color: #007bff;
+      border: 1px solid #007bff;
+      padding: 0.6rem 1.5rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #007bff;
+        color: white;
+      }
+    }
+
+    .btn-add {
+      background-color: #28a745;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.5rem;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      &:hover {
+        background-color: #218838;
+        transform: scale(1.05);
+      }
+    }
+  }
+}

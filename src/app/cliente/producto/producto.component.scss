@@ -31,9 +31,7 @@
 
 // Tarjetas de producto (idéntico al home)
 .producto-card {
-  background: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px); /* Para Safari */
+  background: white;
   border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 16px;
   overflow: hidden;

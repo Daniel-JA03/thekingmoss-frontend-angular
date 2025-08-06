@@ -16,8 +16,11 @@ export class ProductoService {
   }
 
   // buscar producto por su ID
-  obtenerProductoPorId(id: number): Observable<ProductoResponse[]> {
+  /*obtenerProductoPorId(id: number): Observable<ProductoResponse[]> {
     return this.httpClient.get<ProductoResponse[]>(`${this.baseUrl}/${id}`)
+  }*/
+  obtenerProductoPorId(id: number): Observable<ProductoResponse> {
+    return this.httpClient.get<ProductoResponse>(`${this.baseUrl}/${id}`);
   }
 
   agregarProducto(producto: ProductoRequest): Observable<ProductoResponse> {
