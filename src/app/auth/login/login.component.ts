@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr'
 import Swal from 'sweetalert2';
+import { CarritoService } from '../../cliente/carrito/services/carrito.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,8 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private toastr: ToastrService) {}
+    private toastr: ToastrService,
+    private carritoService: CarritoService) {}
 
   login() {
     const credentials = {
@@ -35,6 +37,9 @@ export class LoginComponent {
         localStorage.setItem('roles', JSON.stringify(response.roles));
         localStorage.setItem('expirateAt', response.expirateAt.toString());
         localStorage.setItem('usuarioId', response.usuarioId.toString())
+
+        // notificar al carrito que hay un nuevo usuario
+        this.carritoService.onLogin()
 
         // Redireccion basada en roles
         const roles = response.roles; // debe ser un array tipo ['ROLE_ADMIN'], etc.

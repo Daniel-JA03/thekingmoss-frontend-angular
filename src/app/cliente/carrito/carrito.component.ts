@@ -20,21 +20,21 @@ export class CarritoComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.carrito = this.carritoService.obtenerCarrito()
+    this.carritoService.carrito$.subscribe(carrito => {
+      this.carrito = carrito;
+    });
   }
 
   cambiarCantidad(idProducto: number, cambio: number) {
-  const item = this.carrito.find(item => item.producto.idProducto === idProducto);
-  if (item) {
-    const nuevaCantidad = item.cantidad + cambio;
-    this.carritoService.actualizarCantidad(idProducto, nuevaCantidad);
-    this.carrito = this.carritoService.obtenerCarrito(); // Actualiza vista
+    const item = this.carrito.find(item => item.producto.idProducto === idProducto);
+    if (item) {
+      const nuevaCantidad = item.cantidad + cambio;
+      this.carritoService.actualizarCantidad(idProducto, nuevaCantidad);
+    }
   }
-}
 
   eliminar(idProducto: number) {
     this.carritoService.eliminarDelCarrito(idProducto);
-    this.carrito = this.carritoService.obtenerCarrito(); // Actualiza vista
   }
 
   calcularTotal(): number {

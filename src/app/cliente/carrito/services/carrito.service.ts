@@ -20,9 +20,53 @@ export class CarritoService {
   constructor(
     private router: Router,
     private pedidoService: PedidoService
-  ) {}
+  ) { 
+    this.cargarCarrito()
+  }
 
-  // ✅ Método corregido: agregarAlCarrito
+  // metodo para obtener el ID del usuario actual
+  private getUsuarioId(): number | null {
+    const id = localStorage.getItem('usuarioId')
+    return id ? Number(id) : null;
+  }
+
+  // clave unica por usuario
+  private getStorageKey(): string {
+    const usuarioId = this.getUsuarioId()
+    return usuarioId ? `carrito_usuario_${usuarioId}` : 'carrito_anonimo'
+  }
+
+  // cargar carrito desde localStorage
+  private cargarCarrito() {
+    const key = this.getStorageKey()
+    const saved = localStorage.getItem(key)
+    if(saved) {
+      try {
+        this.carrito = JSON.parse(saved)
+      } catch (e) {
+        console.warn('No se pudo cargar el carrito', e)
+        this.carrito = []
+      }
+    }
+    this.actualizarCarrito()
+  }
+
+  // guardar carrito en localStorage
+  private guardarCarrito() {
+    const key = this.getStorageKey()
+    localStorage.setItem(key, JSON.stringify(this.carrito))
+  }
+
+  // cambiar de usuario -> cargar su carrito
+  onLogin() {
+    this.cargarCarrito()
+  }
+
+  onLogout() {
+    this.guardarCarrito() 
+  }
+
+  // Método corregido: agregarAlCarrito
   agregarAlCarrito(producto: ProductoCard, cantidad: number = 1) {
     const item = this.carrito.find(item => item.producto.idProducto === producto.idProducto);
     if (item) {
@@ -30,32 +74,31 @@ export class CarritoService {
     } else {
       this.carrito.push({ producto, cantidad });
     }
-    this.actualizarCarrito(); // Notifica cambios
+    this.actualizarCarrito(); // emite + guarda
   }
 
-  obtenerCarrito() {
-    return this.carrito;
-  }
+  // obtenerCarrito() {
+  //   return this.carrito;
+  // }
 
   actualizarCantidad(idProducto: number, nuevaCantidad: number) {
   const item = this.carrito.find(item => item.producto.idProducto === idProducto);
   
-  if (item) {
-    // ✅ Validar que no supere el stock
-    if (nuevaCantidad > 0 && nuevaCantidad <= item.producto.stock) {
-      item.cantidad = nuevaCantidad;
-      this.actualizarCarrito();
-    } else if (nuevaCantidad > item.producto.stock) {
-      Swal.fire({
-        title: 'Stock insuficiente',
-        text: `Solo hay ${item.producto.stock} unidades disponibles.`,
-        icon: 'warning',
-        confirmButtonText: 'Aceptar'
-      });
+    if (item) {
+      // Validar que no supere el stock
+      if (nuevaCantidad > 0 && nuevaCantidad <= item.producto.stock) {
+        item.cantidad = nuevaCantidad;
+        this.actualizarCarrito();
+      } else if (nuevaCantidad > item.producto.stock) {
+        Swal.fire({
+          title: 'Stock insuficiente',
+          text: `Solo hay ${item.producto.stock} unidades disponibles.`,
+          icon: 'warning',
+          confirmButtonText: 'Aceptar'
+        });
+      }
     }
-    // Si cantidad <= 0, se elimina (ya lo manejas en eliminarDelCarrito)
   }
-}
 
   eliminarDelCarrito(idProducto: number) {
     this.carrito = this.carrito.filter(item => item.producto.idProducto !== idProducto);
@@ -66,7 +109,17 @@ export class CarritoService {
     return this.carrito.reduce((total, item) => total + (item.producto.precioUnitario * item.cantidad), 0);
   }
 
+  vaciarCarrito() {
+    this.carrito = [];
+    this.actualizarCarrito();
+  }
 
+  private actualizarCarrito() {
+    this.carritoSubject.next([...this.carrito]); 
+    this.guardarCarrito() // guarda cada vez que cambia
+  }
+
+  // comprar
   comprar() {
     const isAuthenticated = !!localStorage.getItem('token');
 
@@ -89,7 +142,7 @@ export class CarritoService {
 
     // Obtener datos del usuario desde localStorage
     const username = localStorage.getItem('username');
-    const usuarioId = Number(localStorage.getItem('usuarioId')); // ❗ Asegúrate de que esto exista
+    const usuarioId = this.getUsuarioId();
 
     // Si no tienes el usuarioId, puedes decodificar el JWT o hacer un /me
     if (!usuarioId) {
@@ -106,7 +159,7 @@ export class CarritoService {
     // Crear el pedido
     const pedido: PedidoRequest = {
       fechaPedido: new Date(),
-      tipoEntrega: 'DOMICILIO', // puedes cambiarlo
+      tipoEntrega: 'DOMICILIO', 
       informacionPedido: `Pedido de ${username}`,
       instruccionEntrega: 'Dejar en puerta',
       tipoEstadoPedido: TipoEstadoPedido.GENERADO,
@@ -132,12 +185,4 @@ export class CarritoService {
     });
   }
 
-  vaciarCarrito() {
-    this.carrito = [];
-    this.actualizarCarrito();
-  }
-
-  private actualizarCarrito() {
-    this.carritoSubject.next([...this.carrito]); // Emite una copia
-  }
 }
