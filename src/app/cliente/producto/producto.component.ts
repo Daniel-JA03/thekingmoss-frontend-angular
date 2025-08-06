@@ -8,6 +8,8 @@ import { ProductoImagenResponse } from '../../interface/entities/producto-imagen
 import { ProductoService } from '../../admin/producto/services/producto.service';
 import { ProductoImagenService } from '../../admin/producto/services/producto-imagen.service';
 import { SolesPipe } from '../../soles.pipe';
+import { CarritoService } from '../carrito/services/carrito.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-producto',
@@ -23,7 +25,8 @@ export class ProductoComponent implements OnInit {
 
   constructor(
     private productoService: ProductoService,
-    private productoImagenService: ProductoImagenService
+    private productoImagenService: ProductoImagenService,
+    private carritoService: CarritoService
   ) {}
 
   ngOnInit(): void {
@@ -98,7 +101,27 @@ export class ProductoComponent implements OnInit {
   }
 
   addToCart(producto: ProductoResponse) {
-    console.log('Producto añadido al carrito:', producto)
+    const productoCard: ProductoCard = {
+      ...producto,
+      imagenUrl: this.obtenerImagenUrl(producto.idProducto)
+    };
+
+    this.carritoService.agregarAlCarrito(productoCard, 1);
+
+    Swal.fire({
+      title: 'Añadido al carrito',
+      text: `1x ${producto.nombreProducto} agregado.`,
+      icon: 'success',
+      confirmButtonText: 'Aceptar'
+    });
+  }
+
+  // Método para obtener la URL de la imagen
+  obtenerImagenUrl(productoId: number): string {
+    const imagen = this.imagenes.find(img => img.productoId === productoId);
+    return imagen
+      ? `http://localhost:8080/imagesProducts/${imagen.imagenUrl.replace(/\\/g, '/')}`
+      : 'assets/images/default.jpg';
   }
 
 }

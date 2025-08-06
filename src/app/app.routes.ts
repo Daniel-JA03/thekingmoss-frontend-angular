@@ -13,6 +13,7 @@ import { ContactoComponent } from './cliente/contacto/contacto.component';
 import { ListaContComponent } from './admin/contacto/lista-cont/lista-cont.component';
 import { ProductoComponent } from './cliente/producto/producto.component';
 import { DetalleProductoComponent } from './cliente/detalle-producto/detalle-producto.component';
+import { CarritoComponent } from './cliente/carrito/carrito.component';
 
 
 export const routes: Routes = [
@@ -25,6 +26,7 @@ export const routes: Routes = [
   { path: 'contacto', component: ContactoComponent },
   { path: 'producto', component: ProductoComponent },
   { path: 'productos/:id', component: DetalleProductoComponent },
+  { path: 'carrito', component: CarritoComponent },
 
   // Rutas para ADMIN
   {

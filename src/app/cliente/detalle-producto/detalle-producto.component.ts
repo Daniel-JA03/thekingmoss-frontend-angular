@@ -9,6 +9,7 @@ import Swal from 'sweetalert2';
 import { ProductoImagenService } from '../../admin/producto/services/producto-imagen.service';
 import { ProductoImagenResponse } from '../../interface/entities/producto-imagen.interface';
 import { SolesPipe } from '../../soles.pipe';
+import { CarritoService } from '../carrito/services/carrito.service';
 
 @Component({
   selector: 'app-detalle-producto',
@@ -25,7 +26,8 @@ export class DetalleProductoComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private productoService: ProductoService,
-    private productoImagenService: ProductoImagenService
+    private productoImagenService: ProductoImagenService,
+    private carritoService: CarritoService
   ) {}
 
   ngOnInit(): void {
@@ -102,14 +104,9 @@ export class DetalleProductoComponent implements OnInit {
   addToCart() {
     if (!this.productoSeleccionado) return;
 
-    const item = {
-      producto: this.productoSeleccionado,
-      cantidad: this.cantidad,
-      precioTotal: this.productoSeleccionado.precioUnitario * this.cantidad
-    };
+    // Añade al carrito usando el servicio
+    this.carritoService.agregarAlCarrito(this.productoSeleccionado, this.cantidad);
 
-    console.log('Producto añadido al carrito:', item);
-    // Aquí conectarás con CartService
     Swal.fire({
       title: 'Producto añadido',
       text: `${this.cantidad}x ${this.productoSeleccionado.nombreProducto} agregado al carrito.`,

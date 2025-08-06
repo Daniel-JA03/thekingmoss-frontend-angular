@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
+import { CarritoService } from '../../carrito/services/carrito.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,10 +16,14 @@ export class NavbarComponent implements OnInit{
   mobileMenuOpen = false;
   cartCount = 0
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private carritoService: CarritoService) {}
 
   ngOnInit(): void {
     this.checkScroll()
+    // ✅ Escuchar cambios en el carrito
+    this.carritoService.carrito$.subscribe(items => {
+      this.cartCount = items.reduce((sum, item) => sum + item.cantidad, 0);
+    });
   }
 
   @HostListener('window:scroll', [])

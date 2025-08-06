@@ -1,0 +1,71 @@
+.carrito-seccion {
+  padding: 4rem 2rem;
+  background-color: #0a1128;
+  color: #e0e0e0;
+  min-height: 100vh;
+
+  .title {
+    font-size: 2.2rem;
+    color: #ffffff;
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+
+  .carrito-lista {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .carrito-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid #676565;
+    flex-wrap: wrap;
+
+    .info {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    .cantidad-control {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: bold;
+    }
+
+    .btn-danger {
+      margin-left: auto;
+    }
+  }
+
+  .carrito-total {
+    text-align: right;
+    margin-top: 2rem;
+
+    h4 {
+      font-size: 1.5rem;
+      color: #1b1b1b;
+      margin-bottom: 1rem;
+    }
+
+    .btn-comprar {
+      padding: 0.7rem 2rem;
+      font-size: 1.1rem;
+      background-color: #28a745;
+      border: none;
+      border-radius: 6px;
+
+      &:hover {
+        background-color: #218838;
+        transform: scale(1.02);
+      }
+    }
+  }
+}

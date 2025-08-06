@@ -8,6 +8,8 @@ import { ProductoService } from '../../admin/producto/services/producto.service'
 import { ProductoImagenResponse } from '../../interface/entities/producto-imagen.interface';
 import { ProductoImagenService } from '../../admin/producto/services/producto-imagen.service';
 import { SolesPipe } from '../../soles.pipe';
+import { CarritoService } from '../carrito/services/carrito.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -22,7 +24,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private productoService: ProductoService,
-    private productoImagenService: ProductoImagenService
+    private productoImagenService: ProductoImagenService,
+    private carritoService: CarritoService
   ) {}
 
   ngOnInit(): void { 
@@ -98,8 +101,17 @@ export class HomeComponent implements OnInit {
     event.target.src = 'assets/images/default.jpg'; // Imagen por defecto
   }
 
+  // Añadir al carrito desde el Home
   addToCart(producto: ProductoCard) {
-    console.log('Producto añadido al carrito:', producto)
-    // se conectara con CartService más adelante
+    this.carritoService.agregarAlCarrito(producto, 1);
+
+    Swal.fire({
+      title: 'Producto añadido',
+      text: `1x ${producto.nombreProducto} agregado al carrito.`,
+      icon: 'success',
+      confirmButtonText: 'Aceptar',
+      timer: 1500,
+      timerProgressBar: true
+    });
   }
 }
