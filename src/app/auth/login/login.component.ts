@@ -34,6 +34,7 @@ export class LoginComponent {
         localStorage.setItem('username', response.username);
         localStorage.setItem('roles', JSON.stringify(response.roles));
         localStorage.setItem('expirateAt', response.expirateAt.toString());
+        localStorage.setItem('usuarioId', response.usuarioId.toString())
 
         // Redireccion basada en roles
         const roles = response.roles; // debe ser un array tipo ['ROLE_ADMIN'], etc.
