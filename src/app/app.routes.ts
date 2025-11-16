@@ -14,6 +14,7 @@ import { ListaContComponent } from './admin/contacto/lista-cont/lista-cont.compo
 import { ProductoComponent } from './cliente/producto/producto.component';
 import { DetalleProductoComponent } from './cliente/detalle-producto/detalle-producto.component';
 import { CarritoComponent } from './cliente/carrito/carrito.component';
+import { RegisterComponent } from './auth/register/register.component';
 
 
 export const routes: Routes = [
@@ -22,6 +23,8 @@ export const routes: Routes = [
   // { path: '', redirectTo: 'login', pathMatch: 'full'},
   // Auth
   { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent},
+  // Rutas para CLIENTE
   { path: 'sobre-nosotros', component: SobreNosotrosComponent },
   { path: 'contacto', component: ContactoComponent },
   { path: 'producto', component: ProductoComponent },
