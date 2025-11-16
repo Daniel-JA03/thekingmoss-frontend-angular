@@ -12,9 +12,13 @@
 
     <!-- Lista de productos en el carrito -->
     <div *ngIf="carrito.length > 0" class="carrito-lista">
-      <div class="carrito-item" *ngFor="let item of carrito">
-        <img [src]="item.producto.imagenUrl" alt="{{ item.producto.nombreProducto }}" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover;">
-        
+      <div class="carrito-item" *ngFor="let item of carrito; trackBy: trackByProducto">
+        <img 
+          [src]="item.producto.imagenUrl" 
+          [alt]="item.producto.nombreProducto" 
+          class="img-thumbnail" 
+          style="width: 100px; height: 100px; object-fit: cover;">
+
         <div class="info">
           <h5 class="text-success">{{ item.producto.nombreProducto }}</h5>
           <p class="text-black">Precio: S/ {{ item.producto.precioUnitario | number:'1.2-2' }}</p>
@@ -23,18 +27,24 @@
 
         <!-- Contador de cantidad -->
         <div class="cantidad-control">
-          <button class="btn btn-sm btn-outline-success" (click)="cambiarCantidad(item.producto.idProducto, -1)">-</button>
+          <button 
+            class="btn btn-sm btn-outline-success" 
+            (click)="cambiarCantidad(item.producto.productoId, -1)">
+            -
+          </button>
           <span class="mx-2 text-black">{{ item.cantidad }}</span>
           <button 
             class="btn btn-sm btn-outline-success" 
-            (click)="cambiarCantidad(item.producto.idProducto, 1)"
+            (click)="cambiarCantidad(item.producto.productoId, 1)"
             [disabled]="item.cantidad >= item.producto.stock">
             +
           </button>
         </div>
 
         <!-- Botón de eliminar -->
-        <button class="btn btn-sm btn-danger" (click)="eliminar(item.producto.idProducto)">
+        <button 
+          class="btn btn-sm btn-danger" 
+          (click)="eliminar(item.producto.productoId)">
           <i class="bi bi-trash"></i>
         </button>
       </div>
@@ -42,9 +52,14 @@
       <!-- Total y botón de compra -->
       <div class="carrito-total">
         <h4>Total: S/ {{ calcularTotal() | number:'1.2-2' }}</h4>
-        <button class="btn btn-success btn-comprar" (click)="comprar()">
-          <i class="bi bi-credit-card"></i> Proceder a Comprar
-        </button>
+        <div class="d-flex gap-2">
+          <button class="btn btn-outline-secondary" (click)="vaciarCarrito()">
+            Vaciar carrito
+          </button>
+          <button class="btn btn-success btn-comprar" (click)="comprar()">
+            <i class="bi bi-credit-card"></i> Proceder a Comprar
+          </button>
+        </div>
       </div>
     </div>
   </div>

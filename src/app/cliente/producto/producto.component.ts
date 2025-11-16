@@ -106,14 +106,20 @@ export class ProductoComponent implements OnInit {
       imagenUrl: this.obtenerImagenUrl(producto.idProducto)
     };
 
-    this.carritoService.agregarAlCarrito(productoCard, 1);
+    this.carritoService.agregarProducto({
+      productoId: producto.idProducto,
+      cantidad: 1
+    }).subscribe({
+      next: () => {
+        Swal.fire({
+          title: 'Añadido al carrito',
+          text: `1x ${producto.nombreProducto} agregado.`,
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        });
+      }
+    })
 
-    Swal.fire({
-      title: 'Añadido al carrito',
-      text: `1x ${producto.nombreProducto} agregado.`,
-      icon: 'success',
-      confirmButtonText: 'Aceptar'
-    });
   }
 
   // Método para obtener la URL de la imagen

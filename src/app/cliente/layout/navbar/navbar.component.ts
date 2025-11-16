@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { AuthService } from '../../../auth/services/auth.service';
 import { CarritoService } from '../../carrito/services/carrito.service';
+import { filter, Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -11,19 +12,54 @@ import { CarritoService } from '../../carrito/services/carrito.service';
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.scss'
 })
-export class NavbarComponent implements OnInit{
+export class NavbarComponent implements OnInit, OnDestroy{
   isScrolled = false;
   mobileMenuOpen = false;
   cartCount = 0
 
-  constructor(private authService: AuthService, private carritoService: CarritoService) {}
+  private destroy$ = new Subject<void>(); // limpiar suscripciones
+
+  constructor(
+    private authService: AuthService, 
+    private carritoService: CarritoService) {}
 
   ngOnInit(): void {
     this.checkScroll()
-    // ✅ Escuchar cambios en el carrito
-    this.carritoService.carrito$.subscribe(items => {
-      this.cartCount = items.reduce((sum, item) => sum + item.cantidad, 0);
-    });
+    this.actualizarContadorCarrito()
+
+    // Escuchar cambios en el carrito
+    this.carritoService.carritoCambio$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.actualizarContadorCarrito();
+      });
+      // Escuchar cierre de sesión
+      this.authService.logout$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.cartCount = 0; // Reiniciar contador al cerrar sesión
+      })
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  private actualizarContadorCarrito() {
+    if (this.authService.isAutheticated()) {
+      this.carritoService.obtenerCarrito().subscribe({
+        next: (items) => {
+          this.cartCount = items.reduce((sum: number, item: any) => sum + item.cantidad, 0);
+        },
+        error: (err) => {
+          console.warn('No se pudo cargar el carrito:', err);
+          this.cartCount = 0;
+        } 
+      })
+    } else {
+      this.cartCount = 0
+    }
   }
 
   @HostListener('window:scroll', [])

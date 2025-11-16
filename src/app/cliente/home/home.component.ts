@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../layout/navbar/navbar.component';
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { FooterComponent } from "../layout/footer/footer.component";
 import { ProductoCard, ProductoResponse } from '../../interface/entities/producto.interface';
 import { ProductoService } from '../../admin/producto/services/producto.service';
@@ -10,6 +10,7 @@ import { ProductoImagenService } from '../../admin/producto/services/producto-im
 import { SolesPipe } from '../../soles.pipe';
 import { CarritoService } from '../carrito/services/carrito.service';
 import Swal from 'sweetalert2';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +24,8 @@ export class HomeComponent implements OnInit {
   imagenes: ProductoImagenResponse[] = []
 
   constructor(
+    private router: Router,
+    private authService: AuthService,
     private productoService: ProductoService,
     private productoImagenService: ProductoImagenService,
     private carritoService: CarritoService
@@ -103,15 +106,35 @@ export class HomeComponent implements OnInit {
 
   // Añadir al carrito desde el Home
   addToCart(producto: ProductoCard) {
-    this.carritoService.agregarAlCarrito(producto, 1);
-
-    Swal.fire({
-      title: 'Producto añadido',
-      text: `1x ${producto.nombreProducto} agregado al carrito.`,
-      icon: 'success',
-      confirmButtonText: 'Aceptar',
-      timer: 1500,
-      timerProgressBar: true
-    });
+    // verificar si está autenticado
+    if (!this.authService.isAutheticated()) {
+      Swal.fire({
+        title: 'Inicia sesión para continuar',
+        text: 'Debes iniciar sesión para agregar productos al carrito.',
+        icon: 'warning',
+        confirmButtonText: 'Ir a Login'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate(['/login']);
+        }
+      });
+      return;
+    }
+    // si esta autenticado, añadir al carrito
+    this.carritoService.agregarProducto({
+      productoId: producto.idProducto,
+      cantidad: 1
+    }).subscribe({
+      next: () => {
+        Swal.fire({
+          title: 'Producto añadido',
+          text: `1x ${producto.nombreProducto} agregado al carrito.`,
+          icon: 'success',
+          confirmButtonText: 'Aceptar',
+          timer: 1500,
+          timerProgressBar: true
+        });
+      }
+    }) 
   }
 }

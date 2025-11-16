@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../layout/navbar/navbar.component';
 import { FooterComponent } from '../layout/footer/footer.component';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ProductoCard, ProductoResponse } from '../../interface/entities/producto.interface';
 import { ProductoService } from '../../admin/producto/services/producto.service';
 import Swal from 'sweetalert2';
@@ -10,6 +10,7 @@ import { ProductoImagenService } from '../../admin/producto/services/producto-im
 import { ProductoImagenResponse } from '../../interface/entities/producto-imagen.interface';
 import { SolesPipe } from '../../soles.pipe';
 import { CarritoService } from '../carrito/services/carrito.service';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-detalle-producto',
@@ -24,7 +25,9 @@ export class DetalleProductoComponent implements OnInit {
    cantidad: number = 1;
 
   constructor(
+    private authService: AuthService,
     private route: ActivatedRoute,
+    private router: Router,
     private productoService: ProductoService,
     private productoImagenService: ProductoImagenService,
     private carritoService: CarritoService
@@ -102,17 +105,42 @@ export class DetalleProductoComponent implements OnInit {
 
   // ✅ Añadir al carrito con cantidad
   addToCart() {
+    // verificar si está autenticado
+    if (!this.authService.isAutheticated()) {
+      Swal.fire({
+        title: 'Inicia sesión para continuar',
+        text: 'Debes iniciar sesión para agregar productos al carrito.',
+        icon: 'warning',
+        confirmButtonText: 'Ir a Login'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.router.navigate(['/login']);
+        }
+      });
+      return;
+    }
+
+    // si esta autenticado, añadir al carrito
     if (!this.productoSeleccionado) return;
 
-    // Añade al carrito usando el servicio
-    this.carritoService.agregarAlCarrito(this.productoSeleccionado, this.cantidad);
+    this.carritoService.agregarProducto({
+    productoId: this.productoSeleccionado.idProducto,
+    cantidad: this.cantidad
+    }).subscribe({
+      next: () => {
+        Swal.fire({
+          title: 'Producto añadido',
+          text: `${this.cantidad}x ${this.productoSeleccionado!.nombreProducto} agregado al carrito.`,
+          icon: 'success',
+          confirmButtonText: 'Aceptar'
+        });
+      },
+      error: (err) => {
+        console.error('Error al añadir al carrito:', err);
+      }
+    })
 
-    Swal.fire({
-      title: 'Producto añadido',
-      text: `${this.cantidad}x ${this.productoSeleccionado.nombreProducto} agregado al carrito.`,
-      icon: 'success',
-      confirmButtonText: 'Aceptar'
-    });
+    
   }
 
 }
