@@ -13,6 +13,7 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-10">
+
         <!-- Mensaje de carga -->
         <div *ngIf="loading" class="text-center py-5">
           <div class="spinner-border text-success" role="status">
@@ -23,7 +24,7 @@
 
         <!-- Sin pedidos -->
         <div
-          *ngIf="!loading && pedidos.length === 0"
+          *ngIf="!loading && listarPedidos().length === 0"
           class="no-pedidos text-center py-5"
         >
           <i class="bi bi-cart-x icon-no-pedidos"></i>
@@ -36,42 +37,74 @@
           </button>
         </div>
 
-        <!-- Lista de pedidos -->
-        <div *ngIf="!loading && pedidos.length > 0" class="pedidos-lista">
-          <div class="pedido-card" *ngFor="let pedido of pedidos">
+        <!-- Lista de pedidos paginada -->
+        <div *ngIf="!loading && listarPedidos().length > 0" class="pedidos-lista">
+          <div
+            class="pedido-card"
+            *ngFor="let pedido of listarPedidos() | slice : lowIndex : highIndex"
+          >
             <div class="pedido-header">
               <h4>
                 Pedido {{ pedido.tipoEntrega | titlecase }} –
-                {{ pedido.fechaPedido | date : "dd/MM/yyyy" }}
+                {{ pedido.fechaPedido | date : 'dd/MM/yyyy' }}
               </h4>
-              <span class="badge bg-success">{{
-                pedido.tipoEstadoPedido | uppercase
-              }}</span>
+              <span class="badge bg-success">
+                {{ pedido.tipoEstadoPedido | uppercase }}
+              </span>
             </div>
+
             <p class="text-muted">
-              {{ pedido.fechaPedido | date : "dd/MM/yyyy HH:mm" }}
+              {{ pedido.fechaPedido | date : 'dd/MM/yyyy HH:mm' }}
             </p>
+
             <div class="pedido-detalles">
               <div class="detalle-item" *ngFor="let d of pedido.detalle">
                 <div class="detalle-info">
                   <strong>{{ d.nombreProducto }} ({{ d.cantidad }})</strong>
                 </div>
-                <span class="detalle-precio">{{
-                  d.precioUnitario | soles
-                }}</span>
+                <span class="detalle-precio">
+                  {{ d.precioUnitario | soles }}
+                </span>
               </div>
             </div>
+
             <div class="pedido-total">
               <strong>Total:</strong>
-              <span class="text-success">{{
-                calcularTotal(pedido) | soles
-              }}</span>
+              <span class="text-success">
+                {{ calcularTotal(pedido) | soles }}
+              </span>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Paginación -->
+  <div class="pagination-container" *ngIf="listarPedidos().length > pageSize">
+  <button 
+    class="page-btn" 
+    [disabled]="lowIndex === 0"
+    (click)="prevPage()"
+  >
+    ‹ Anterior
+  </button>
+
+  <span class="page-info">
+    {{ lowIndex + 1 }} – 
+    {{ highIndex > listarPedidos().length ? listarPedidos().length : highIndex }} 
+    de {{ listarPedidos().length }}
+  </span>
+
+  <button 
+    class="page-btn" 
+    [disabled]="highIndex >= listarPedidos().length"
+    (click)="nextPage()"
+  >
+    Siguiente ›
+  </button>
+</div>
+
 </section>
 
 <app-footer></app-footer>

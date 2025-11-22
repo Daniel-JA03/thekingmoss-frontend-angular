@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { PedidoResponse } from '../../../interface/entities/pedido.interface';
 import { PedidoService } from '../../../admin/pedido/services/pedido.service';
 import { AuthService } from '../../../auth/services/auth.service';
@@ -7,7 +7,6 @@ import { SolesPipe } from '../../../soles.pipe';
 import { NavbarComponent } from "../../layout/navbar/navbar.component";
 import { FooterComponent } from "../../layout/footer/footer.component";
 import { RouterModule } from '@angular/router';
-// import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-historial-pedidos',
@@ -17,8 +16,14 @@ import { RouterModule } from '@angular/router';
   styleUrl: './historial-pedidos.component.scss'
 })
 export class HistorialPedidosComponent implements OnInit {
-  pedidos: PedidoResponse[] = [];
   loading = false;
+
+  listarPedidos = signal<Array<PedidoResponse>>([]);
+
+  // Pagination
+  public pageSize = 5;
+  public lowIndex = 0;
+  public highIndex = this.pageSize;
 
   constructor(
     private pedidoService: PedidoService,
@@ -31,7 +36,7 @@ export class HistorialPedidosComponent implements OnInit {
       this.loading = true;
       this.pedidoService.obtenerPedidosPorUsuario(+usuarioId).subscribe({
         next: (data) => {
-          this.pedidos = data;
+          this.listarPedidos.set(data);
           this.loading = false;
         },
         error: (err) => {
@@ -46,4 +51,19 @@ export class HistorialPedidosComponent implements OnInit {
       (total, d) => total + (d.precioUnitario * d.cantidad), 0
     )
   }
+
+  nextPage() {
+    if (this.highIndex < this.listarPedidos().length) {
+      this.lowIndex += this.pageSize;
+      this.highIndex += this.pageSize;
+    }
+  }
+
+  prevPage() {
+    if (this.lowIndex > 0) {
+      this.lowIndex -= this.pageSize;
+      this.highIndex -= this.pageSize;
+    }
+  }
+
 }
