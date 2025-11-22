@@ -63,7 +63,11 @@
 .pedido-card {
   background: linear-gradient(135deg, #1f2937, #111827);
   border-radius: 12px;
-  padding: 1.5rem 2rem;
+  padding: 1.6rem 2rem;
+  max-width: 750px;
+  width: 100%;
+  margin: 1rem auto;
+
   color: white;
   border: 1px solid rgba(255, 255, 255, 0.08);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
@@ -82,6 +86,8 @@
   align-items: center;
 
   h4 {
+    color: #86efac;
+    font-weight: 700;
     margin: 0;
     font-size: 1.4rem;
   }
@@ -118,11 +124,13 @@
 
 /* ==== TOTAL ==== */
 .pedido-total {
+  text-align: right;
   margin-top: 1rem;
   font-size: 1.2rem;
 
   strong {
     color: #d1fae5;
+    margin-right: 10px;
   }
 
   span {

@@ -7,6 +7,7 @@ import { SolesPipe } from '../../../soles.pipe';
 import { NavbarComponent } from "../../layout/navbar/navbar.component";
 import { FooterComponent } from "../../layout/footer/footer.component";
 import { RouterModule } from '@angular/router';
+// import {MatPaginator} from '@angular/material/paginator';
 
 @Component({
   selector: 'app-historial-pedidos',
