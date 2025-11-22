@@ -122,10 +122,15 @@
   font-weight: bold;
 }
 
+.pedido-footer {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 /* ==== TOTAL ==== */
 .pedido-total {
-  text-align: right;
-  margin-top: 1rem;
   font-size: 1.2rem;
 
   strong {

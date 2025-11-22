@@ -68,12 +68,21 @@
               </div>
             </div>
 
-            <div class="pedido-total">
-              <strong>Total:</strong>
-              <span class="text-success">
-                {{ calcularTotal(pedido) | soles }}
-              </span>
+            <div class="pedido-footer">
+              <button class="btn btn-outline-success"
+                      (click)="comprarNuevamente(pedido)">
+                Comprar nuevamente
+              </button>
+
+              <div class="pedido-total">
+                <strong>Total:</strong>
+                <span class="text-success">
+                  {{ calcularTotal(pedido) | soles }}
+                </span>
+              </div>
             </div>
+
+
           </div>
         </div>
       </div>
