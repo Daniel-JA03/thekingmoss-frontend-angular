@@ -15,6 +15,7 @@ import { ProductoComponent } from './cliente/producto/producto.component';
 import { DetalleProductoComponent } from './cliente/detalle-producto/detalle-producto.component';
 import { CarritoComponent } from './cliente/carrito/carrito.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { HistorialPedidosComponent } from './cliente/pedido/historial-pedidos/historial-pedidos.component';
 
 
 export const routes: Routes = [
@@ -30,6 +31,7 @@ export const routes: Routes = [
   { path: 'producto', component: ProductoComponent },
   { path: 'productos/:id', component: DetalleProductoComponent },
   { path: 'carrito', component: CarritoComponent },
+  { path: 'historial-pedidos', component: HistorialPedidosComponent},
 
   // Rutas para ADMIN
   {

@@ -50,4 +50,9 @@ export class PedidoService {
     );
   }
 
+  // Obtener el historial de pedidos de un usuario
+  obtenerPedidosPorUsuario(usuarioId: number): Observable<PedidoResponse[]> {
+    return this.httpClient.get<PedidoResponse[]>(`${this.baseUrl}/usuario/${usuarioId}`);
+  }
+
 }
