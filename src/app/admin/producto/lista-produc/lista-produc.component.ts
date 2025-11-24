@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SolesPipe } from '../../../soles.pipe';
@@ -14,7 +14,7 @@ import { CrearProducComponent } from "../crear-produc/crear-produc.component";
 @Component({
   selector: 'app-lista-produc',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, SolesPipe, CrearProducComponent],
+  imports: [ReactiveFormsModule, SolesPipe, CrearProducComponent],
   templateUrl: './lista-produc.component.html',
   styleUrl: './lista-produc.component.scss',
 })

@@ -5,7 +5,7 @@
   tabindex="-1"
   aria-hidden="true"
   (hidden.bs.modal)="resetFormulario()"
->
+  >
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -23,88 +23,92 @@
       <div class="modal-body">
         <form [formGroup]="formDocumentoIdentidad" (ngSubmit)="guardarDocumentoIdentidad()">
           <div class="row g-3">
-          
+
             <!-- N° Documento Identidad -->
             <div class="col-md-6">
               <label for="numeroDocumentoIdentidad" class="form-label"
                 >N° Documento Identidad</label
-              >
-              <input
-                type="text"
-                id="numeroDocumentoIdentidad"
-                formControlName="numeroDocumentoIdentidad"
-                class="form-control"
-              />
-              <div
-                *ngIf="
-                  formDocumentoIdentidad.get('numeroDocumentoIdentidad')?.invalid &&
-                  formDocumentoIdentidad.get('numeroDocumentoIdentidad')?.touched
-                "
-                class="text-danger"
-              >
-                El campo N° Documento Identidad es obligatoria.
-              </div>
-            </div>
-
-            
-            <div class="col-md-6">
-              <label>ID Usuario</label>
-              <input
-                type="number"
-                class="form-control"
-                formControlName="usuarioId"
-              />
-              <div
-                *ngIf="
-                  formDocumentoIdentidad.get('usuarioId')?.invalid &&
-                  formDocumentoIdentidad.get('usuarioId')?.touched
-                "
-                class="text-danger"
-              >
-                El campo usuario es obligatorio.
-              </div>
-            </div>
-
-
-
-            <!-- Tipo Documento Identidad  -->
-            <div class="col-md-6">
-              <label>Tipo Documento Identidad</label>
-              
-              <select class="form-select" formControlName="tipoDocumentoIdentidad">
-                <option
-                  *ngFor="let tipodocIden of tipoDocumentoIdentidadKeys"
-                  [value]="tipodocIden"
                 >
-                  {{ tipodocIden }}
-                </option>
-              </select>
-              <div
-                *ngIf="
-                  formDocumentoIdentidad.get('tipoDocumentoIdentidad')?.invalid &&
-                    formDocumentoIdentidad.get('tipoDocumentoIdentidad')?.touched
-                "
-                class="text-danger"
-              >
-                El Tipo Documento Identidad es obligatorio.
-              </div>
+                <input
+                  type="text"
+                  id="numeroDocumentoIdentidad"
+                  formControlName="numeroDocumentoIdentidad"
+                  class="form-control"
+                  />
+                  @if (
+                    formDocumentoIdentidad.get('numeroDocumentoIdentidad')?.invalid &&
+                    formDocumentoIdentidad.get('numeroDocumentoIdentidad')?.touched
+                    ) {
+                    <div
+                      class="text-danger"
+                      >
+                      El campo N° Documento Identidad es obligatoria.
+                    </div>
+                  }
+                </div>
+
+
+                <div class="col-md-6">
+                  <label>ID Usuario</label>
+                  <input
+                    type="number"
+                    class="form-control"
+                    formControlName="usuarioId"
+                    />
+                    @if (
+                      formDocumentoIdentidad.get('usuarioId')?.invalid &&
+                      formDocumentoIdentidad.get('usuarioId')?.touched
+                      ) {
+                      <div
+                        class="text-danger"
+                        >
+                        El campo usuario es obligatorio.
+                      </div>
+                    }
+                  </div>
+
+
+
+                  <!-- Tipo Documento Identidad  -->
+                  <div class="col-md-6">
+                    <label>Tipo Documento Identidad</label>
+
+                    <select class="form-select" formControlName="tipoDocumentoIdentidad">
+                      @for (tipodocIden of tipoDocumentoIdentidadKeys; track tipodocIden) {
+                        <option
+                          [value]="tipodocIden"
+                          >
+                          {{ tipodocIden }}
+                        </option>
+                      }
+                    </select>
+                    @if (
+                      formDocumentoIdentidad.get('tipoDocumentoIdentidad')?.invalid &&
+                      formDocumentoIdentidad.get('tipoDocumentoIdentidad')?.touched
+                      ) {
+                      <div
+                        class="text-danger"
+                        >
+                        El Tipo Documento Identidad es obligatorio.
+                      </div>
+                    }
+                  </div>
+                </div>
+
+                <div class="mt-4 text-end">
+                  <button
+                    type="button"
+                    class="btn btn-secondary me-2"
+                    data-bs-dismiss="modal"
+                    >
+                    Cancelar
+                  </button>
+                  <button type="submit" class="btn btn-primary">
+                    {{ documentoIdentidadSeleccionado ? "Actualizar" : "Guardar" }}
+                  </button>
+                </div>
+              </form>
             </div>
           </div>
-
-          <div class="mt-4 text-end">
-            <button
-              type="button"
-              class="btn btn-secondary me-2"
-              data-bs-dismiss="modal"
-            >
-              Cancelar
-            </button>
-            <button type="submit" class="btn btn-primary">
-              {{ documentoIdentidadSeleccionado ? "Actualizar" : "Guardar" }}
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
-    </div>
-  </div>
-</div>

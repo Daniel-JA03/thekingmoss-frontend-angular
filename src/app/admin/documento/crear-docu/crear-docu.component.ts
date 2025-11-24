@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -24,7 +24,7 @@ import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-crear-docu',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './crear-docu.component.html',
   styleUrl: './crear-docu.component.scss',
 })

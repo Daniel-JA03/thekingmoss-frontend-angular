@@ -13,41 +13,44 @@
   <h2>Todos los Productos</h2>
 
   <!-- Mensaje de carga -->
-  <div *ngIf="productosDestacados.length === 0; else productosTemplate" class="text-center py-4">
-    <div class="spinner-border text-success" role="status">
-      <span class="visually-hidden">Cargando productos...</span>
-    </div>
-    <p class="mt-2">Cargando productos...</p>
-  </div>
-
-  <!-- Grid de productos -->
-  <ng-template #productosTemplate>
-    <div class="productos-grid">
-      <div class="producto-card" *ngFor="let producto of productosDestacados">
-        <!-- Imagen del producto -->
-        <img
-          [src]="producto.imagenUrl"
-          [alt]="producto.nombreProducto"
-          (error)="handleImageError($event)"
-        />
-        <!-- Nombre -->
-        <h3>{{ producto.nombreProducto }}</h3>
-        <!-- Descripción -->
-        <p>{{ producto.descripcion || 'Sin descripción' }}</p>
-        <!-- Precio -->
-        <p><strong>{{ producto.precioUnitario | soles }}</strong></p>
-        <!-- Acciones -->
-        <div class="card-actions">
-          <button class="btn-view" [routerLink]="['/productos', producto.idProducto]">
-            Ver producto
-          </button>
-          <button class="btn-add" (click)="addToCart(producto)">
-            <i class="bi bi-cart-plus"></i> Añadir
-          </button>
-        </div>
+  @if (productosDestacados.length === 0) {
+    <div class="text-center py-4">
+      <div class="spinner-border text-success" role="status">
+        <span class="visually-hidden">Cargando productos...</span>
       </div>
+      <p class="mt-2">Cargando productos...</p>
     </div>
-  </ng-template>
-</section>
+  } @else {
+    <div class="productos-grid">
+      @for (producto of productosDestacados; track producto) {
+        <div class="producto-card">
+          <!-- Imagen del producto -->
+          <img
+            [src]="producto.imagenUrl"
+            [alt]="producto.nombreProducto"
+            (error)="handleImageError($event)"
+            />
+            <!-- Nombre -->
+            <h3>{{ producto.nombreProducto }}</h3>
+            <!-- Descripción -->
+            <p>{{ producto.descripcion || 'Sin descripción' }}</p>
+            <!-- Precio -->
+            <p><strong>{{ producto.precioUnitario | soles }}</strong></p>
+            <!-- Acciones -->
+            <div class="card-actions">
+              <button class="btn-view" [routerLink]="['/productos', producto.idProducto]">
+                Ver producto
+              </button>
+              <button class="btn-add" (click)="addToCart(producto)">
+                <i class="bi bi-cart-plus"></i> Añadir
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
 
-<app-footer></app-footer>
+    <!-- Grid de productos -->
+  </section>
+
+  <app-footer></app-footer>

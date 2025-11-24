@@ -5,71 +5,69 @@
     <h2 class="title">Detalle del Producto</h2>
 
     <!-- Tarjeta de Producto -->
-    <div class="producto-card" *ngIf="productoSeleccionado; else noProducto">
-      <div class="row align-items-center">
-        <div class="col-md-6">
-          <!-- Imagen principal -->
-          <img 
-            [src]="productoSeleccionado.imagenUrl" 
-            alt="{{ productoSeleccionado.nombreProducto }}" 
-            class="img-fluid mb-3"
-            style="max-height: 400px; object-fit: cover; border-radius: 8px;"
-            (error)="handleImageError($event)"
-          />
-        </div>
-        <div class="col-md-6">
-          <!-- Información del producto -->
-          <h3>{{ productoSeleccionado.nombreProducto }}</h3>
-          <p><strong>Precio Unitario:</strong> {{ productoSeleccionado.precioUnitario | soles }}</p>
-          <p><strong>Categoría:</strong> {{ productoSeleccionado.nombreCategoria }}</p>
-          <p><strong>Stock disponible:</strong> {{ productoSeleccionado.stock }}</p>
-          <p><strong>Descripción:</strong> {{ productoSeleccionado.descripcion || 'Sin descripción' }}</p>
-
-          <!-- Contador de cantidad -->
-          <div class="quantity-control mb-3">
-            <label class="text-black"><strong>Cantidad:</strong></label>
-            <div class="d-flex align-items-center gap-3 mt-2">
-              <button 
-                class="btn btn-outline-success" 
-                (click)="cambiarCantidad(-1)" 
-                [disabled]="cantidad <= 1">
-                -
-              </button>
-              <span class="fs-5 fw-bold text-dark">{{ cantidad }}</span>
-              <button 
-                class="btn btn-outline-success" 
-                (click)="cambiarCantidad(1)" 
-                [disabled]="cantidad >= productoSeleccionado.stock">
-                +
-              </button>
+    @if (productoSeleccionado) {
+      <div class="producto-card">
+        <div class="row align-items-center">
+          <div class="col-md-6">
+            <!-- Imagen principal -->
+            <img
+              [src]="productoSeleccionado.imagenUrl"
+              alt="{{ productoSeleccionado.nombreProducto }}"
+              class="img-fluid mb-3"
+              style="max-height: 400px; object-fit: cover; border-radius: 8px;"
+              (error)="handleImageError($event)"
+              />
+            </div>
+            <div class="col-md-6">
+              <!-- Información del producto -->
+              <h3>{{ productoSeleccionado.nombreProducto }}</h3>
+              <p><strong>Precio Unitario:</strong> {{ productoSeleccionado.precioUnitario | soles }}</p>
+              <p><strong>Categoría:</strong> {{ productoSeleccionado.nombreCategoria }}</p>
+              <p><strong>Stock disponible:</strong> {{ productoSeleccionado.stock }}</p>
+              <p><strong>Descripción:</strong> {{ productoSeleccionado.descripcion || 'Sin descripción' }}</p>
+              <!-- Contador de cantidad -->
+              <div class="quantity-control mb-3">
+                <label class="text-black"><strong>Cantidad:</strong></label>
+                <div class="d-flex align-items-center gap-3 mt-2">
+                  <button
+                    class="btn btn-outline-success"
+                    (click)="cambiarCantidad(-1)"
+                    [disabled]="cantidad <= 1">
+                    -
+                  </button>
+                  <span class="fs-5 fw-bold text-dark">{{ cantidad }}</span>
+                  <button
+                    class="btn btn-outline-success"
+                    (click)="cambiarCantidad(1)"
+                    [disabled]="cantidad >= productoSeleccionado.stock">
+                    +
+                  </button>
+                </div>
+              </div>
+              <!-- Precio total -->
+              <p class="fw-bold fs-4 text-success">
+                Total: {{ (productoSeleccionado.precioUnitario * cantidad) | soles }}
+              </p>
+              <!-- Acciones -->
+              <div class="card-actions">
+                <button class="btn-view" routerLink="/producto">
+                  Ver en catálogo
+                </button>
+                <button class="btn-add" (click)="addToCart()">
+                  <i class="bi bi-cart-plus"></i> Añadir al Carrito
+                </button>
+              </div>
             </div>
           </div>
-
-          <!-- Precio total -->
-          <p class="fw-bold fs-4 text-success">
-            Total: {{ (productoSeleccionado.precioUnitario * cantidad) | soles }}
-          </p>
-
-          <!-- Acciones -->
-          <div class="card-actions">
-            <button class="btn-view" routerLink="/producto">
-              Ver en catálogo
-            </button>
-            <button class="btn-add" (click)="addToCart()">
-              <i class="bi bi-cart-plus"></i> Añadir al Carrito
-            </button>
-          </div>
         </div>
-      </div>
+      } @else {
+        <div class="text-center py-4">
+          <p>No se ha seleccionado ningún producto.</p>
+        </div>
+      }
+
+      <!-- Mensaje si no hay producto seleccionado -->
     </div>
+  </section>
 
-    <!-- Mensaje si no hay producto seleccionado -->
-    <ng-template #noProducto>
-      <div class="text-center py-4">
-        <p>No se ha seleccionado ningún producto.</p>
-      </div>
-    </ng-template>
-  </div>
-</section>
-
-<app-footer></app-footer>
+  <app-footer></app-footer>

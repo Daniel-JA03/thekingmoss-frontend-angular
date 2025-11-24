@@ -15,104 +15,106 @@
       <div class="col-lg-10">
 
         <!-- Mensaje de carga -->
-        <div *ngIf="loading" class="text-center py-5">
-          <div class="spinner-border text-success" role="status">
-            <span class="visually-hidden">Cargando...</span>
+        @if (loading) {
+          <div class="text-center py-5">
+            <div class="spinner-border text-success" role="status">
+              <span class="visually-hidden">Cargando...</span>
+            </div>
+            <p class="mt-3 text-light">Cargando tu historial...</p>
           </div>
-          <p class="mt-3 text-light">Cargando tu historial...</p>
-        </div>
+        }
 
         <!-- Sin pedidos -->
-        <div
-          *ngIf="!loading && listarPedidos().length === 0"
-          class="no-pedidos text-center py-5"
-        >
-          <i class="bi bi-cart-x icon-no-pedidos"></i>
-          <h3 class="mt-3">No tienes pedidos aún</h3>
-          <p class="text-muted">
-            ¡Explora nuestros musgos y empieza tu primera compra!
-          </p>
-          <button class="btn btn-outline-success mt-3" routerLink="/producto">
-            Ver productos
-          </button>
-        </div>
+        @if (!loading && listarPedidos().length === 0) {
+          <div
+            class="no-pedidos text-center py-5"
+            >
+            <i class="bi bi-cart-x icon-no-pedidos"></i>
+            <h3 class="mt-3">No tienes pedidos aún</h3>
+            <p class="text-muted">
+              ¡Explora nuestros musgos y empieza tu primera compra!
+            </p>
+            <button class="btn btn-outline-success mt-3" routerLink="/producto">
+              Ver productos
+            </button>
+          </div>
+        }
 
         <!-- Lista de pedidos paginada -->
-        <div *ngIf="!loading && listarPedidos().length > 0" class="pedidos-lista">
-          <div
-            class="pedido-card"
-            *ngFor="let pedido of listarPedidos() | slice : lowIndex : highIndex"
-          >
-            <div class="pedido-header">
-              <h4>
-                Pedido {{ pedido.tipoEntrega | titlecase }} –
-                {{ pedido.fechaPedido | date : 'dd/MM/yyyy' }}
-              </h4>
-              <span class="badge bg-success">
-                {{ pedido.tipoEstadoPedido | uppercase }}
-              </span>
-            </div>
-
-            <p class="text-muted">
-              {{ pedido.fechaPedido | date : 'dd/MM/yyyy HH:mm' }}
-            </p>
-
-            <div class="pedido-detalles">
-              <div class="detalle-item" *ngFor="let d of pedido.detalle">
-                <div class="detalle-info">
-                  <strong>{{ d.nombreProducto }} ({{ d.cantidad }})</strong>
+        @if (!loading && listarPedidos().length > 0) {
+          <div class="pedidos-lista">
+            @for (pedido of listarPedidos() | slice : lowIndex : highIndex; track pedido) {
+              <div
+                class="pedido-card"
+                >
+                <div class="pedido-header">
+                  <h4>
+                    Pedido {{ pedido.tipoEntrega | titlecase }} –
+                    {{ pedido.fechaPedido | date : 'dd/MM/yyyy' }}
+                  </h4>
+                  <span class="badge bg-success">
+                    {{ pedido.tipoEstadoPedido | uppercase }}
+                  </span>
                 </div>
-                <span class="detalle-precio">
-                  {{ d.precioUnitario | soles }}
-                </span>
+                <p class="text-muted">
+                  {{ pedido.fechaPedido | date : 'dd/MM/yyyy HH:mm' }}
+                </p>
+                <div class="pedido-detalles">
+                  @for (d of pedido.detalle; track d) {
+                    <div class="detalle-item">
+                      <div class="detalle-info">
+                        <strong>{{ d.nombreProducto }} ({{ d.cantidad }})</strong>
+                      </div>
+                      <span class="detalle-precio">
+                        {{ d.precioUnitario | soles }}
+                      </span>
+                    </div>
+                  }
+                </div>
+                <div class="pedido-footer">
+                  <button class="btn btn-outline-success"
+                    (click)="comprarNuevamente(pedido)">
+                    Comprar nuevamente
+                  </button>
+                  <div class="pedido-total">
+                    <strong>Total:</strong>
+                    <span class="text-success">
+                      {{ calcularTotal(pedido) | soles }}
+                    </span>
+                  </div>
+                </div>
               </div>
-            </div>
-
-            <div class="pedido-footer">
-              <button class="btn btn-outline-success"
-                      (click)="comprarNuevamente(pedido)">
-                Comprar nuevamente
-              </button>
-
-              <div class="pedido-total">
-                <strong>Total:</strong>
-                <span class="text-success">
-                  {{ calcularTotal(pedido) | soles }}
-                </span>
-              </div>
-            </div>
-
-
+            }
           </div>
-        </div>
+        }
       </div>
     </div>
   </div>
 
   <!-- Paginación -->
-  <div class="pagination-container" *ngIf="listarPedidos().length > pageSize">
-  <button 
-    class="page-btn" 
-    [disabled]="lowIndex === 0"
-    (click)="prevPage()"
-  >
-    ‹ Anterior
-  </button>
-
-  <span class="page-info">
-    {{ lowIndex + 1 }} – 
-    {{ highIndex > listarPedidos().length ? listarPedidos().length : highIndex }} 
-    de {{ listarPedidos().length }}
-  </span>
-
-  <button 
-    class="page-btn" 
-    [disabled]="highIndex >= listarPedidos().length"
-    (click)="nextPage()"
-  >
-    Siguiente ›
-  </button>
-</div>
+  @if (listarPedidos().length > pageSize) {
+    <div class="pagination-container">
+      <button
+        class="page-btn"
+        [disabled]="lowIndex === 0"
+        (click)="prevPage()"
+        >
+        ‹ Anterior
+      </button>
+      <span class="page-info">
+        {{ lowIndex + 1 }} –
+        {{ highIndex > listarPedidos().length ? listarPedidos().length : highIndex }}
+        de {{ listarPedidos().length }}
+      </span>
+      <button
+        class="page-btn"
+        [disabled]="highIndex >= listarPedidos().length"
+        (click)="nextPage()"
+        >
+        Siguiente ›
+      </button>
+    </div>
+  }
 
 </section>
 

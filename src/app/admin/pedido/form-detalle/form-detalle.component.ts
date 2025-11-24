@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { PedidoResponse } from '../../../interface/entities/pedido.interface';
@@ -7,7 +7,7 @@ import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-form-detalle',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './form-detalle.component.html',
   styleUrl: './form-detalle.component.scss'
 })
