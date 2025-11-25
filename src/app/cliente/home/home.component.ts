@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../layout/navbar/navbar.component';
 import { Router, RouterModule } from '@angular/router';
@@ -15,7 +15,7 @@ import { AuthService } from '../../auth/services/auth.service';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, RouterModule, FooterComponent, SolesPipe],
+  imports: [NavbarComponent, RouterModule, FooterComponent, SolesPipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss'
 })

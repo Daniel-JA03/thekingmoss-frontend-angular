@@ -5,7 +5,7 @@
   tabindex="-1"
   aria-hidden="true"
   (hidden.bs.modal)="resetFormulario()"
->
+  >
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -27,143 +27,150 @@
             <div class="col-md-6">
               <label for="fechaPedido" class="form-label"
                 >Fecha de Pedido</label
-              >
-              <input
-                type="datetime-local"
-                id="fechaPedido"
-                formControlName="fechaPedido"
-                class="form-control"
-              />
-              <div
-                *ngIf="
-                  formPedido.get('fechaPedido')?.invalid &&
-                  formPedido.get('fechaPedido')?.touched
-                "
-                class="text-danger"
-              >
-                La fecha de pedido es obligatoria.
-              </div>
-            </div>
-
-            <!-- Tipo Entrega -->
-            <div class="col-md-6">
-              <label for="tipoEntrega" class="form-label">Tipo Entrega</label>
-              <input
-                type="text"
-                id="tipoEntrega"
-                formControlName="tipoEntrega"
-                class="form-control"
-              />
-              <div
-                *ngIf="
-                  formPedido.get('tipoEntrega')?.invalid &&
-                  formPedido.get('tipoEntrega')?.touched
-                "
-                class="text-danger"
-              >
-                El tipo de entrega es obligatorio.
-              </div>
-            </div>
-
-            <!-- Información del Pedido -->
-            <div class="col-md-6">
-              <label for="informacionPedido" class="form-label"
-                >Información del Pedido</label
-              >
-              <input
-                type="text"
-                id="informacionPedido"
-                formControlName="informacionPedido"
-                class="form-control"
-              />
-              <div
-                *ngIf="
-                  formPedido.get('informacionPedido')?.invalid &&
-                  formPedido.get('informacionPedido')?.touched
-                "
-                class="text-danger"
-              >
-                La información del pedido es obligatoria.
-              </div>
-            </div>
-
-            <!-- Instrucción de Entrega -->
-            <div class="col-md-6">
-              <label for="instruccionEntrega" class="form-label"
-                >Instrucción del Pedido</label
-              >
-              <input
-                type="text"
-                id="instruccionEntrega"
-                formControlName="instruccionEntrega"
-                class="form-control"
-              />
-              <div
-                *ngIf="
-                  formPedido.get('instruccionEntrega')?.invalid &&
-                  formPedido.get('instruccionEntrega')?.touched
-                "
-                class="text-danger"
-              >
-                La instrucción del pedido es obligatoria.
-              </div>
-            </div>
-
-            <!-- Tipo Estado Pedido -->
-            <div class="col-md-12">
-              <label>Estado del Pedido</label>
-              <select class="form-select" formControlName="tipoEstadoPedido">
-                <option
-                  *ngFor="let estado of estadoPedidoKeys"
-                  [value]="estado"
                 >
-                  {{ estado }}
-                </option>
-              </select>
-              <div
-                *ngIf="
-                  formPedido.get('tipoEstadoPedido')?.invalid &&
-                  formPedido.get('tipoEstadoPedido')?.touched
-                "
-                class="text-danger"
-              >
-                El Estado del Pedido es obligatorio.
-              </div>
-            </div>
+                <input
+                  type="datetime-local"
+                  id="fechaPedido"
+                  formControlName="fechaPedido"
+                  class="form-control"
+                  />
+                  @if (
+                    formPedido.get('fechaPedido')?.invalid &&
+                    formPedido.get('fechaPedido')?.touched
+                    ) {
+                    <div
+                      class="text-danger"
+                      >
+                      La fecha de pedido es obligatoria.
+                    </div>
+                  }
+                </div>
 
-            <div class="mb-3">
-              <label>ID Usuario</label>
-              <input
-                type="number"
-                class="form-control"
-                formControlName="usuarioId"
-              />
-              <div
-                *ngIf="
-                  formPedido.get('usuarioId')?.invalid &&
-                  formPedido.get('usuarioId')?.touched
-                "
-                class="text-danger"
-              >
-                El campo usuario es obligatorio.
-              </div>
-            </div>
-          </div>
+                <!-- Tipo Entrega -->
+                <div class="col-md-6">
+                  <label for="tipoEntrega" class="form-label">Tipo Entrega</label>
+                  <input
+                    type="text"
+                    id="tipoEntrega"
+                    formControlName="tipoEntrega"
+                    class="form-control"
+                    />
+                    @if (
+                      formPedido.get('tipoEntrega')?.invalid &&
+                      formPedido.get('tipoEntrega')?.touched
+                      ) {
+                      <div
+                        class="text-danger"
+                        >
+                        El tipo de entrega es obligatorio.
+                      </div>
+                    }
+                  </div>
 
-          <div class="mt-4 text-end">
-            <button
-              type="button"
-              class="btn btn-secondary me-2"
-              data-bs-dismiss="modal"
-            >
-              Cancelar
-            </button>
-            <button type="submit" class="btn btn-primary">
-              {{ pedidoSeleccionado ? "Actualizar" : "Guardar" }}
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+                  <!-- Información del Pedido -->
+                  <div class="col-md-6">
+                    <label for="informacionPedido" class="form-label"
+                      >Información del Pedido</label
+                      >
+                      <input
+                        type="text"
+                        id="informacionPedido"
+                        formControlName="informacionPedido"
+                        class="form-control"
+                        />
+                        @if (
+                          formPedido.get('informacionPedido')?.invalid &&
+                          formPedido.get('informacionPedido')?.touched
+                          ) {
+                          <div
+                            class="text-danger"
+                            >
+                            La información del pedido es obligatoria.
+                          </div>
+                        }
+                      </div>
+
+                      <!-- Instrucción de Entrega -->
+                      <div class="col-md-6">
+                        <label for="instruccionEntrega" class="form-label"
+                          >Instrucción del Pedido</label
+                          >
+                          <input
+                            type="text"
+                            id="instruccionEntrega"
+                            formControlName="instruccionEntrega"
+                            class="form-control"
+                            />
+                            @if (
+                              formPedido.get('instruccionEntrega')?.invalid &&
+                              formPedido.get('instruccionEntrega')?.touched
+                              ) {
+                              <div
+                                class="text-danger"
+                                >
+                                La instrucción del pedido es obligatoria.
+                              </div>
+                            }
+                          </div>
+
+                          <!-- Tipo Estado Pedido -->
+                          <div class="col-md-12">
+                            <label>Estado del Pedido</label>
+                            <select class="form-select" formControlName="tipoEstadoPedido">
+                              @for (estado of estadoPedidoKeys; track estado) {
+                                <option
+                                  [value]="estado"
+                                  >
+                                  {{ estado }}
+                                </option>
+                              }
+                            </select>
+                            @if (
+                              formPedido.get('tipoEstadoPedido')?.invalid &&
+                              formPedido.get('tipoEstadoPedido')?.touched
+                              ) {
+                              <div
+                                class="text-danger"
+                                >
+                                El Estado del Pedido es obligatorio.
+                              </div>
+                            }
+                          </div>
+
+                          <div class="mb-3">
+                            <label>ID Usuario</label>
+                            <input
+                              type="number"
+                              class="form-control"
+                              formControlName="usuarioId"
+                              />
+                              @if (
+                                formPedido.get('usuarioId')?.invalid &&
+                                formPedido.get('usuarioId')?.touched
+                                ) {
+                                <div
+                                  class="text-danger"
+                                  >
+                                  El campo usuario es obligatorio.
+                                </div>
+                              }
+                            </div>
+                          </div>
+
+                          <div class="mt-4 text-end">
+                            <button
+                              type="button"
+                              class="btn btn-secondary me-2"
+                              data-bs-dismiss="modal"
+                              >
+                              Cancelar
+                            </button>
+                            <button type="submit" class="btn btn-primary">
+                              {{ pedidoSeleccionado ? "Actualizar" : "Guardar" }}
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>

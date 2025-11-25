@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from "../layout/navbar/navbar.component";
 import { FooterComponent } from "../layout/footer/footer.component";
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { ProductoCard, ProductoResponse } from '../../interface/entities/producto.interface';
 import { ProductoImagenResponse } from '../../interface/entities/producto-imagen.interface';
@@ -14,7 +14,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-producto',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, FooterComponent, RouterModule, SolesPipe],
+  imports: [NavbarComponent, FooterComponent, RouterModule, SolesPipe],
   templateUrl: './producto.component.html',
   styleUrl: './producto.component.scss'
 })

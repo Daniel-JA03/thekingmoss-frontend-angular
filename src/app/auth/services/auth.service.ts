@@ -22,6 +22,7 @@ export class AuthService {
         localStorage.setItem('token', response.token);
         localStorage.setItem('usuarioId', response.usuarioId);
         localStorage.setItem('username', response.username);
+        localStorage.setItem('email', response.email);
         localStorage.setItem('roles', JSON.stringify(response.roles));
       })
     )
@@ -51,5 +52,9 @@ export class AuthService {
 
   getUserId(): string | null {
     return localStorage.getItem('usuarioId');
+  }
+
+  getEmail(): string | null {
+    return localStorage.getItem('email');
   }
 }

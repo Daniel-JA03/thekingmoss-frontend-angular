@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { NavbarComponent } from '../layout/navbar/navbar.component';
 import { FooterComponent } from '../layout/footer/footer.component';
@@ -15,7 +15,7 @@ import { AuthService } from '../../auth/services/auth.service';
 @Component({
   selector: 'app-detalle-producto',
   standalone: true,
-  imports: [CommonModule, NavbarComponent, FooterComponent, RouterModule, SolesPipe],
+  imports: [NavbarComponent, FooterComponent, RouterModule, SolesPipe],
   templateUrl: './detalle-producto.component.html',
   styleUrl: './detalle-producto.component.scss'
 })

@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import {
   Component,
   EventEmitter,
@@ -24,7 +24,7 @@ import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-crear-ped',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './crear-ped.component.html',
   styleUrl: './crear-ped.component.scss',
 })

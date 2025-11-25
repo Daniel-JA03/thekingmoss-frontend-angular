@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { RouterModule, RouterOutlet } from '@angular/router';
@@ -9,7 +9,7 @@ import { CarritoService } from '../../cliente/carrito/services/carrito.service';
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [RouterOutlet, RouterModule, CommonModule, HttpClientModule],
+  imports: [RouterOutlet, RouterModule, HttpClientModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })

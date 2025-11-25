@@ -74,7 +74,7 @@
                 class="contact-form"
                 [formGroup]="formContacto"
                 (ngSubmit)="enviarFormulario()"
-              >
+                >
                 <div class="form-group">
                   <label>Nombre</label>
                   <input
@@ -82,89 +82,92 @@
                     class="form-control"
                     formControlName="nombre"
                     placeholder="Tu nombre"
-                  />
-                  <small
-                    class="text-danger"
-                    *ngIf="
+                    />
+                    @if (
                       formContacto.get('nombre')?.invalid &&
                       formContacto.get('nombre')?.touched
-                    "
-                  >
-                    Nombre es requerido.
-                  </small>
-                </div>
+                      ) {
+                      <small
+                        class="text-danger"
+                        >
+                        Nombre es requerido.
+                      </small>
+                    }
+                  </div>
 
-                <div class="form-group">
-                  <label>Email</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    formControlName="email"
-                    placeholder="tu@correo.com"
-                  />
-                  <small
-                    class="text-danger"
-                    *ngIf="
-                      formContacto.get('email')?.invalid &&
-                      formContacto.get('email')?.touched
-                    "
-                  >
-                    Email válido es requerido.
-                  </small>
-                </div>
+                  <div class="form-group">
+                    <label>Email</label>
+                    <input
+                      type="email"
+                      class="form-control"
+                      formControlName="email"
+                      placeholder="tu@correo.com"
+                      />
+                      @if (
+                        formContacto.get('email')?.invalid &&
+                        formContacto.get('email')?.touched
+                        ) {
+                        <small
+                          class="text-danger"
+                          >
+                          Email válido es requerido.
+                        </small>
+                      }
+                    </div>
 
-                <div class="form-group">
-                  <label>Asunto</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    formControlName="asunto"
-                    placeholder="Consulta, pedido, etc."
-                  />
-                </div>
+                    <div class="form-group">
+                      <label>Asunto</label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        formControlName="asunto"
+                        placeholder="Consulta, pedido, etc."
+                        />
+                      </div>
 
-                <div class="form-group">
-                  <label>Mensaje</label>
-                  <textarea
-                    class="form-control"
-                    formControlName="mensaje"
-                    rows="5"
-                    placeholder="Escribe tu mensaje aquí..."
-                  ></textarea>
-                  <small
-                    class="text-danger"
-                    *ngIf="
-                      formContacto.get('mensaje')?.invalid &&
-                      formContacto.get('mensaje')?.touched
-                    "
-                  >
-                    Mensaje es requerido.
-                  </small>
-                </div>
+                      <div class="form-group">
+                        <label>Mensaje</label>
+                        <textarea
+                          class="form-control"
+                          formControlName="mensaje"
+                          rows="5"
+                          placeholder="Escribe tu mensaje aquí..."
+                        ></textarea>
+                        @if (
+                          formContacto.get('mensaje')?.invalid &&
+                          formContacto.get('mensaje')?.touched
+                          ) {
+                          <small
+                            class="text-danger"
+                            >
+                            Mensaje es requerido.
+                          </small>
+                        }
+                      </div>
 
-                <button
-                  type="submit"
-                  class="btn-submit"
-                  [disabled]="formContacto.invalid"
-                >
-                  <i class="bi bi-send"></i> Enviar Mensaje
-                </button>
-              </form>
+                      <button
+                        type="submit"
+                        class="btn-submit"
+                        [disabled]="formContacto.invalid"
+                        >
+                        <i class="bi bi-send"></i> Enviar Mensaje
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Mapa (opcional) -->
+              <div class="map-section">
+                <h3>Encuéntranos</h3>
+                <div class="map-placeholder">
+                  <!-- Aquí puedes integrar Google Maps más adelante -->
+                  <p>Ubicación en Lima, Perú</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+      </section>
 
-        <!-- Mapa (opcional) -->
-        <div class="map-section">
-          <h3>Encuéntranos</h3>
-          <div class="map-placeholder">
-            <!-- Aquí puedes integrar Google Maps más adelante -->
-            <p>Ubicación en Lima, Perú</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<app-footer></app-footer>
+      <app-footer></app-footer>

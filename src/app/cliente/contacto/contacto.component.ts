@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavbarComponent } from "../layout/navbar/navbar.component";
 import { FooterComponent } from "../layout/footer/footer.component";
-import { CommonModule } from '@angular/common';
+
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { ContactoRequest } from '../../interface/entities/contacto.interface';
@@ -10,7 +10,7 @@ import { ContactoService } from '../../admin/contacto/services/contacto.service'
 @Component({
   selector: 'app-contacto',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule ,NavbarComponent, FooterComponent],
+  imports: [ReactiveFormsModule, NavbarComponent, FooterComponent],
   templateUrl: './contacto.component.html',
   styleUrl: './contacto.component.scss'
 })

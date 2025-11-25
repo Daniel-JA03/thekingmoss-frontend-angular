@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CrearCatComponent } from '../crear-cat/crear-cat.component';
@@ -10,7 +10,7 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-lista-cat',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, CrearCatComponent],
+  imports: [ReactiveFormsModule, CrearCatComponent],
   templateUrl: './lista-cat.component.html',
   styleUrl: './lista-cat.component.scss'
 })

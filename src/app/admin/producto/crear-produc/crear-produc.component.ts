@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ProductoRequest, ProductoResponse } from '../../../interface/entities/producto.interface';
@@ -12,7 +12,7 @@ import { Modal } from 'bootstrap';
 @Component({
   selector: 'app-crear-produc',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './crear-produc.component.html',
   styleUrl: './crear-produc.component.scss'
 })

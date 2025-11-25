@@ -6,7 +6,7 @@ import { PedidoService } from '../../pedido/services/pedido.service';
 import { PedidoResponse, TipoEstadoPedido } from '../../../interface/entities/pedido.interface';
 import Swal from 'sweetalert2';
 import { ProductoImagenService } from '../../producto/services/producto-imagen.service';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { CrearProducComponent } from '../../producto/crear-produc/crear-produc.component';
 
@@ -17,7 +17,7 @@ import { ContactoResponse } from '../../../interface/entities/contacto.interface
 @Component({
   selector: 'app-dashboard-home',
   standalone: true,
-  imports: [CommonModule, RouterModule, CrearProducComponent],
+  imports: [RouterModule, CrearProducComponent],
   templateUrl: './dashboard-home.component.html',
   styleUrl: './dashboard-home.component.scss'
 })

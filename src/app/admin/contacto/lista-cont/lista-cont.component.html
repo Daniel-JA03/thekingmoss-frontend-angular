@@ -29,43 +29,47 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let msg of mensajesFiltrados" [class.table-warning]="msg.estado === 'NUEVO'">
-          <td>
-            <span class="estado-badge" [class.activo]="msg.estado === 'LEIDO'" [class.desactivo]="msg.estado === 'NUEVO'">
-              <span class="badge-circle"></span>
-              {{ msg.estado === 'LEIDO' ? 'Leído' : 'Nuevo' }}
-            </span>
-          </td>
-          <td>{{ msg.nombre }}</td>
-          <td>{{ msg.email }}</td>
-          <td>{{ msg.asunto || 'Sin asunto' }}</td>
-          <td class="text-truncate clickable" style="max-width: 300px;" (click)="abrirModalMensaje(msg)">
-            {{ msg.mensaje }}
-          </td>
-          <td>{{ msg.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}</td>
-          <td class="col-actions">
-            <button class="btn btn-sm" 
-                    [class.btn-success]="msg.estado === 'LEIDO'" 
-                    [class.btn-secondary]="msg.estado === 'NUEVO'" 
-                    (click)="marcarComoLeido(msg)"
-                    [attr.aria-label]="msg.estado === 'LEIDO' ? 'Marcar como no leído' : 'Marcar como leído'">
-              <i class="bi" 
-                [class.bi-envelope-check]="msg.estado === 'LEIDO'" 
+        @for (msg of mensajesFiltrados; track msg) {
+          <tr [class.table-warning]="msg.estado === 'NUEVO'">
+            <td>
+              <span class="estado-badge" [class.activo]="msg.estado === 'LEIDO'" [class.desactivo]="msg.estado === 'NUEVO'">
+                <span class="badge-circle"></span>
+                {{ msg.estado === 'LEIDO' ? 'Leído' : 'Nuevo' }}
+              </span>
+            </td>
+            <td>{{ msg.nombre }}</td>
+            <td>{{ msg.email }}</td>
+            <td>{{ msg.asunto || 'Sin asunto' }}</td>
+            <td class="text-truncate clickable" style="max-width: 300px;" (click)="abrirModalMensaje(msg)">
+              {{ msg.mensaje }}
+            </td>
+            <td>{{ msg.fechaCreacion | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td class="col-actions">
+              <button class="btn btn-sm"
+                [class.btn-success]="msg.estado === 'LEIDO'"
+                [class.btn-secondary]="msg.estado === 'NUEVO'"
+                (click)="marcarComoLeido(msg)"
+                [attr.aria-label]="msg.estado === 'LEIDO' ? 'Marcar como no leído' : 'Marcar como leído'">
+                <i class="bi"
+                  [class.bi-envelope-check]="msg.estado === 'LEIDO'"
                 [class.bi-envelope]="msg.estado === 'NUEVO'"></i>
-            </button>
-            <button class="btn btn-sm btn-info text-white" 
-                    (click)="responderMensaje(msg)"
-                    aria-label="Responder mensaje">
-              <i class="bi bi-reply"></i>
-            </button>
-          </td>
-        </tr>
+              </button>
+              <button class="btn btn-sm btn-info text-white"
+                (click)="responderMensaje(msg)"
+                aria-label="Responder mensaje">
+                <i class="bi bi-reply"></i>
+              </button>
+            </td>
+          </tr>
+        }
       </tbody>
     </table>
 
-    <div *ngIf="mensajes.length === 0" class="alert alert-info text-center">
-      No hay mensajes de contacto registrados.
-    </div>
+    @if (mensajes.length === 0) {
+      <div class="alert alert-info text-center">
+        No hay mensajes de contacto registrados.
+      </div>
+    }
   </div>
 </div>
 
@@ -81,14 +85,14 @@
         <p><strong>De:</strong> {{ mensajeSeleccionado?.nombre }} <{{ mensajeSeleccionado?.email }}></p>
         <p><strong>Asunto:</strong> {{ mensajeSeleccionado?.asunto || 'Sin asunto' }}</p>
         <hr>
-        <p>{{ mensajeSeleccionado?.mensaje }}</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-info text-white" (click)="responderMensaje(mensajeSeleccionado!)" data-bs-dismiss="modal">
-          <i class="bi bi-reply"></i> Responder
-        </button>
+          <p>{{ mensajeSeleccionado?.mensaje }}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-info text-white" (click)="responderMensaje(mensajeSeleccionado!)" data-bs-dismiss="modal">
+            <i class="bi bi-reply"></i> Responder
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>

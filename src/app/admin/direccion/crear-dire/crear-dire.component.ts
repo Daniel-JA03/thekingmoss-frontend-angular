@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+
 import { Component, EventEmitter, Input, input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { DireccionResponse, TipoDireccion } from '../../../interface/entities/direccion.interface';
@@ -8,7 +8,7 @@ import { Modal } from 'bootstrap';
 
 @Component({
   selector: 'app-crear-dire',
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [ReactiveFormsModule],
   templateUrl: './crear-dire.component.html',
   styleUrl: './crear-dire.component.scss'
 })

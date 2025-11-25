@@ -26,5 +26,24 @@ export interface PedidoResponse {
   instruccionEntrega: string;
   tipoEstadoPedido: TipoEstadoPedido;
   usuarioId: number;
+
+  stripePaymentId: string | null;
+
   detalle: DetallePedidoResponse[];
+}
+
+
+// interfaces de Pago
+export interface PaymentRequest {
+    pedidoId: number;
+    email: string
+}
+export interface PaymentResponse {
+    clientSecret: string;
+}
+
+// confirmar el pago al backend
+export interface PaymentConfirmationRequest {
+    pedidoId: number;
+    stripePaymentId: string;
 }
