@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { PedidoRequest, PedidoResponse } from '../../../interface/entities/pedido.interface';
+import { PaymentConfirmationRequest, PedidoRequest, PedidoResponse } from '../../../interface/entities/pedido.interface';
 import { DetallePedidoRequest, DetallePedidoResponse } from '../../../interface/entities/detalle-pedido.interface';
 
 @Injectable({
@@ -53,6 +53,12 @@ export class PedidoService {
   // Obtener el historial de pedidos de un usuario
   obtenerPedidosPorUsuario(usuarioId: number): Observable<PedidoResponse[]> {
     return this.httpClient.get<PedidoResponse[]>(`${this.baseUrl}/usuario/${usuarioId}`);
+  }
+
+    // llama al backend para confirmar que el pago en Stripe fue exitoso
+  // registra el ID de Strpe y cambia el estado del pedido a PAGADO
+  confirmPayment(confirmacion: PaymentConfirmationRequest): Observable<void> {
+    return this.httpClient.post<void>(`${this.baseUrl}/confirm-payment`, confirmacion)
   }
 
 }

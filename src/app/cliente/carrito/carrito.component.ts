@@ -160,6 +160,9 @@ export class CarritoComponent implements OnInit {
       cantidad: item.cantidad
     }))
 
+    // usar email del usuario autenticado
+    const email = this.authService.getEmail() || 'cliente@thekingmoss.com';
+
     // Crear pedido
     const pedido: PedidoRequest = {
       fechaPedido: new Date(),
@@ -174,16 +177,20 @@ export class CarritoComponent implements OnInit {
     // Enviar al backend
     this.pedidoService.agregarPedido(pedido).subscribe({
       next: (response) => {
+
+         // ✅ Solo redirige, no recargues el carrito
+        this.router.navigate(['/checkout', response.pedidoId]);
+
         Swal.fire({
-          title: '¡Compra realizada!',
-          text: `Tu pedido #${response.pedidoId} ha sido procesado.`,
+          title: '¡Compra iniciada!',
+          text: `Tu pedido #${response.pedidoId} está listo para pagar.`,
           icon: 'success',
           confirmButtonText: 'Aceptar'
-        })
-        // recargar el carrito
-        this.cargarCarrito();
-        // notificar al navbar que el carrito cambió
-        this.carritoService.emitirCambio();
+        });
+
+        // ✅ Vacía el carrito localmente
+        this.carrito = [];
+        this.carritoService.emitirCambio(); // notifica al navbar
       },
       error: (err) => {
         console.error('Error al crear el pedido', err);

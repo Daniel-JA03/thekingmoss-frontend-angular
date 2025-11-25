@@ -1,0 +1,83 @@
+/* ===== CAJA PADRE QUE OCUPA TODA LA PANTALLA ===== */
+.checkout-page {
+  min-height: 92%; 
+  width: 100%;
+  background: #0a1128;
+  padding: 2rem 1rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center; /* CENTRADO VERTICAL */
+}
+
+/* ===== WRAPPER PRINCIPAL ===== */
+.checkout-wrapper {
+  background: linear-gradient(135deg, #1f2937, #111827);
+  padding: 2.5rem 3rem;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 850px;
+  color: #e0e0e0;
+
+  border: 2px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, 0.35);
+
+  transition: border-color 0.3s ease, box-shadow 0.35s ease;
+
+  &:hover {
+    border-color: rgba(0, 255, 170, 0.45);
+    box-shadow: 0 0 22px rgba(0, 255, 170, 0.35);
+  }
+
+  backdrop-filter: blur(6px);
+
+  h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+}
+
+
+/* ===== TARJETA DE STRIPE ===== */
+.card {
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+  color: white;
+
+  h4 {
+    color: #86efac;
+    margin-bottom: 1rem;
+  }
+}
+
+/* ===== BOTÓN DE CONFIRMAR PAGO ===== */
+.btn-success {
+  background: linear-gradient(to right, #00c57a, #009e63);
+  border: none;
+  padding: 1rem;
+  font-size: 1.2rem;
+  border-radius: 10px;
+  transition: 0.25s ease;
+
+  &:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+  }
+}
+
+/* ===== ALERTS ===== */
+.alert-success,
+.alert-danger {
+  border-radius: 10px;
+  font-size: 1.1rem;
+}
+
+/* ===== TEXTO INFO ===== */
+.text-muted {
+  opacity: 0.75;
+  font-size: 0.9rem;
+  color: white !important;
+}
