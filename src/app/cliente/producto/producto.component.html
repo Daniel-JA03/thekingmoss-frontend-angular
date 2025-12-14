@@ -21,33 +21,52 @@
       <p class="mt-2">Cargando productos...</p>
     </div>
   } @else {
-    <div class="productos-grid">
-      @for (producto of productosDestacados; track producto) {
-        <div class="producto-card">
-          <!-- Imagen del producto -->
-          <img
-            [src]="producto.imagenUrl"
-            [alt]="producto.nombreProducto"
-            (error)="handleImageError($event)"
+    <div class="productos-layout">
+
+      <!-- FILTROS -->
+       <aside class="filtros">
+        <h3>Categorías</h3> 
+        @for (cat of categorias; track cat) {
+          <label class="checkbox-item">
+            <input
+              type="checkbox"
+              (change)="onCategoriaChange($event, cat)"
             />
-            <!-- Nombre -->
-            <h3>{{ producto.nombreProducto }}</h3>
-            <!-- Descripción -->
-            <p>{{ producto.descripcion || 'Sin descripción' }}</p>
-            <!-- Precio -->
-            <p><strong>{{ producto.precioUnitario | soles }}</strong></p>
-            <!-- Acciones -->
-            <div class="card-actions">
-              <button class="btn-view" [routerLink]="['/productos', producto.idProducto]">
-                Ver producto
-              </button>
-              <button class="btn-add" (click)="addToCart(producto)">
-                <i class="bi bi-cart-plus"></i> Añadir
-              </button>
-            </div>
-          </div>
+            <span>{{ cat }}</span>
+          </label>
         }
-      </div>
+       </aside>
+
+       <!-- GRID DE PRODUCTOS -->
+      <div class="productos-grid">
+        @for (producto of productosDestacados; track producto) {
+          <div class="producto-card">
+            <!-- Imagen del producto -->
+            <img
+              [src]="producto.imagenUrl"
+              [alt]="producto.nombreProducto"
+              (error)="handleImageError($event)"
+              />
+              <!-- Nombre -->
+              <h3>{{ producto.nombreProducto }}</h3>
+              <!-- Descripción -->
+              <p>{{ producto.descripcion || 'Sin descripción' }}</p>
+              <!-- Precio -->
+              <p><strong>{{ producto.precioUnitario | soles }}</strong></p>
+              <!-- Acciones -->
+              <div class="card-actions">
+                <button class="btn-view" [routerLink]="['/productos', producto.idProducto]">
+                  Ver producto
+                </button>
+                <button class="btn-add" (click)="addToCart(producto)">
+                  <i class="bi bi-cart-plus"></i> Añadir
+                </button>
+              </div>
+            </div>
+          }
+        </div>
+
+    </div>
     }
 
     <!-- Grid de productos -->

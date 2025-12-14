@@ -10,6 +10,7 @@ import { ProductoImagenService } from '../../admin/producto/services/producto-im
 import { SolesPipe } from '../../soles.pipe';
 import { CarritoService } from '../carrito/services/carrito.service';
 import Swal from 'sweetalert2';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-producto',
@@ -22,6 +23,9 @@ export class ProductoComponent implements OnInit {
 
   productosDestacados: ProductoCard[] = [];
   imagenes: ProductoImagenResponse[] = [];
+
+  categorias: string[] = []
+  categoriasSeleccionadas: string[] = []
 
   constructor(
     private productoService: ProductoService,
@@ -41,6 +45,12 @@ export class ProductoComponent implements OnInit {
           ...p,
           imagenUrl: 'assets/images/default.jpg'
         }));
+
+        // categorias unicas
+        this.categorias = [
+          ...new Set(data.map(p => p.nombreCategoria))
+        ]
+
         // Volver a asignar imagenes si ya se cargaron
         if (this.imagenes.length > 0) {
           this.asignarImagenes()
@@ -128,6 +138,52 @@ export class ProductoComponent implements OnInit {
     return imagen
       ? `http://localhost:8080/imagesProducts/${imagen.imagenUrl.replace(/\\/g, '/')}`
       : 'assets/images/default.jpg';
+  }
+
+  onCategoriaChange(event: Event, categoria: string) {
+    const checked = (event.target as HTMLInputElement).checked;
+  
+    if (checked) {
+      this.categoriasSeleccionadas.push(categoria);
+    } else {
+      this.categoriasSeleccionadas = this.categoriasSeleccionadas.filter(c => c !== categoria);
+    }
+
+    this.filtrarPorCategorias();
+  }
+
+  filtrarPorCategorias() {
+    // Si no hay filtros -> traer todos los productos
+    if (this.categoriasSeleccionadas.length === 0) {
+      this.cargarProductos();
+      return;
+    }
+
+    // varias categorias seleccionadas -> unir resultados
+    const request = this.categoriasSeleccionadas.map(cat => this.productoService.obtenerListarProductoPorNombreCategoria(cat));
+
+    forkJoin(request).subscribe({
+      next: (response) => {
+        // unir y eliminar duplicados
+        const productosUnicos = new Map<number, ProductoResponse>();
+
+        response.flat().forEach(p => {
+          productosUnicos.set(p.idProducto, p);
+        })
+
+        this.productosDestacados = Array.from(productosUnicos.values()).map(p => ({
+          ...p,
+          imagenUrl: 'assets/images/default.jpg'
+        }))
+
+        if (this.imagenes.length > 0) {
+          this.asignarImagenes();
+        }
+      },
+      error: err => console.error('Error al filtrar productos por categorías:', err) 
+    })
+
+
   }
 
 }

@@ -12,6 +12,47 @@
   margin-bottom: 2.5rem;
 }
 
+// layout 
+.productos-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.filtros {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 16px;
+
+  position: sticky;
+  top: 100px;
+  
+  height: fit-content;
+
+  h3 {
+    color: #4caf50;
+    margin-bottom: 1rem;
+  }
+}
+
+
+.checkbox-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-bottom: 0.8rem;
+  cursor: pointer;
+  color: #e0e0e0;
+  font-size: 0.95rem;
+
+  input {
+    accent-color: #4caf50;
+    cursor: pointer;
+  }
+}
+
 // Grid de productos (igual que home)
 .productos-grid {
   display: grid;
