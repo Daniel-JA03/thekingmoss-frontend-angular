@@ -26,13 +26,16 @@
       <!-- FILTROS -->
        <aside class="filtros">
         <h3>Categorías</h3> 
-        @for (cat of categorias; track cat) {
+        @for (cat of categorias; track cat.nombre) {
           <label class="checkbox-item">
             <input
               type="checkbox"
-              (change)="onCategoriaChange($event, cat)"
+              (change)="onCategoriaChange($event, cat.nombre)"
             />
-            <span>{{ cat }}</span>
+            <span>
+              {{ cat.nombre }}
+              <small>({{ cat.total}})</small>
+            </span>
           </label>
         }
        </aside>

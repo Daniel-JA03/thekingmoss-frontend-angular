@@ -11,6 +11,7 @@ import { SolesPipe } from '../../soles.pipe';
 import { CarritoService } from '../carrito/services/carrito.service';
 import Swal from 'sweetalert2';
 import { forkJoin } from 'rxjs';
+import { CategoriaFiltro } from '../../interface/entities/categoria.interface';
 
 @Component({
   selector: 'app-producto',
@@ -24,7 +25,7 @@ export class ProductoComponent implements OnInit {
   productosDestacados: ProductoCard[] = [];
   imagenes: ProductoImagenResponse[] = [];
 
-  categorias: string[] = []
+  categorias: CategoriaFiltro[] = []
   categoriasSeleccionadas: string[] = []
 
   constructor(
@@ -46,10 +47,18 @@ export class ProductoComponent implements OnInit {
           imagenUrl: 'assets/images/default.jpg'
         }));
 
-        // categorias unicas
-        this.categorias = [
-          ...new Set(data.map(p => p.nombreCategoria))
-        ]
+        // agrupar y contar categorias
+        const contador = new Map<string, number>();
+        data.forEach(p => {
+          contador.set(
+            p.nombreCategoria, 
+            (contador.get(p.nombreCategoria) || 0) + 1
+          );
+        });
+
+        this.categorias = Array.from(contador.entries()).map(
+          ([nombre, total]) => ({ nombre, total })
+        );
 
         // Volver a asignar imagenes si ya se cargaron
         if (this.imagenes.length > 0) {
@@ -140,6 +149,7 @@ export class ProductoComponent implements OnInit {
       : 'assets/images/default.jpg';
   }
 
+  //  filtrar por categorias los productos
   onCategoriaChange(event: Event, categoria: string) {
     const checked = (event.target as HTMLInputElement).checked;
   
