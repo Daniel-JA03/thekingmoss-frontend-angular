@@ -28,6 +28,8 @@ export class ProductoComponent implements OnInit {
   categorias: CategoriaFiltro[] = []
   categoriasSeleccionadas: string[] = []
 
+  productoBase: ProductoResponse[] = [];
+
   constructor(
     private productoService: ProductoService,
     private productoImagenService: ProductoImagenService,
@@ -42,24 +44,20 @@ export class ProductoComponent implements OnInit {
   cargarProductos() {
     this.productoService.obtenerListaProductos().subscribe({
       next: (data: ProductoResponse[]) => {
-        this.productosDestacados = data.map(p => ({
+      
+        // solo productos con stock
+        this.productoBase = data.filter(p => p.stock > 0);
+        
+        // grid inicial
+        this.productosDestacados = this.productoBase.map(p => ({
           ...p,
           imagenUrl: 'assets/images/default.jpg'
         }));
 
-        // agrupar y contar categorias
-        const contador = new Map<string, number>();
-        data.forEach(p => {
-          contador.set(
-            p.nombreCategoria, 
-            (contador.get(p.nombreCategoria) || 0) + 1
-          );
-        });
+        // categorias siempre desde el total disponible
+        this.actualizarCategorias(this.productoBase);
 
-        this.categorias = Array.from(contador.entries()).map(
-          ([nombre, total]) => ({ nombre, total })
-        );
-
+  
         // Volver a asignar imagenes si ya se cargaron
         if (this.imagenes.length > 0) {
           this.asignarImagenes()
@@ -165,35 +163,41 @@ export class ProductoComponent implements OnInit {
   filtrarPorCategorias() {
     // Si no hay filtros -> traer todos los productos
     if (this.categoriasSeleccionadas.length === 0) {
-      this.cargarProductos();
+      this.productosDestacados = this.productoBase.map(p => ({
+        ...p,
+        imagenUrl: 'assets/images/default.jpg'
+    }));
+
+    this.asignarImagenes();
       return;
     }
 
-    // varias categorias seleccionadas -> unir resultados
-    const request = this.categoriasSeleccionadas.map(cat => this.productoService.obtenerListarProductoPorNombreCategoria(cat));
+    const filtrados = this.productoBase.filter(p =>
+      this.categoriasSeleccionadas.includes(p.nombreCategoria)
+    );
 
-    forkJoin(request).subscribe({
-      next: (response) => {
-        // unir y eliminar duplicados
-        const productosUnicos = new Map<number, ProductoResponse>();
+    this.productosDestacados = filtrados.map(p => ({
+      ...p,
+      imagenUrl: 'assets/images/default.jpg'
+    }));
 
-        response.flat().forEach(p => {
-          productosUnicos.set(p.idProducto, p);
-        })
+    this.asignarImagenes();
+  }
 
-        this.productosDestacados = Array.from(productosUnicos.values()).map(p => ({
-          ...p,
-          imagenUrl: 'assets/images/default.jpg'
-        }))
+  actualizarCategorias(productos: ProductoResponse[]) {
+    const contador = new Map<string, number>();
 
-        if (this.imagenes.length > 0) {
-          this.asignarImagenes();
-        }
-      },
-      error: err => console.error('Error al filtrar productos por categorías:', err) 
+    productos.forEach(p => {
+      contador.set(
+        p.nombreCategoria,
+        (contador.get(p.nombreCategoria) || 0) + 1
+      )
     })
 
-
+    // solo categorias con productos disponibles
+    this.categorias = Array.from(contador.entries()).map(
+      ([nombre, total]) => ({ nombre, total })
+    );
   }
 
 }
