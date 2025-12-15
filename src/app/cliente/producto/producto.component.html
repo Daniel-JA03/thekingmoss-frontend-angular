@@ -14,65 +14,100 @@
 
   <!-- Mensaje de carga -->
   @if (productosDestacados.length === 0) {
-    <div class="text-center py-4">
-      <div class="spinner-border text-success" role="status">
-        <span class="visually-hidden">Cargando productos...</span>
-      </div>
-      <p class="mt-2">Cargando productos...</p>
+  <div class="text-center py-4">
+    <div class="spinner-border text-success" role="status">
+      <span class="visually-hidden">Cargando productos...</span>
     </div>
+    <p class="mt-2">Cargando productos...</p>
+  </div>
   } @else {
-    <div class="productos-layout">
+  <div class="productos-layout">
+    <!-- FILTROS -->
+    <aside class="filtros">
+      <h3>Categorías</h3>
+      @for (cat of categorias; track cat.nombre) {
+      <label class="checkbox-item">
+        <input
+          type="checkbox"
+          (change)="onCategoriaChange($event, cat.nombre)"
+        />
+        <span>
+          {{ cat.nombre }}
+          <small>({{ cat.total }})</small>
+        </span>
+      </label>
+      }
+    </aside>
 
-      <!-- FILTROS -->
-       <aside class="filtros">
-        <h3>Categorías</h3> 
-        @for (cat of categorias; track cat.nombre) {
-          <label class="checkbox-item">
-            <input
-              type="checkbox"
-              (change)="onCategoriaChange($event, cat.nombre)"
-            />
-            <span>
-              {{ cat.nombre }}
-              <small>({{ cat.total}})</small>
-            </span>
-          </label>
-        }
-       </aside>
-
-       <!-- GRID DE PRODUCTOS -->
-      <div class="productos-grid">
-        @for (producto of productosDestacados; track producto) {
-          <div class="producto-card">
-            <!-- Imagen del producto -->
-            <img
-              [src]="producto.imagenUrl"
-              [alt]="producto.nombreProducto"
-              (error)="handleImageError($event)"
-              />
-              <!-- Nombre -->
-              <h3>{{ producto.nombreProducto }}</h3>
-              <!-- Descripción -->
-              <p>{{ producto.descripcion || 'Sin descripción' }}</p>
-              <!-- Precio -->
-              <p><strong>{{ producto.precioUnitario | soles }}</strong></p>
-              <!-- Acciones -->
-              <div class="card-actions">
-                <button class="btn-view" [routerLink]="['/productos', producto.idProducto]">
-                  Ver producto
-                </button>
-                <button class="btn-add" (click)="addToCart(producto)">
-                  <i class="bi bi-cart-plus"></i> Añadir
-                </button>
-              </div>
-            </div>
-          }
+    <!-- GRID DE PRODUCTOS -->
+    <div class="productos-grid">
+      @for (producto of productosDestacados; track producto) {
+      <div class="producto-card">
+        <!-- Imagen del producto -->
+        <img
+          [src]="producto.imagenUrl"
+          [alt]="producto.nombreProducto"
+          (error)="handleImageError($event)"
+        />
+        <!-- Nombre -->
+        <h3>{{ producto.nombreProducto }}</h3>
+        <!-- Descripción -->
+        <p>{{ producto.descripcion || "Sin descripción" }}</p>
+        <!-- Precio -->
+        <p>
+          <strong>{{ producto.precioUnitario | soles }}</strong>
+        </p>
+        <!-- Acciones -->
+        <div class="card-actions">
+          <button
+            class="btn-view"
+            [routerLink]="['/productos', producto.idProducto]"
+          >
+            Ver producto
+          </button>
+          <button class="btn-add" (click)="addToCart(producto)">
+            <i class="bi bi-cart-plus"></i> Añadir
+          </button>
         </div>
-
+      </div>
+      }
     </div>
-    }
+  </div>
 
-    <!-- Grid de productos -->
-  </section>
+  <!-- Grid de productos -->
 
-  <app-footer></app-footer>
+  @if (productosFiltrados.length > pageSize) {
+  <div class="pagination-wrapper">
+    <div class="pagination-inner">
+      <div class="pagination-container">
+        <button
+          class="page-btn"
+          [disabled]="lowIndex === 0"
+          (click)="prevPage()"
+        >
+          ‹ Anterior
+        </button>
+        <span class="page-info"
+          >{{ lowIndex + 1 }} –
+          {{
+            highIndex > productosFiltrados.length
+              ? productosFiltrados.length
+              : highIndex
+          }}
+          de {{ productosFiltrados.length }}</span
+        >
+        <button
+          class="page-btn"
+          [disabled]="highIndex >= productosFiltrados.length"
+          (click)="nextPage()"
+        >
+          Siguiente ›
+        </button>
+      </div>
+    </div>
+  </div>
+
+  } }
+</section>
+
+<app-footer></app-footer>
