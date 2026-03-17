@@ -16,6 +16,7 @@
               <th>USERNAME</th>
               <th>EMAIL</th>
               <th>ESTADO</th>
+              <th>ACCIONES</th>
             </tr>
           </thead>
 
@@ -46,6 +47,11 @@
                     {{ usuario.accountLocked ? 'Bloqueado' : 'Activo' }}
                   </span>
                 </td>
+                <td>
+                    <button class="btn btn-info" (click)="verUsuario(usuario)">
+                        <i class="bi bi-eye-fill me-1"></i>
+                    </button>
+                </td>
               </tr>
             }
           </tbody>
@@ -61,3 +67,7 @@
 
   </div>
 </div>
+
+<app-detalle-user 
+    [usuario]="null">
+</app-detalle-user>

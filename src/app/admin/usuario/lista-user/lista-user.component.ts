@@ -1,17 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { UsuarioService } from '../services/usuario.service';
 import Swal from 'sweetalert2';
 import { CommonModule } from '@angular/common';
+import { DetalleUserComponent } from '../detalle-user/detalle-user.component';
 
 @Component({
   selector: 'app-lista-user',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DetalleUserComponent],
   templateUrl: './lista-user.component.html',
   styleUrl: './lista-user.component.scss',
 })
 export class ListaUserComponent implements OnInit {
   usuarios: any[] = [];
+
+  @ViewChild(DetalleUserComponent) detalleUserComp!: DetalleUserComponent;
+
   constructor(private usuarioService: UsuarioService) {}
 
   ngOnInit(): void {
@@ -53,4 +57,10 @@ export class ListaUserComponent implements OnInit {
       }
     });
   }
+
+  verUsuario(usuario: any) {
+  if (this.detalleUserComp) {
+    this.detalleUserComp.abrirModal(usuario);
+  }
+}
 }
