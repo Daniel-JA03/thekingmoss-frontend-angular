@@ -16,4 +16,5 @@ export interface UsuarioResponse {
   telefono: string;
   email: string;
   roles: string[];
+  accountLocked: boolean;
 }
