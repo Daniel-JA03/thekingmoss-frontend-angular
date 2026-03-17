@@ -17,9 +17,10 @@
           <i class="bi bi-speedometer"></i> Dashboard
         </a>
       </li>
+      <!-- Operaciones (lo principal del negocio) -->
       <li>
-        <a class="custom-nav-link" [routerLink]="['listar-categoria']" routerLinkActive="active">
-          <i class="bi bi-tags"></i> Categorías
+        <a class="custom-nav-link" [routerLink]="['listar-pedido']" routerLinkActive="active">
+          <i class="bi bi-receipt"></i> Pedidos
         </a>
       </li>
       <li>
@@ -28,13 +29,14 @@
         </a>
       </li>
       <li>
-        <a class="custom-nav-link" [routerLink]="['listar-pedido']" routerLinkActive="active">
-          <i class="bi bi-receipt"></i> Pedidos
+        <a class="custom-nav-link" [routerLink]="['listar-categoria']" routerLinkActive="active">
+          <i class="bi bi-tags"></i> Categorías
         </a>
       </li>
+      <!-- Gestión de usuarios -->
       <li>
-        <a class="custom-nav-link" [routerLink]="['listar-documentos']" routerLinkActive="active">
-          <i class="bi bi-file-text"></i> Documentos De Identidad
+        <a class="custom-nav-link" [routerLink]="['listar-usuarios']" routerLinkActive="active">
+          <i class="bi bi-people"></i> Usuarios
         </a>
       </li>
       <li>
@@ -43,8 +45,14 @@
         </a>
       </li>
       <li>
+        <a class="custom-nav-link" [routerLink]="['listar-documentos']" routerLinkActive="active">
+          <i class="bi bi-file-text"></i> Documentos De Identidad
+        </a>
+      </li>
+      <!-- Comunicación -->
+      <li>
         <a class="custom-nav-link" [routerLink]="['listar-mensajes']" routerLinkActive="active">
-          <i class="bi bi-geo-alt"></i> Contacto
+          <i class="bi bi-envelope"></i> Contacto
         </a>
       </li>
     </ul>
