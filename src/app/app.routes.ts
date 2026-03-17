@@ -17,6 +17,7 @@ import { CarritoComponent } from './cliente/carrito/carrito.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { HistorialPedidosComponent } from './cliente/pedido/historial-pedidos/historial-pedidos.component';
 import { CheckoutComponent } from './payment/checkout/checkout.component';
+import { ListaUserComponent } from './admin/usuario/lista-user/lista-user.component';
 
 
 export const routes: Routes = [
@@ -48,7 +49,8 @@ export const routes: Routes = [
       { path: 'listar-direccion', component: ListaDirecComponent },
       { path: 'listar-documentos', component: ListaDocComponent},
       { path: 'listar-producto', component: ListaProducComponent},
-      { path: 'listar-mensajes', component: ListaContComponent}
+      { path: 'listar-mensajes', component: ListaContComponent},
+      { path: 'listar-usuarios', component: ListaUserComponent}
     ]
   },
 ];
