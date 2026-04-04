@@ -40,13 +40,23 @@
               </div>
             }
           </div>
+          @if (intentosRestantes !== null) {
+            <div class="intentos-warning">
+              ⚠ Te quedan {{ intentosRestantes }} intento(s)
+            </div>
+          }
 
           <button
             type="submit"
             class="submit-btn"
-            [disabled]="loginForm.invalid"
-            >
-            INGRESAR
+            [disabled]="loginForm.invalid || loading"
+          >
+            @if (loading) {
+              <span class="spinner"></span>
+              Verificando...
+            } @else {
+              INGRESAR
+            }
           </button>
 
           <div class="form-footer">

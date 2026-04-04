@@ -21,4 +21,26 @@ export class DetalleUserComponent {
       modal.show();
     }
   }
+
+  getRolClass(rol: string): string {
+    switch (rol) {
+      case 'ROLE_ADMIN':
+        return 'admin';
+      case 'ROLE_USER':
+        return 'user';
+      default:
+        return 'default';
+    }
+  }
+
+  getRolIcon(rol: string): string {
+    switch (rol) {
+      case 'ROLE_ADMIN':
+        return 'bi bi-shield-lock-fill'; // 👑 tipo seguridad
+      case 'ROLE_USER':
+        return 'bi bi-person-fill'; // 👤 usuario
+      default:
+        return 'bi bi-tag-fill';
+    }
+  }
 }

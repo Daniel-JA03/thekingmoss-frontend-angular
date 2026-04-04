@@ -55,7 +55,7 @@
                 </div>
             </div>
 
-            <div class="col-12">
+            <!-- <div class="col-12">
                 <label class="label">Roles</label>
                 <div class="value d-flex flex-wrap gap-2">
 
@@ -73,6 +73,23 @@
                     }
 
                 </div>
+            </div> -->
+
+            <div class="col-12">
+              <label class="label">Roles</label>
+              <div class="value d-flex flex-wrap gap-2">
+
+                @for (rol of usuario.roles; track rol) {
+                  <span
+                    class="rol-badge"
+                    [ngClass]="getRolClass(rol)"
+                  >
+                    <i [class]="getRolIcon(rol)"></i>
+                    {{ rol }}
+                  </span>
+                }
+
+              </div>
             </div>
 
           </div>

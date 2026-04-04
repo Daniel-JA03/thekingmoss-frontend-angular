@@ -17,13 +17,21 @@ import { CarritoService } from '../../cliente/carrito/services/carrito.service';
 export class LoginComponent {
   username: string = '';
   password: string = '';
+  loading: boolean = false;
+  intentosRestantes: number | null = null;
+
   constructor(
     private router: Router,
     private authService: AuthService,
     private toastr: ToastrService,
-    private carritoService: CarritoService) {}
+    private carritoService: CarritoService
+  ) {}
 
   login() {
+    if (this.loading) return;
+
+    this.loading = true;
+
     const credentials = {
       username: this.username,
       password: this.password,
@@ -31,18 +39,20 @@ export class LoginComponent {
 
     this.authService.login(credentials).subscribe({
       next: (response) => {
-        console.log('Respuesta del servidor:', response);
+        this.loading = false;
+
+        // LIMPIAR INTENTOS
+        this.intentosRestantes = null;
+
         localStorage.setItem('token', response.token);
         localStorage.setItem('username', response.username);
         localStorage.setItem('roles', JSON.stringify(response.roles));
         localStorage.setItem('expirateAt', response.expirateAt.toString());
-        localStorage.setItem('usuarioId', response.usuarioId.toString())
+        localStorage.setItem('usuarioId', response.usuarioId.toString());
 
-        // notificar al carrito que hay un nuevo usuario
-        this.carritoService.onLogin()
+        this.carritoService.onLogin();
 
-        // Redireccion basada en roles
-        const roles = response.roles; // debe ser un array tipo ['ROLE_ADMIN'], etc.
+        const roles = response.roles;
 
         if (roles.includes('ROLE_ADMIN')) {
           this.toastr.success('Bienvenido Administrador', 'Éxito');
@@ -51,17 +61,56 @@ export class LoginComponent {
           this.toastr.success('Bienvenido Usuario', 'Éxito');
           this.router.navigate(['/']);
         } else {
-          this.toastr.warning('Ingresa correctamente tus credenciales', 'Rol no reconocido');
+          this.toastr.warning('Rol no reconocido');
         }
       },
+
       error: (error) => {
+        this.loading = false;
+
         console.error('Error al iniciar sesión', error);
+
+        let mensaje = "Credenciales incorrectas";
+        let icon: 'error' | 'warning' = 'error';
+
+        // 🔥 USAR STATUS CODE 
+        if (error.status === 423) {
+          icon = 'warning';
+
+          // LIMPIAR intentos porque ya está bloqueado
+          this.intentosRestantes = null;
+        }
+
+        if (error.status === 401) {
+          icon = 'error';
+        }
+
+        // MENSAJE DEL BACKEND
+        if (error?.error) {
+          if (typeof error.error === 'string') {
+            mensaje = error.error;
+          } else if (error.error.message) {
+            mensaje = error.error.message;
+          }
+        }
+
+        // EXTRAER INTENTOS 
+        const match = mensaje.match(/\d+/);
+        if (match) {
+          this.intentosRestantes = Number(match[0]);
+
+          // ALERTA SI QUEDA 1 INTENTO
+          if (this.intentosRestantes === 1) {
+            this.toastr.error('Último intento antes del bloqueo', '⚠️ Atención');
+          }
+        }
+
         Swal.fire({
-          title: "ERROR AL INICIAR SESION",
-          text: "CREDENCIALES INCORRECTAS",
-          icon: "error",
-          confirmButtonText: "Enviar"
-        })
+          title: 'ERROR AL INICIAR SESIÓN',
+          text: mensaje,
+          icon: icon,
+          confirmButtonText: 'Aceptar',
+        });
       },
     });
   }
