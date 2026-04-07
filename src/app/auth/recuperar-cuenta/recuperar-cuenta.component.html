@@ -1,0 +1,30 @@
+<div class="login-page">
+  <div class="form-container">
+    <div class="login-form">
+
+      <h2>Recupera tu cuenta</h2>
+
+      <!-- INPUT -->
+      <div class="input-group">
+        <label>Email o Teléfono</label>
+        <input
+          [(ngModel)]="dato"
+          class="form-input"
+          [ngClass]="{'input-error': error}"
+          placeholder="Ingresa tu email o celular"
+        />
+
+        @if (error) {
+          <div class="error-message">
+            No se ha encontrado ninguna cuenta.
+          </div>
+        }
+      </div>
+
+      <button class="submit-btn" (click)="buscarCuenta()">
+        Continuar
+      </button>
+
+    </div>
+  </div>
+</div>

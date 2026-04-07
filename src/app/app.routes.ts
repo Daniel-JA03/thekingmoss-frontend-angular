@@ -18,6 +18,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { HistorialPedidosComponent } from './cliente/pedido/historial-pedidos/historial-pedidos.component';
 import { CheckoutComponent } from './payment/checkout/checkout.component';
 import { ListaUserComponent } from './admin/usuario/lista-user/lista-user.component';
+import { RecuperarCuentaComponent } from './auth/recuperar-cuenta/recuperar-cuenta.component';
 
 
 export const routes: Routes = [
@@ -27,6 +28,7 @@ export const routes: Routes = [
   // Auth
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent},
+  { path: 'recuperar-cuenta', component: RecuperarCuentaComponent },
   // Rutas para CLIENTE
   { path: 'sobre-nosotros', component: SobreNosotrosComponent },
   { path: 'contacto', component: ContactoComponent },

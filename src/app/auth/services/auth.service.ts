@@ -35,6 +35,10 @@ export class AuthService {
     );
   }
 
+  buscarCuenta(dato: string) {
+    return this.http.get<any>(`${this.apiUrl}/buscar-cuenta?dato=${dato}`);
+  }
+
   logout(): void {
     localStorage.removeItem('token');
 
