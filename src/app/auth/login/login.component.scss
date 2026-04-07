@@ -149,7 +149,7 @@
   padding: 2rem;
 }
 
-
+// Estilo para boton dinamico
 .spinner {
   width: 18px;
   height: 18px;
@@ -181,4 +181,18 @@
   0% { transform: scale(1); }
   50% { transform: scale(1.05); }
   100% { transform: scale(1); }
+}
+
+// Estilos para el enlace de "Olvidé mi contraseña"
+.forgot-link {
+  display: block;
+  margin-top: 10px;
+  color: #76b28e;
+  font-size: 13px;
+  text-decoration: none;
+}
+
+.forgot-link:hover {
+  color: #50E04B;
+  text-decoration: underline;
 }
