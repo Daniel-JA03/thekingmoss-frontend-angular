@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-recuperar-cuenta',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './recuperar-cuenta.component.html',
   styleUrl: './recuperar-cuenta.component.scss',
 })
@@ -15,9 +16,45 @@ export class RecuperarCuentaComponent {
   error: boolean = false;
   usuario: any = null;
 
+  tipo: 'email' | 'telefono' | 'texto' | null = null;
+  esValido: boolean = false;
+
   constructor(
     private authService: AuthService
   ) {}
+
+  // Detectar y validar el tipo de dato ingresado en tiempo real
+  onInputChange() {
+    this.error = false;
+
+    if (!this.dato) {
+      this.tipo = null;
+      this.esValido = false;
+      return;
+    }
+
+    const soloNumeros = /^[0-9]+$/.test(this.dato);
+    const tieneArroba = this.dato.includes('@');
+
+    // detectar si es email
+    if (tieneArroba) {
+      this.tipo = 'email';
+      this.esValido = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.dato);
+      return;
+    }
+
+    // detectar si es telefono (solo numeros)
+    if (soloNumeros) {
+      this.tipo = 'telefono';
+      this.esValido = this.dato.length === 9;
+      return;
+    }
+
+    // texto (usuario escribiendo, aún no definido)
+    this.tipo = 'texto';
+    this.esValido = false;
+
+  }
 
   buscarCuenta() {
   if (!this.dato) {

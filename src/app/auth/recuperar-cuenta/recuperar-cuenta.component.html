@@ -1,30 +1,81 @@
-<div class="login-page">
-  <div class="form-container">
-    <div class="login-form">
+<section class="recuperar-section">
+
+  <div class="recuperar-container">
+
+    <div class="recuperar-card">
 
       <h2>Recupera tu cuenta</h2>
 
+      <p class="subtitle">
+        Ingresa tu correo electrónico o número de móvil asociado a tu cuenta.
+      </p>
+
       <!-- INPUT -->
       <div class="input-group">
-        <label>Email o Teléfono</label>
-        <input
-          [(ngModel)]="dato"
-          class="form-input"
-          [ngClass]="{'input-error': error}"
-          placeholder="Ingresa tu email o celular"
-        />
+
+        <div class="input-wrapper">
+
+          <span class="input-icon">
+            @if (tipo === 'telefono') {
+              <i class="bi bi-phone"></i>
+            } @else if (tipo === 'email') {
+              <i class="bi bi-envelope"></i>
+            } @else {
+              <i class="bi bi-pencil"></i>
+            }
+          </span>
+
+          <input
+            [(ngModel)]="dato"
+            (ngModelChange)="onInputChange()"
+            class="form-input"
+            [ngClass]="{
+              'input-error': error,
+              'input-valid': esValido
+            }"
+            placeholder="Correo electrónico o número de móvil"
+          />
+
+        </div>
+
+        <!-- MENSAJES -->
+        @if (!esValido && dato && tipo !== null) {
+          <div class="error-message">
+            @if (tipo === 'email') {
+              Formato de correo inválido
+            } @else {
+              El número debe tener 9 dígitos
+            }
+          </div>
+        }
 
         @if (error) {
           <div class="error-message">
             No se ha encontrado ninguna cuenta.
           </div>
         }
-      </div>
 
-      <button class="submit-btn" (click)="buscarCuenta()">
+  </div>
+
+      <!-- BOTÓN -->
+      <button 
+        class="btn-continue"
+        (click)="buscarCuenta()"
+        [disabled]="!esValido"
+      >
         Continuar
       </button>
 
+      <!-- VOLVER -->
+      <div class="form-footer">
+        <a routerLink="/login">
+          <i class="bi bi-arrow-left"></i>
+          Volver al inicio de sesión
+        </a>
+      </div>
+
     </div>
+
   </div>
-</div>
+
+</section>

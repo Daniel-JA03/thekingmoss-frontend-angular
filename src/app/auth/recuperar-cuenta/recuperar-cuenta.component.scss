@@ -1,0 +1,208 @@
+/* FONDO GENERAL (igual que contacto) */
+.recuperar-section {
+  min-height: 100vh;
+  background: linear-gradient(
+    to bottom,
+    rgba(10, 17, 40, 0.95),
+    rgba(15, 26, 61, 0.95)
+  );
+  background-size: cover;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+/* CONTENEDOR */
+.recuperar-container {
+  width: 100%;
+  max-width: 600px;
+}
+
+/* TARJETA */
+.recuperar-card {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(15px);
+  border-radius: 24px; // 20px
+  padding: 50px; // 40px
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.1);
+  color: white;
+  text-align: center;
+}
+
+/* TITULO */
+.recuperar-card h2 {
+  font-size: 32px; // 28px
+  margin-bottom: 10px;
+
+  font-weight: 600;
+}
+
+/* SUBTITULO */
+.subtitle {
+  font-size: 15px; // 14px
+  color: #bfc9d4; // #ccc
+  margin-bottom: 30px; // 25px
+
+  line-height: 1.5;
+}
+
+/* INPUT GROUP */
+.input-group {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  font-size: 13px;
+  color: #bbb;
+  margin-bottom: 6px;
+  display: block;
+}
+
+/* INPUT CON ICONO */
+.input-wrapper {
+  position: relative;
+}
+
+.input-group, .input-wrapper {
+  width: 100%;
+}
+
+.input-icon {
+  position: absolute;
+  left: 16px; // 14px
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px; // 16px
+  transition: 0.3s;
+
+  opacity: 0.8;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-icon i {
+  font-size: 1.2rem; /* Tamaño del icono */
+  color: #4caf50;    /* Color que combine con tu botón */
+}
+
+
+/* INPUT */
+.form-input {
+  width: 100%;
+  padding: 16px 18px 16px 50px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+  color: white;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.form-input::placeholder {
+  color: #aaa;
+}
+
+/* FOCUS */
+.form-input:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
+}
+
+/* INPUT VALIDO */
+.input-valid {
+  border-color: #4caf50 !important;
+  background: rgba(76, 175, 80, 0.1);
+}
+
+/* INPUT ERROR */
+.input-error {
+//   border-color: #ff4d4d !important;
+//   background: rgba(255, 0, 0, 0.1);
+    border-color: #4caf50;
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 0 10px rgba(76, 175, 80, 0.5);
+}
+
+/* MENSAJES */
+.error-message {
+  font-size: 12px;
+  margin-top: 6px;
+  color: #ff6b6b;
+  animation: fadeIn 0.3s ease;
+}
+
+/* BOTÓN */
+.btn-continue {
+  width: 100%;
+  padding: 16px; // 14px
+  border-radius: 40px; // 30px
+  border: none;
+  background: linear-gradient(135deg, #4caf50, #2ecc71);
+  color: white;
+  font-weight: bold;
+  margin-top: 20px; // 10px
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-continue:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(76, 175, 80, 0.4);
+}
+
+.btn-continue:disabled {
+  background: #777;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* FOOTER */
+.form-footer {
+  margin-top: 25px; 
+  text-align: center;
+}
+
+.form-footer a {
+  color: #76b28e;
+  font-size: 14px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.form-footer a i {
+  font-size: 1.1rem; 
+  transition: transform 0.3s ease; 
+}
+
+.form-footer a:hover {
+  color: #a5d6a7; 
+  text-decoration: none;
+}
+
+.form-footer a:hover i {
+  transform: translateX(-3px);
+}
+
+/* ANIMACIÓN */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
