@@ -75,7 +75,7 @@
         <div class="card-step" [class.active]="fase === 2">
 
           <h3 class="title-user">
-            Hola <span>{{ usuario.username }}</span>
+            Hola <span>{{ usuario?.username }}</span>
           </h3>
 
           <p class="subtitle">
@@ -90,7 +90,7 @@
             <i class="bi bi-envelope"></i>
             <div>
               <strong>Correo electrónico</strong>
-              <p>{{ usuario.emailMasked }}</p>
+              <p>{{ usuario?.emailMasked }}</p>
             </div>
           </div>
 
@@ -102,7 +102,7 @@
             <i class="bi bi-phone"></i>
             <div>
               <strong>Mensaje SMS</strong>
-              <p>{{ usuario.telefonoMasked }}</p>
+              <p>{{ usuario?.telefonoMasked }}</p>
             </div>
           </div>
 
@@ -132,6 +132,31 @@
               [style.width.%]="(tiempoRestante / 60) * 100"
             ></div>
           </div>
+
+          <!-- INPUT CÓDIGO -->
+          <div class="code-container">
+            <input *ngFor="let c of codigoArray; let i = index; trackBy: trackByIndex"
+              maxlength="1"
+              class="code-input"
+              [(ngModel)]="codigoArray[i]"
+              (input)="onCodigoInput($event, i)"
+              (keydown)="onKeyDown($event, i)"
+            />
+          </div>
+
+          <!-- ERROR -->
+          @if (codigoError) {
+            <div class="error-message">
+              Código inválido o expirado
+            </div>
+          }
+
+          <button 
+            class="btn-continue"
+            (click)="verificarCodigo()"
+          >
+            Confirmar código
+          </button>
 
         </div>
 

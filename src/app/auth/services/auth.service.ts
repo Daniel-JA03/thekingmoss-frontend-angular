@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, Subject, tap } from 'rxjs';
 import { RegistroRequest } from '../../interface/auth/registro.interface';
 import { LoginRequest } from '../../interface/auth/login-request.interface';
+import { VerificarCodigoRequest } from '../../interface/auth/verificarCodigo-request';
 
 @Injectable({
   providedIn: 'root',
@@ -41,6 +42,10 @@ export class AuthService {
 
   enviarCodigo(data: any) {
     return this.http.post(`${this.apiUrl}/enviar-codigo`, data);
+  }
+
+  verificarCodigo(data: VerificarCodigoRequest) {
+    return this.http.post(`${this.apiUrl}/verificar-codigo`, data);
   }
 
   logout(): void {

@@ -3,6 +3,7 @@ import { AuthService } from '../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-recuperar-cuenta',
@@ -24,6 +25,9 @@ export class RecuperarCuentaComponent {
 
   tiempoRestante: number = 60; // Tiempo en segundos para el código
   intervalo: any;
+
+  codigoArray: string[] = ['', '', '', '', '', ''];
+  codigoError: boolean = false;
 
   constructor(
     private authService: AuthService,
@@ -115,5 +119,69 @@ export class RecuperarCuentaComponent {
       this.fase = 2;
       clearInterval(this.intervalo);
     }
+  }
+
+  // Mover el foco al siguiente input automáticamente y permitir solo números
+  onCodigoInput(event: any, index: number) {
+    const valor = event.target.value.replace(/[^0-9]/g, '');
+
+    this.codigoArray[index] = valor;
+
+    if (valor && index < 5) {
+      const next = document.querySelectorAll<HTMLInputElement>('.code-input')[index + 1];
+      next?.focus();
+    }
+  }
+
+  onKeyDown(event: KeyboardEvent, index: number) {
+    if (event.key === 'Backspace' && !this.codigoArray[index] && index > 0) {
+      const prev = document.querySelectorAll<HTMLInputElement>('.code-input')[index - 1];
+      prev?.focus();
+    }
+  }
+
+  getCodigoCompleto(): string {
+    return this.codigoArray.join('');
+  }
+
+  verificarCodigo() {
+    const codigo = this.getCodigoCompleto();
+
+    if (codigo.length < 6) {
+      this.codigoError = true;
+      return;
+    }
+
+    this.authService.verificarCodigo({
+      usuarioId: this.usuario.usuarioId,
+      codigo: codigo
+    }).subscribe({
+      next: () => {
+        this.codigoError = false;
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Código verificado',
+          text: 'Ahora puedes cambiar tu contraseña',
+          timer: 2000,
+          showConfirmButton: false
+        });
+
+        this.fase = 4;
+      },
+      error: (err) => {
+        this.codigoError = true;
+
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: err.error?.message || 'Código inválido o expirado'
+        });
+      }
+    });
+  }
+
+  trackByIndex(index: number) {
+    return index;
   }
 }
