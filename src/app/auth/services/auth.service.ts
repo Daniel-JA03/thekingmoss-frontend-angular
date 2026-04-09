@@ -36,7 +36,11 @@ export class AuthService {
   }
 
   buscarCuenta(dato: string) {
-    return this.http.get<any>(`${this.apiUrl}/buscar-cuenta?dato=${dato}`);
+    return this.http.post<any>(`${this.apiUrl}/buscar-cuenta`, { dato });
+  }
+
+  enviarCodigo(data: any) {
+    return this.http.post(`${this.apiUrl}/enviar-codigo`, data);
   }
 
   logout(): void {

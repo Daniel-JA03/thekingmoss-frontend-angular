@@ -4,73 +4,144 @@
 
     <div class="recuperar-card">
 
-      <h2>Recupera tu cuenta</h2>
+      <!-- WRAPPER CON TRANSICIÓN -->
+      <div class="card-wrapper">
 
-      <p class="subtitle">
-        Ingresa tu correo electrónico o número de móvil asociado a tu cuenta.
-      </p>
+        <!-- ================= FASE 1 ================= -->
+        <div class="card-step" [class.active]="fase === 1">
 
-      <!-- INPUT -->
-      <div class="input-group">
+          <h2>Recupera tu cuenta</h2>
 
-        <div class="input-wrapper">
+          <p class="subtitle">
+            Ingresa tu correo electrónico o número de móvil asociado a tu cuenta.
+          </p>
 
-          <span class="input-icon">
-            @if (tipo === 'telefono') {
-              <i class="bi bi-phone"></i>
-            } @else if (tipo === 'email') {
-              <i class="bi bi-envelope"></i>
-            } @else {
-              <i class="bi bi-pencil"></i>
+          <div class="input-group">
+
+            <div class="input-wrapper">
+
+              <span class="input-icon">
+                @if (tipo === 'telefono') {
+                  <i class="bi bi-phone"></i>
+                } @else if (tipo === 'email') {
+                  <i class="bi bi-envelope"></i>
+                } @else {
+                  <i class="bi bi-pencil"></i>
+                }
+              </span>
+
+              <input
+                [(ngModel)]="dato"
+                (ngModelChange)="onInputChange()"
+                class="form-input"
+                [ngClass]="{
+                  'input-error': error,
+                  'input-valid': esValido
+                }"
+                placeholder="Correo electrónico o número de móvil"
+              />
+
+            </div>
+
+            @if (!esValido && dato && tipo !== null) {
+              <div class="error-message">
+                @if (tipo === 'email') {
+                  Formato de correo inválido
+                } @else {
+                  El número debe tener 9 dígitos
+                }
+              </div>
             }
-          </span>
 
-          <input
-            [(ngModel)]="dato"
-            (ngModelChange)="onInputChange()"
-            class="form-input"
-            [ngClass]="{
-              'input-error': error,
-              'input-valid': esValido
-            }"
-            placeholder="Correo electrónico o número de móvil"
-          />
+            @if (error) {
+              <div class="error-message">
+                No se ha encontrado ninguna cuenta.
+              </div>
+            }
+
+          </div>
+
+          <button 
+            class="btn-continue"
+            (click)="buscarCuenta()"
+            [disabled]="!esValido"
+          >
+            Continuar
+          </button>
 
         </div>
 
-        <!-- MENSAJES -->
-        @if (!esValido && dato && tipo !== null) {
-          <div class="error-message">
-            @if (tipo === 'email') {
-              Formato de correo inválido
-            } @else {
-              El número debe tener 9 dígitos
-            }
+        <!-- ================= FASE 2 ================= -->
+        <div class="card-step" [class.active]="fase === 2">
+
+          <h3 class="title-user">
+            Hola <span>{{ usuario.username }}</span>
+          </h3>
+
+          <p class="subtitle">
+            Selecciona cómo deseas recibir tu código
+          </p>
+
+          <div 
+            class="metodo-card"
+            [class.selected]="seleccionMetodo === 'EMAIL'"
+            (click)="seleccionarMetodo('EMAIL')"
+          >
+            <i class="bi bi-envelope"></i>
+            <div>
+              <strong>Correo electrónico</strong>
+              <p>{{ usuario.emailMasked }}</p>
+            </div>
           </div>
-        }
 
-        @if (error) {
-          <div class="error-message">
-            No se ha encontrado ninguna cuenta.
+          <div 
+            class="metodo-card"
+            [class.selected]="seleccionMetodo === 'SMS'"
+            (click)="seleccionarMetodo('SMS')"
+          >
+            <i class="bi bi-phone"></i>
+            <div>
+              <strong>Mensaje SMS</strong>
+              <p>{{ usuario.telefonoMasked }}</p>
+            </div>
           </div>
-        }
 
-  </div>
+          <button 
+            class="btn-continue"
+            [disabled]="!seleccionMetodo"
+            (click)="enviarCodigo()"
+          >
+            Enviar código
+          </button>
 
-      <!-- BOTÓN -->
-      <button 
-        class="btn-continue"
-        (click)="buscarCuenta()"
-        [disabled]="!esValido"
-      >
-        Continuar
-      </button>
+        </div>
 
-      <!-- VOLVER -->
+        <!-- ================= FASE 3 ================= -->
+        <div class="card-step" [class.active]="fase === 3">
+
+          <h3>Código enviado</h3>
+
+          <p class="subtitle">
+            Ingresa el código enviado (expira en {{ tiempoRestante }}s)
+          </p>
+
+          <!-- BARRA DE TIEMPO -->
+          <div class="timer-bar">
+            <div 
+              class="timer-progress"
+              [style.width.%]="(tiempoRestante / 60) * 100"
+            ></div>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- FOOTER GLOBAL -->
       <div class="form-footer">
-        <a routerLink="/login">
+        <a (click)="volver()">
           <i class="bi bi-arrow-left"></i>
-          Volver al inicio de sesión
+          Volver 
         </a>
       </div>
 

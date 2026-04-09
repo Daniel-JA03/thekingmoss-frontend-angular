@@ -71,6 +71,7 @@
   width: 100%;
 }
 
+
 .input-icon {
   position: absolute;
   left: 16px; // 14px
@@ -179,6 +180,7 @@
   align-items: center;
   justify-content: center;
   gap: 8px;
+  cursor: pointer;
 }
 
 .form-footer a i {
@@ -205,4 +207,93 @@
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+
+/* WRAPPER */
+.card-wrapper {
+  position: relative;
+  overflow: hidden;
+  min-height: 380px;
+  transition: height 0.3s ease;
+}
+
+/* CADA FASE */
+.card-step {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+
+  min-height: 380px;
+
+  opacity: 0;
+  transform: translateX(40px);
+  transition: all 0.4s ease;
+  pointer-events: none;
+}
+
+.card-step.active {
+  opacity: 1;
+  transform: translateX(0);
+  pointer-events: all;
+}
+
+/* TITULO USUARIO */
+.title-user {
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.title-user span {
+  color: #4caf50;
+}
+
+/* METODOS */
+.metodo-card {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 16px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+  background: rgba(255,255,255,0.05);
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.25s ease;
+}
+
+.metodo-card:hover {
+  border-color: #4caf50;
+  // transform: scale(1.02);
+}
+
+.metodo-card.selected {
+  border-color: #4caf50;
+  background: rgba(76, 175, 80, 0.15);
+}
+
+.metodo-card i {
+  font-size: 20px;
+  color: #4caf50;
+}
+
+.metodo-card p {
+  font-size: 13px;
+  color: #bbb;
+}
+
+/* TIMER */
+.timer-bar {
+  height: 6px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 10px;
+  margin-top: 15px;
+  overflow: hidden;
+}
+
+.timer-progress {
+  height: 100%;
+  background: linear-gradient(90deg, #4caf50, #2ecc71);
+  transition: width 1s linear;
 }
