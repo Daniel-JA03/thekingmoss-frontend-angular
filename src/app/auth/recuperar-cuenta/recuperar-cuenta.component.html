@@ -160,6 +160,52 @@
 
         </div>
 
+        <!-- ================= FASE 4 ================= -->
+        <div class="card-step" [class.active]="fase === 4">
+
+          <h3>Nueva contraseña</h3>
+
+          <p class="subtitle">
+            Ingresa tu nueva contraseña
+          </p>
+
+          <!-- PASSWORD -->
+          <input
+            type="password"
+            [(ngModel)]="password"
+            class="form-input"
+            placeholder="Nueva contraseña"
+          />
+
+          <!-- CONFIRMAR -->
+          <input
+            type="password"
+            [(ngModel)]="confirmPassword"
+            class="form-input"
+            placeholder="Confirmar contraseña"
+            style="margin-top: 10px;"
+          />
+
+          <!-- ERROR -->
+          @if (passwordError) {
+            <div class="error-message">
+              Las contraseñas no coinciden o son inválidas
+            </div>
+          }
+
+          <div *ngIf="password && !passwordValida" class="error-message">
+            La contraseña debe tener al menos 6 caracteres
+          </div>
+
+          <button 
+            class="btn-continue"
+            (click)="cambiarPassword()"
+          >
+            Guardar contraseña
+          </button>
+
+        </div>
+
       </div>
 
       <!-- FOOTER GLOBAL -->

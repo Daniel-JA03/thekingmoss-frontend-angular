@@ -29,6 +29,10 @@ export class RecuperarCuentaComponent {
   codigoArray: string[] = ['', '', '', '', '', ''];
   codigoError: boolean = false;
 
+  password: string = '';
+  confirmPassword: string = '';
+  passwordError: boolean = false;
+
   constructor(
     private authService: AuthService,
     private router: Router
@@ -41,7 +45,7 @@ export class RecuperarCuentaComponent {
     if (!this.dato) {
       this.tipo = null;
       this.esValido = false;
-      return;
+      return; 
     }
 
     const soloNumeros = /^[0-9]+$/.test(this.dato);
@@ -183,5 +187,44 @@ export class RecuperarCuentaComponent {
 
   trackByIndex(index: number) {
     return index;
+  }
+
+  cambiarPassword() {
+    if (!this.password || this.password.length < 6) {
+      this.passwordError = true;
+      return;
+    }
+
+    if (this.password !== this.confirmPassword) {
+      this.passwordError = true;
+      return;
+    }
+
+    this.authService.cambiarPassword({
+      usuarioId: this.usuario.usuarioId,
+      nuevaPassword: this.password
+    }).subscribe({
+      next: () => {
+
+        this.passwordError = false;
+
+        Swal.fire({
+          icon: 'success',
+          title: 'Contraseña actualizada',
+          text: 'Ahora puedes iniciar sesión',
+          confirmButtonText: 'Ir al login'
+        }).then(() => {
+          this.router.navigate(['/login']);
+        });
+
+      },
+      error: () => {
+        this.passwordError = true;
+      }
+    });
+  }
+
+  get passwordValida(): boolean {
+    return this.password.length >= 6;
   }
 }

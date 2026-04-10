@@ -4,6 +4,7 @@ import { Observable, Subject, tap } from 'rxjs';
 import { RegistroRequest } from '../../interface/auth/registro.interface';
 import { LoginRequest } from '../../interface/auth/login-request.interface';
 import { VerificarCodigoRequest } from '../../interface/auth/verificarCodigo-request';
+import { CambiarPasswordRequest } from '../../interface/auth/cambiarPassword-request';
 
 @Injectable({
   providedIn: 'root',
@@ -46,6 +47,10 @@ export class AuthService {
 
   verificarCodigo(data: VerificarCodigoRequest) {
     return this.http.post(`${this.apiUrl}/verificar-codigo`, data);
+  }
+
+  cambiarPassword(data: CambiarPasswordRequest) {
+    return this.http.post(`${this.apiUrl}/cambiar-password`, data);
   }
 
   logout(): void {
