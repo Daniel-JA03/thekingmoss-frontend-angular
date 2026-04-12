@@ -162,6 +162,7 @@
         </div>
 
         <!-- ================= FASE 4 ================= -->
+        <!-- ================= FASE 4 ================= -->
         <div class="card-step" [class.active]="fase === 4">
 
           <h3>Nueva contraseña</h3>
@@ -171,21 +172,36 @@
           </p>
 
           <!-- PASSWORD -->
-          <input
-            type="password"
-            [(ngModel)]="password"
-            class="form-input"
-            placeholder="Nueva contraseña"
-          />
+          <div class="password-input-group">
+            <div class="password-input-wrapper">
+              <input
+                [type]="mostrarPassword ? 'text' : 'password'"
+                [(ngModel)]="password"
+                class="password-input"
+                placeholder="Nueva contraseña"
+              />
+
+              <span class="password-eye-icon" (click)="mostrarPassword = !mostrarPassword">
+                <i class="bi" [ngClass]="mostrarPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+              </span>
+            </div>
+          </div>
 
           <!-- CONFIRMAR -->
-          <input
-            type="password"
-            [(ngModel)]="confirmPassword"
-            class="form-input"
-            placeholder="Confirmar contraseña"
-            style="margin-top: 10px;"
-          />
+          <div class="password-input-group">
+            <div class="password-input-wrapper">
+              <input
+                [type]="mostrarConfirmPassword ? 'text' : 'password'"
+                [(ngModel)]="confirmPassword"
+                class="password-input"
+                placeholder="Confirmar contraseña"
+              />
+
+              <span class="password-eye-icon" (click)="mostrarConfirmPassword = !mostrarConfirmPassword">
+                <i class="bi" [ngClass]="mostrarConfirmPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+              </span>
+            </div>
+          </div>
 
           <!-- ERROR -->
           @if (passwordError) {

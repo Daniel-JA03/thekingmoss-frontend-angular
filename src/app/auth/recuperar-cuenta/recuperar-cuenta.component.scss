@@ -116,6 +116,58 @@
   box-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
 }
 
+
+/* ========== INPUTS DE CONTRASEÑA (FASE 4) ========== */
+.password-input-group {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.password-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.password-input {
+  width: 100%;
+  padding: 16px 50px 16px 18px; /* Padding derecho para el ojo */
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: rgba(255,255,255,0.06);
+  color: white;
+  font-size: 15px;
+  outline: none;
+  transition: all 0.25s ease;
+  box-sizing: border-box;
+}
+
+.password-input::placeholder {
+  color: #aaa;
+}
+
+.password-input:focus {
+  border-color: #4caf50;
+  box-shadow: 0 0 8px rgba(76, 175, 80, 0.4);
+}
+
+.password-eye-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #aaa;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+
+.password-eye-icon:hover {
+  color: #4caf50;
+}
+
 /* INPUT VALIDO */
 .input-valid {
   border-color: #4caf50 !important;

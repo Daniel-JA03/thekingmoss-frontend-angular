@@ -33,6 +33,9 @@ export class RecuperarCuentaComponent {
   confirmPassword: string = '';
   passwordError: boolean = false;
 
+  mostrarPassword: boolean = false;
+  mostrarConfirmPassword: boolean = false;
+
   constructor(
     private authService: AuthService,
     private router: Router
