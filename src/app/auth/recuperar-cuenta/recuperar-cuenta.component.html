@@ -141,6 +141,7 @@
               [(ngModel)]="codigoArray[i]"
               (input)="onCodigoInput($event, i)"
               (keydown)="onKeyDown($event, i)"
+              (paste)="onPaste($event)"
             />
           </div>
 
@@ -209,12 +210,13 @@
       </div>
 
       <!-- FOOTER GLOBAL -->
-      <div class="form-footer">
+      <div class="form-footer" *ngIf="fase !== 4">
         <a (click)="volver()">
           <i class="bi bi-arrow-left"></i>
           Volver 
         </a>
       </div>
+
 
     </div>
 

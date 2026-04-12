@@ -92,9 +92,45 @@ export class RecuperarCuentaComponent {
     this.authService.enviarCodigo({
       usuarioId: this.usuario.usuarioId,
       metodo: this.seleccionMetodo
-    }).subscribe(() => {
-      this.fase = 3;
+    }).subscribe((res: any) => {
 
+      // 🔥 AQUÍ VA EL SWAL
+      if (this.seleccionMetodo === 'SMS') {
+        Swal.fire({
+          icon: 'info',
+          title: 'SMS simulado',
+          html: `
+            <p>Tu código es:</p>
+            <h2>${res.codigo}</h2>
+            <button id="copiarBtn" class="swal2-confirm swal2-styled">
+              Copiar código
+            </button>
+          `,
+          showConfirmButton: false,
+          didOpen: () => {
+            document.getElementById('copiarBtn')?.addEventListener('click', () => {
+              navigator.clipboard.writeText(res.codigo);
+              Swal.fire({
+                icon: 'success',
+                title: 'Copiado',
+                text: 'Código copiado al portapapeles',
+                timer: 1500,
+                showConfirmButton: false
+              });
+            });
+          }
+        });
+      }
+
+      if (this.seleccionMetodo === 'EMAIL') {
+        Swal.fire({
+          icon: 'success',
+          title: 'Correo enviado',
+          text: 'Revisa tu bandeja de entrada',
+        });
+      }
+
+      this.fase = 3;
       this.iniciarTimer();
     });
   }
@@ -142,6 +178,22 @@ export class RecuperarCuentaComponent {
       const prev = document.querySelectorAll<HTMLInputElement>('.code-input')[index - 1];
       prev?.focus();
     }
+  }
+
+  onPaste(event: ClipboardEvent) {
+    event.preventDefault();
+
+    const texto = event.clipboardData?.getData('text') || '';
+
+    if (!/^\d{6}$/.test(texto)) return; // solo 6 números
+
+    this.codigoArray = texto.split('');
+
+    // mover foco al último
+    setTimeout(() => {
+      const inputs = document.querySelectorAll<HTMLInputElement>('.code-input');
+      inputs[5]?.focus();
+    });
   }
 
   getCodigoCompleto(): string {
