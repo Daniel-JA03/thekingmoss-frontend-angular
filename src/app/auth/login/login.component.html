@@ -1,4 +1,13 @@
 <div class="login-page">
+  
+  <!-- LOGO POSICIONADO EN ESQUINA SUPERIOR IZQUIERDA -->
+  <div class="login-navbar-logo">
+    <a routerLink="/">
+      <i class="bi bi-brightness-alt-high icon-logo"></i>
+      <span>TheKingMoss</span>
+    </a>
+  </div>
+
   <div class="form-container">
     <form #loginForm="ngForm" (ngSubmit)="login()" class="login-form">
       <h2>Iniciar Sesión</h2>
@@ -72,5 +81,3 @@
         </form>
       </div>
     </div>
-
-

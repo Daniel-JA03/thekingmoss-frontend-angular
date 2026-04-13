@@ -8,6 +8,42 @@
   background: url('../../../assets/images/fondo_login.png') no-repeat center center fixed;
   background-size: cover;
   padding: 20px;
+  position: relative; /* Necesario para posicionar el logo */
+}
+
+/* ========== LOGO EN ESQUINA SUPERIOR IZQUIERDA ========== */
+.login-navbar-logo {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  z-index: 10;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    text-decoration: none;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    transition: all 0.3s ease;
+
+    &:hover {
+      color: #4caf50;
+      transform: scale(1.05);
+
+      .icon-logo {
+        transform: rotate(15deg);
+        color: #4caf50;
+      }
+    }
+  }
+
+  .icon-logo {
+    font-size: 1.6rem;
+    color: white;
+    transition: all 0.3s ease;
+  }
 }
 
 .form-container {
@@ -19,11 +55,11 @@
 
 .login-form {
   padding: 50px 55px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* Sombra negra más discreta */
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   border-radius: 20px;
   text-align: center;
   background: white;
-  border: 1px solid #e0e0e0; /* Borde sutil para mejor definición */
+  border: 1px solid #e0e0e0;
 }
 
 .login-form h2 {
@@ -51,7 +87,7 @@
 .form-input {
   padding: 17px 25px;
   border-radius: 25px;
-  background-color: #f8f8f8; /* Fondo más neutro */
+  background-color: #f8f8f8;
   border: 2px solid #e0e0e0;
   color: #283629;
   outline: none;
@@ -60,7 +96,7 @@
 }
 
 .form-input:focus {
-  border-color: #76b28e; /* Verde más suave para el focus */
+  border-color: #76b28e;
   box-shadow: 0 0 5px rgba(118, 178, 142, 0.3);
 }
 
@@ -122,11 +158,24 @@
   margin-top: 5px;
   text-align: left;
   padding-left: 10px;
-  font-family: inherit; /* Esto heredará la fuente del padre */
+  font-family: inherit;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
+  .login-navbar-logo {
+    top: 15px;
+    left: 20px;
+    
+    a {
+      font-size: 1.3rem;
+    }
+
+    .icon-logo {
+      font-size: 1.4rem;
+    }
+  }
+
   .login-form {
     padding: 30px;
   }
@@ -140,8 +189,9 @@
     padding: 15px 20px;
   }
 }
+
 .login-glass {
-  background: rgba( 255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.15);
   border-radius: 15px;
   backdrop-filter: blur(10px);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
