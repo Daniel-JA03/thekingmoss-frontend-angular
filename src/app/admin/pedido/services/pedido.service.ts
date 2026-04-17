@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PaymentConfirmationRequest, PedidoRequest, PedidoResponse } from '../../../interface/entities/pedido.interface';
 import { DetallePedidoRequest, DetallePedidoResponse } from '../../../interface/entities/detalle-pedido.interface';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
