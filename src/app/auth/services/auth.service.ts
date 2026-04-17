@@ -5,7 +5,7 @@ import { RegistroRequest } from '../../interface/auth/registro.interface';
 import { LoginRequest } from '../../interface/auth/login-request.interface';
 import { VerificarCodigoRequest } from '../../interface/auth/verificarCodigo-request';
 import { CambiarPasswordRequest } from '../../interface/auth/cambiarPassword-request';
-import { environment } from '../../../../environments/environment';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
