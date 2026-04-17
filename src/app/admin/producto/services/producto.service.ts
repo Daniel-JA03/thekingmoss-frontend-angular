@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ProductoRequest, ProductoResponse } from '../../../interface/entities/producto.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductoService {
 
-  private baseUrl = "http://localhost:8080/api/producto"
+  private baseUrl = `${environment.apiUrl}/producto`;
   constructor(private httpClient:HttpClient) { }
 
   obtenerListaProductos(): Observable<ProductoResponse[]> {

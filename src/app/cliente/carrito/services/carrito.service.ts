@@ -5,12 +5,13 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { CarritoRequest, CarritoResponse } from '../../../interface/entities/carrito.interfaces';
 import Swal from 'sweetalert2';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CarritoService {
-  private apiUrl = 'http://localhost:8080/api/carrito';
+  private apiUrl = `${environment.apiUrl}/carrito`;
 
   private carritoCambioSubject = new BehaviorSubject<void>(undefined);
   carritoCambio$ = this.carritoCambioSubject.asObservable();

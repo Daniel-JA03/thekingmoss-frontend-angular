@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DocumentoIdentidadRequest, DocumentoIdentidadResponse } from '../../../interface/entities/documento-identidad.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DocumentoIdentidadService {
 
-  private baseUrl = "http://localhost:8080/api/documentoIdentidad"
+  private baseUrl = `${environment.apiUrl}/documentoIdentidad`;
   constructor(private httpClient:HttpClient) { }
 
   obtenerListaDocumentoIdentidad(): Observable<DocumentoIdentidadResponse[]> {

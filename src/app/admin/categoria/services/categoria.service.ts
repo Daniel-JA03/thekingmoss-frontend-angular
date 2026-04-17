@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { CategoriaRequest, CategoriaResponse } from '../../../interface/entities/categoria.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoriaService {
 
-  private baseUrl = "http://localhost:8080/api/categoria"
+  private baseUrl = `${environment.apiUrl}/categoria`;
   constructor(private httpClient:HttpClient) { }
 
   obtenerListaCategorias(): Observable<CategoriaResponse[]> {

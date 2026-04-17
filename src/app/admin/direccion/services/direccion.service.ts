@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DireccionRequest, DireccionResponse } from '../../../interface/entities/direccion.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DireccionService {
 
-  private baseUrl = "http://localhost:8080/api/direccion"
+  private baseUrl = `${environment.apiUrl}/direccion`;
   constructor(private httpClient:HttpClient) { }
 
   obtenerListaDirecciones(): Observable<DireccionResponse[]> {

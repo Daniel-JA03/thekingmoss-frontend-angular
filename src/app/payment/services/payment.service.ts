@@ -2,12 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PaymentConfirmationRequest, PaymentRequest, PaymentResponse } from '../../interface/entities/pedido.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class PaymentService {
-  private baseUrl = 'http://localhost:8080/api/payments'
+  private baseUrl = `${environment.apiUrl}/payments`;
 
   constructor(private httpClient: HttpClient) {}
 

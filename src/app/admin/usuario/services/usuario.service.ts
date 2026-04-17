@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UsuarioResponse } from '../../../interface/auth/usuario.interface';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsuarioService {
 
-  private baseUrl = "http://localhost:8080/api/usuarios"
+  private baseUrl = `${environment.apiUrl}/usuarios`;
   constructor(private httpClient:HttpClient) {}
 
   // Obtener todos los usuarios

@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ContactoRequest, ContactoResponse, EstadoMensaje } from '../../../interface/entities/contacto.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContactoService {
 
-  private baseUrl = "http://localhost:8080/api/contacto"
+  private baseUrl = `${environment.apiUrl}/contacto`;
   constructor(private httpClient:HttpClient) { }
 
   obtenerListaMensajes(): Observable<ContactoResponse[]> {

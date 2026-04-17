@@ -3,13 +3,14 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PaymentConfirmationRequest, PedidoRequest, PedidoResponse } from '../../../interface/entities/pedido.interface';
 import { DetallePedidoRequest, DetallePedidoResponse } from '../../../interface/entities/detalle-pedido.interface';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PedidoService {
 
-  private baseUrl = "http://localhost:8080/api/pedidos"
+  private baseUrl = `${environment.apiUrl}/pedidos`;
   constructor(private httpClient:HttpClient) { }
 
   obtenerListaPedidos(): Observable<PedidoResponse[]> {
