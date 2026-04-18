@@ -10,6 +10,7 @@ import Swal from 'sweetalert2';
 // import { Modal } from 'bootstrap';
 import * as bootstrap from 'bootstrap';
 import { CrearProducComponent } from "../crear-produc/crear-produc.component";
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-lista-produc',
@@ -61,7 +62,7 @@ export class ListaProducComponent implements OnInit {
   obtenerImagenUrl(productoId: number): string {
     const imagen = this.imagenes.find((img) => img.productoId === productoId);
     return imagen
-      ? `http://localhost:8080/imagesProducts/${imagen.imagenUrl.replace(/\\/g, '/')}`
+      ? `${environment.baseUrl}/imagesProducts/${imagen.imagenUrl.replace(/\\/g, '/')}`
       : 'assets/images/default.jpg';
   }
 
