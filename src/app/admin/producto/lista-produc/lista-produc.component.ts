@@ -62,7 +62,7 @@ export class ListaProducComponent implements OnInit {
   obtenerImagenUrl(productoId: number): string {
     const imagen = this.imagenes.find((img) => img.productoId === productoId);
     return imagen
-      ? `${environment.baseUrl}/imagesProducts/${imagen.imagenUrl.replace(/\\/g, '/')}`
+      ? imagen.imagenUrl   
       : 'assets/images/default.jpg';
   }
 
