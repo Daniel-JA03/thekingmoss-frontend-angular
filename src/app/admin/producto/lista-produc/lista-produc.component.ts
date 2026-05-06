@@ -60,10 +60,19 @@ export class ListaProducComponent implements OnInit {
   }
 
   obtenerImagenUrl(productoId: number): string {
-    const imagen = this.imagenes.find((img) => img.productoId === productoId);
-    return imagen
-      ? imagen.imagenUrl   
-      : 'assets/images/default.jpg';
+    const imagen = this.imagenes.find(img => img.productoId === productoId);
+
+    if (!imagen) {
+      return 'assets/images/default.jpg';
+    }
+
+    // Si ya es URL (Cloudinary)
+    if (imagen.imagenUrl.startsWith('http')) {
+      return imagen.imagenUrl;
+    }
+
+    // Local backend
+    return `${environment.baseUrl}/imagesProducts/${imagen.imagenUrl}`;
   }
 
   abrirModal() {
