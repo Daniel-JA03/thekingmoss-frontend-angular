@@ -76,7 +76,7 @@ export class DetalleProductoComponent implements OnInit {
         next: (imagenes: ProductoImagenResponse[]) => {
           const imagen = imagenes.find(img => img.productoId === producto.idProducto);
           if (imagen && this.productoSeleccionado) {
-            this.productoSeleccionado.imagenUrl = `http://localhost:8080/imagesProducts/${imagen.imagenUrl.replace(/\\/g, '/')}`;
+            this.productoSeleccionado.imagenUrl = imagen?.imagenUrl || 'assets/images/default.jpg';
           }
         },
         error: (err) => {

@@ -72,7 +72,7 @@ export class ListaProducComponent implements OnInit {
     }
 
     // Local backend
-    return `${environment.baseUrl}/imagesProducts/${imagen.imagenUrl}`;
+    return imagen?.imagenUrl || 'assets/images/default.jpg';
   }
 
   abrirModal() {

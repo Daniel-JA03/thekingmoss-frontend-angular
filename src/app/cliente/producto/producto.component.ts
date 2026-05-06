@@ -1,16 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { NavbarComponent } from "../layout/navbar/navbar.component";
-import { FooterComponent } from "../layout/footer/footer.component";
+import { NavbarComponent } from '../layout/navbar/navbar.component';
+import { FooterComponent } from '../layout/footer/footer.component';
 
 import { RouterModule } from '@angular/router';
-import { ProductoCard, ProductoResponse } from '../../interface/entities/producto.interface';
+import {
+  ProductoCard,
+  ProductoResponse,
+} from '../../interface/entities/producto.interface';
 import { ProductoImagenResponse } from '../../interface/entities/producto-imagen.interface';
 import { ProductoService } from '../../admin/producto/services/producto.service';
 import { ProductoImagenService } from '../../admin/producto/services/producto-imagen.service';
 import { SolesPipe } from '../../soles.pipe';
 import { CarritoService } from '../carrito/services/carrito.service';
 import Swal from 'sweetalert2';
-import { forkJoin } from 'rxjs';
 import { CategoriaFiltro } from '../../interface/entities/categoria.interface';
 
 @Component({
@@ -18,15 +20,14 @@ import { CategoriaFiltro } from '../../interface/entities/categoria.interface';
   standalone: true,
   imports: [NavbarComponent, FooterComponent, RouterModule, SolesPipe],
   templateUrl: './producto.component.html',
-  styleUrl: './producto.component.scss'
+  styleUrl: './producto.component.scss',
 })
 export class ProductoComponent implements OnInit {
-
   productosDestacados: ProductoCard[] = [];
   imagenes: ProductoImagenResponse[] = [];
 
-  categorias: CategoriaFiltro[] = []
-  categoriasSeleccionadas: string[] = []
+  categorias: CategoriaFiltro[] = [];
+  categoriasSeleccionadas: string[] = [];
 
   productosBase: ProductoResponse[] = [];
 
@@ -37,11 +38,10 @@ export class ProductoComponent implements OnInit {
 
   productosFiltrados: ProductoResponse[] = [];
 
-
   constructor(
     private productoService: ProductoService,
     private productoImagenService: ProductoImagenService,
-    private carritoService: CarritoService
+    private carritoService: CarritoService,
   ) {}
 
   ngOnInit(): void {
@@ -52,9 +52,8 @@ export class ProductoComponent implements OnInit {
   cargarProductos() {
     this.productoService.obtenerListaProductos().subscribe({
       next: (data: ProductoResponse[]) => {
-
         // solo productos con stock
-        this.productosBase = data.filter(p => p.stock > 0);
+        this.productosBase = data.filter((p) => p.stock > 0);
 
         this.productosFiltrados = this.productosBase;
 
@@ -63,7 +62,6 @@ export class ProductoComponent implements OnInit {
 
         this.resetPagination();
         this.actualizarGrid();
-
 
         // Volver a asignar imagenes si ya se cargaron
         // if (this.imagenes.length > 0) {
@@ -82,10 +80,10 @@ export class ProductoComponent implements OnInit {
             descuento: 0,
             categoriaId: 0,
             nombreCategoria: '',
-            imagenUrl: 'assets/images/default.jpg'
-          }
-        ]
-      }
+            imagenUrl: 'assets/images/default.jpg',
+          },
+        ];
+      },
     });
   }
 
@@ -93,29 +91,32 @@ export class ProductoComponent implements OnInit {
     this.productoImagenService.obtenerListaProductosImagen().subscribe({
       next: (data: ProductoImagenResponse[]) => {
         this.imagenes = data;
-        console.log('Imágenes cargadas:', data)
+        console.log('Imágenes cargadas:', data);
         this.asignarImagenes();
       },
       error: (err) => {
-        console.error('Error al cargar imagenes:', err)
-      }
-    })
+        console.error('Error al cargar imagenes:', err);
+      },
+    });
   }
 
   asignarImagenes() {
     console.log('Productos destacados:', this.productosDestacados);
     console.log('Imágenes cargadas:', this.imagenes);
 
-    this.productosDestacados = this.productosDestacados.map(producto => {
-      const imagen = this.imagenes.find(img => img.productoId === producto.idProducto);
+    this.productosDestacados = this.productosDestacados.map((producto) => {
+      const imagen = this.imagenes.find(
+        (img) => img.productoId === producto.idProducto,
+      );
 
-      console.log(`Buscando imagen para productoId ${producto.idProducto}:`, imagen); // 🔍 Depuración
+      console.log(
+        `Buscando imagen para productoId ${producto.idProducto}:`,
+        imagen,
+      ); // 🔍 Depuración
 
       return {
         ...producto,
-        imagenUrl: imagen
-          ? `http://localhost:8080/imagesProducts/${imagen.imagenUrl.replace(/\\/g, '/')}`
-          : 'assets/images/default.jpg'
+        imagenUrl: imagen?.imagenUrl || 'assets/images/default.jpg',
       };
     });
   }
@@ -127,31 +128,30 @@ export class ProductoComponent implements OnInit {
   addToCart(producto: ProductoResponse) {
     const productoCard: ProductoCard = {
       ...producto,
-      imagenUrl: this.obtenerImagenUrl(producto.idProducto)
+      imagenUrl: this.obtenerImagenUrl(producto.idProducto),
     };
 
-    this.carritoService.agregarProducto({
-      productoId: producto.idProducto,
-      cantidad: 1
-    }).subscribe({
-      next: () => {
-        Swal.fire({
-          title: 'Añadido al carrito',
-          text: `1x ${producto.nombreProducto} agregado.`,
-          icon: 'success',
-          confirmButtonText: 'Aceptar'
-        });
-      }
-    })
-
+    this.carritoService
+      .agregarProducto({
+        productoId: producto.idProducto,
+        cantidad: 1,
+      })
+      .subscribe({
+        next: () => {
+          Swal.fire({
+            title: 'Añadido al carrito',
+            text: `1x ${producto.nombreProducto} agregado.`,
+            icon: 'success',
+            confirmButtonText: 'Aceptar',
+          });
+        },
+      });
   }
 
   // Método para obtener la URL de la imagen
   obtenerImagenUrl(productoId: number): string {
-    const imagen = this.imagenes.find(img => img.productoId === productoId);
-    return imagen
-      ? `http://localhost:8080/imagesProducts/${imagen.imagenUrl.replace(/\\/g, '/')}`
-      : 'assets/images/default.jpg';
+    const imagen = this.imagenes.find((img) => img.productoId === productoId);
+    return imagen?.imagenUrl || 'assets/images/default.jpg';
   }
 
   //  filtrar por categorias los productos
@@ -161,7 +161,9 @@ export class ProductoComponent implements OnInit {
     if (checked) {
       this.categoriasSeleccionadas.push(categoria);
     } else {
-      this.categoriasSeleccionadas = this.categoriasSeleccionadas.filter(c => c !== categoria);
+      this.categoriasSeleccionadas = this.categoriasSeleccionadas.filter(
+        (c) => c !== categoria,
+      );
     }
 
     this.filtrarPorCategorias();
@@ -191,11 +193,11 @@ export class ProductoComponent implements OnInit {
     this.asignarImagenes();*/
 
     this.productosFiltrados =
-    this.categoriasSeleccionadas.length === 0
-      ? this.productosBase
-      : this.productosBase.filter(p =>
-          this.categoriasSeleccionadas.includes(p.nombreCategoria)
-        );
+      this.categoriasSeleccionadas.length === 0
+        ? this.productosBase
+        : this.productosBase.filter((p) =>
+            this.categoriasSeleccionadas.includes(p.nombreCategoria),
+          );
 
     this.resetPagination();
     this.actualizarGrid();
@@ -204,17 +206,18 @@ export class ProductoComponent implements OnInit {
   actualizarCategorias(productos: ProductoResponse[]) {
     const contador = new Map<string, number>();
 
-    productos.forEach(p => {
+    productos.forEach((p) => {
       contador.set(
         p.nombreCategoria,
-        (contador.get(p.nombreCategoria) || 0) + 1
-      )
-    })
+        (contador.get(p.nombreCategoria) || 0) + 1,
+      );
+    });
 
     // solo categorias con productos disponibles
-    this.categorias = Array.from(contador.entries()).map(
-      ([nombre, total]) => ({ nombre, total })
-    );
+    this.categorias = Array.from(contador.entries()).map(([nombre, total]) => ({
+      nombre,
+      total,
+    }));
   }
 
   // paginacion
@@ -226,9 +229,9 @@ export class ProductoComponent implements OnInit {
   actualizarGrid() {
     this.productosDestacados = this.productosFiltrados
       .slice(this.lowIndex, this.highIndex)
-      .map(p => ({
+      .map((p) => ({
         ...p,
-        imagenUrl: 'assets/images/default.jpg'
+        imagenUrl: 'assets/images/default.jpg',
       }));
 
     if (this.imagenes.length > 0) {
@@ -251,6 +254,4 @@ export class ProductoComponent implements OnInit {
       this.actualizarGrid();
     }
   }
-
-
 }
